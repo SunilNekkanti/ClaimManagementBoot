@@ -1,0 +1,174 @@
+server:
+  port: 8080
+  contextPath: /ClaimManagement
+---
+
+email: 
+ host: smtp.office365.com
+ port: 587
+ username: skumar@pfchoice.com
+ cc: skumar@pfchoice.com
+ password: Florida6
+ properties: 
+  mail.smtp.auth: true 
+  mail.smtp.starttls.enable: true
+  mail.transport.protocol: smtp
+  mail.debug: false
+---
+  
+
+  spring:
+    profiles: newyork
+    jpa:
+      properties:
+       hibernate:
+        jdbc:
+         time_zone: America/Indiana/Indianapolis
+                    
+---
+
+spring:
+  profiles:
+    active: "local"
+  main:
+    banner-mode: "off"
+ 
+
+--- 
+
+spring:
+  profiles: local,default
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+envProperties:
+      filesUploadDirectory:  C:\\ProgramData\\MySQL\\MySQL Server 5.6\\Uploads\\
+      sqlDirectoryPath: c:\\softwares\\gitworkspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Pras\\WEB-INF\\classes\\sql\\
+      queryTypeFetch: _fetch
+      queryTypeStopLoss: _stoploss
+      queryTypeInsert: _insert
+      queryTypeBHInsert: _bh_insert
+      queryTypeLoad: _load
+      queryTypeBHLoad: _bh_load
+      queryTypeUpdate: _update
+      queryTypeBHUpdate: _bh_update
+      queryTypeUnload: _unload
+      queryTypeCount: _count
+      sqlQueryExtn:  .sql
+      sqlFollowupTypeHedis: HEDIS_FOLLOWUP
+      followupTypeHospitalization: HOSPITALIZATION_FOLLOWUP
+      followupTypeClaim: CLAIM_FOLLOWUP
+      fileTypeAMGMBRHospitalization: AMG Membership Hospitalization1
+      fileTypeAMGMBRClaim: AMG Membership Claim
+      fileTypeBHMBRClaim: BH Membership Claim
+      fileTypeAMGMBRRoster: AMG Membership Roster
+      fileTypeAMGCapReport: AMG Cap Report
+      fileTypeBHMBRRoster: BH Membership Roster
+      filterByProcessingDate: 0
+      filterByHospitalizationDate: 1
+      All : 9999
+      claim: 0
+      hospitalization: 1
+      acceptableClaim: 1
+      unacceptableClaim: 2
+      queryTypeInsertLevel2: _insert_level2
+datasource:
+  claimManagement:
+    url: jdbc:mysql://localhost:3308/claim_management?tinyInt1isBit=false&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&autoReconnect=true&useSSL=false
+    username: root
+    password: test123
+    driverClassName: com.mysql.jdbc.Driver
+    defaultSchema:
+    maxPoolSize: 10
+    hibernate:
+      connection: 
+        autocommit: false
+      hbm2ddl.method: validate
+      generate_statistics: false
+      show_sql: false
+      format_sql: false
+      order_inserts: true
+      order_updates: true
+      jdbc:
+        batch_size: 50
+      cache: 
+         use_second_level_cache: true
+         use_query_cache: true
+         net: 
+          sf:
+            ehcache: 
+              hibernate: 
+                 cache_lock_timeout: 300
+         region_prefix: ""
+         region: 
+           factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+      dialect: com.pfchoice.springboot.hibernate.MySQL5InnoDBDialect
+      hikari:
+       idleTimeout: 900000
+       maxLifeTime: 840000
+       maximumPoolSize: 8
+
+ 
+---   
+spring:
+ http:
+  multipart:
+   max-file-size: 300MB
+   max-request-size: 300MB
+   
+   
+---
+ 
+spring:
+  profiles: server
+envProperties:
+   filesUploadDirectory:  /tmp/fileUploads/
+   sqlDirectoryPath: /tmp/eb_extracted_jar/BOOT-INF/classes/static/sql/
+   queryTypeFetch: _fetch
+   queryTypeStopLoss: _stoploss
+   queryTypeInsert: _insert
+   queryTypeBHInsert: _bh_insert
+   queryTypeLoad: _load
+   queryTypeBHLoad: _bh_load
+   queryTypeUpdate: _update
+   queryTypeBHUpdate: _bh_update
+   queryTypeUnload: _unload
+   queryTypeCount: _count
+   sqlQueryExtn:  .sql
+   sqlFollowupTypeHedis: HEDIS_FOLLOWUP
+   followupTypeHospitalization: HOSPITALIZATION_FOLLOWUP
+   followupTypeClaim: CLAIM_FOLLOWUP
+   fileTypeAMGMBRHospitalization: AMG Membership Hospitalization1
+   fileTypeAMGMBRClaim: AMG Membership Claim
+   fileTypeBHMBRClaim: BH Membership Claim
+   fileTypeAMGMBRRoster: AMG Membership Roster
+   fileTypeAMGCapReport: AMG Cap Report
+   fileTypeBHMBRRoster: BH Membership Roster
+   filterByProcessingDate: 0
+   filterByHospitalizationDate: 1
+   All : 9999
+   claim: 0
+   hospitalization: 1
+   acceptableClaim: 1
+   unacceptableClaim: 2
+   queryTypeInsertLevel2: _insert_level2
+      
+datasource:
+  claimManagement:
+    url: jdbc:mysql://pras.cp2ok1lxfh49.us-east-1.rds.amazonaws.com:3306/pfchoices_final_20180205?tinyInt1isBit=false&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&autoReconnect=true&useSSL=false
+    username: dbadmin
+    password: prasdb20!8
+    driverClassName: com.mysql.jdbc.Driver
+    defaultSchema:
+    maxPoolSize: 10
+    hibernate:
+      dialect: com.pfchoice.springboot.hibernate.MySQL5InnoDBDialect
+      hbm2ddl.method: validate
+      show_sql: false
+      format_sql: false
+      hikari:
+       idleTimeout: 900000
+       maxLifeTime: 840000
+      
+
+ 

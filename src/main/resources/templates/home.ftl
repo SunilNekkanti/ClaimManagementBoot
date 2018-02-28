@@ -72,58 +72,45 @@
 
       <div class="navbar-collapse collapse in " collapse="isCollapsed" aria-expanded="true">
         <ul class="nav navbar-nav">
-          <li><a ui-sref="main.insurance" ui-sref-active="active">Insurances</a> </li>
-          <li><a ui-sref="main.provider" ui-sref-active="active">Providers</a> </li>
-          <li><a ui-sref="main.membership" ui-sref-active="active">Memberships</a> </li>
-          <li><a ui-sref="main.lead" ui-sref-active="active">Leads</a></li>
+          <li><a ui-sref="main.insurance" ui-sref-active="active">Home</a> </li>
           <li class="dropdown" dropdown ng-if="(loginUser.roleName === 'ADMIN' || loginUser.roleName === 'MANAGER')">
             <a href="#" class="dropdown-toggle" dropdown-toggle role="button" aria-expanded="false">Admin <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li class="dropdown-submenu" dropdown>
-                <a href="#" class="dropdown-toggle" dropdown-toggle role="button" aria-expanded="false">Quality Measures</a>
-                <ul class="dropdown-menu" role="submenu">
-                  <li><a ui-sref="main.cpt" ui-sref-active="active">CPT</a></li>
-                  <li><a ui-sref="main.hedis" ui-sref-active="active">Hedis</a></li>
-                  <li><a ui-sref="main.icd" ui-sref-active="active">ICD</a> </li>
-                  <li><a ui-sref="main.riskScore" ui-sref-active="active">Risk Score</a> </li>
-                  <li class="divider"></li>
-                  <li><a ui-sref="main.problem" ui-sref-active="active">Problem List</a> </li>
-                  <li class="divider"></li>
-                  <li><a ui-sref="main.hedisMeasureRule" ui-sref-active="active">Hedis Rules</a> </li>
-                </ul>
-              </li>
-
+			  <li><a ui-sref="main.fileUpload" ui-sref-active="active">File Uploads</a> </li>
               <li><a ui-sref="main.user" ui-sref-active="active">User Accounts</a> </li>
+              <li><a ui-sref="main.claimAllocation" ui-sref-active="active">Claim Allocation</a> </li>
               <li class="divider"></li>
               <li class="dropdown-submenu" dropdown>
                 <a href="#" class="dropdown-toggle" dropdown-toggle role="button" aria-expanded="false">Lookups</a>
                 <ul class="dropdown-menu" role="submenu">
-                  <li><a ui-sref="main.hedisGroup" ui-sref-active="active">Hedis Groups</a></li>
-                  <li><a ui-sref="main.planType" ui-sref-active="active">Plan Types</a></li>
-                  <li><a ui-sref="main.fileType" ui-sref-active="active">File Types</a> </li>
-                  <li><a ui-sref="main.roomType" ui-sref-active="active">Room Types</a></li>
-                  <li><a ui-sref="main.frequencyType" ui-sref-active="active">Frequency Type</a></li>
-                  <li><a ui-sref="main.hospital" ui-sref-active="active">Hospitals</a></li>
-                  <li><a ui-sref="main.attPhysician" ui-sref-active="active">ATT Physician</a></li>
-                  <li><a ui-sref="main.eventType" ui-sref-active="active">Event Types</a></li>
-                  <li><a ui-sref="main.leadStatus" ui-sref-active="active">Lead Statuses</a></li>
-                  <li><a ui-sref="main.leadStatusDetail" ui-sref-active="active">Lead Status Details</a></li>
-                  <li><a ui-sref="main.role" ui-sref-active="active">Roles</a> </li>
+                  <li><a ui-sref="main.hedisGroup" ui-sref-active="active">Allocation</a></li>
+                  <li><a ui-sref="main.planType" ui-sref-active="active">Allocation Level</a></li>
+                  <li><a ui-sref="main.fileType" ui-sref-active="active">Claim Status</a> </li>
+                  <li><a ui-sref="main.roomType" ui-sref-active="active">Claim Status Detail</a></li>
+                  <li><a ui-sref="main.frequencyType" ui-sref-active="active">Insurance</a></li>
+                  <li><a ui-sref="main.hospital" ui-sref-active="active">Mapping Insurance</a></li>
+                  <li><a ui-sref="main.attPhysician" ui-sref-active="active">Provider</a></li>
+                  <li><a ui-sref="main.eventType" ui-sref-active="active">Provider Insurance Detail</a></li>
+                  <li><a ui-sref="main.leadStatus" ui-sref-active="active">Practice</a></li>
+                  <li><a ui-sref="main.leadStatusDetail" ui-sref-active="active">Priority</a></li>
+                  <li><a ui-sref="main.role" ui-sref-active="active">Role</a></li>
+                  <li><a ui-sref="main.role" ui-sref-active="active">Target</a></li>
+                  <li><a ui-sref="main.role" ui-sref-active="active">Weightage</a></li>
+                  <li><a ui-sref="main.role" ui-sref-active="active">Weightage Type</a></li>
+                  <li><a ui-sref="main.role" ui-sref-active="active">Url Monitor</a></li>
               </ul>
           </li>
-          <li><a ui-sref="main.fileUpload" ui-sref-active="active">File Uploads</a> </li>
+          
 
           </ul>
           </li>
           <li class="dropdown" dropdown ng-if="(loginUser.roleName === 'ADMIN' || loginUser.roleName === 'MANAGER')">
             <a href="#" class="dropdown-toggle" dropdown-toggle role="button" aria-expanded="false">Reports <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a ui-sref="main.membershipHedis" ui-sref-active="active">Hedis</a></li>
-              <li><a ui-sref="main.membershipHospitalization" ui-sref-active="active">Hospitalization</a></li>
-              <li><a ui-sref="main.membershipClaims" ui-sref-active="active">Claims</a></li>
-              <li><a ui-sref="main.membershipProblem" ui-sref-active="active">Problems</a></li>
-              <li><a ui-sref="main.membershipActivityMonth" ui-sref-active="active">Activity	Month</a></li>
-              <li><a ui-sref="main.newMedicalLossRatio" ui-sref-active="active">New Medical Loss Ratio(MLR) </a></li>
+              <li><a ui-sref="main.membershipHedis" ui-sref-active="active">Dashboard</a></li>
+              <li><a ui-sref="main.membershipHospitalization" ui-sref-active="active">Provider Requests</a></li>
+              <li><a ui-sref="main.membershipClaims" ui-sref-active="active">User Report</a></li>
+            
             </ul>
           </li>
         </ul>

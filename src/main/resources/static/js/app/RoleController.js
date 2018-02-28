@@ -46,15 +46,7 @@ app.controller('RoleController',
 				.withOption("bPaginate", true)
 				.withOption('bProcessing', true)
 				.withOption('bStateSave', true)
-		        .withDisplayLength(20).withOption( 'columnDefs', [ {
-					                                orderable : false,
-													className : 'select-checkbox',
-													targets : 0,
-													sortable : false,
-													aTargets : [ 0, 1 ] } ])
-				.withOption('select', {
-										style : 'os',
-										selector : 'td:first-child' })
+		        .withDisplayLength(20)
 			    .withOption('createdRow', createdRow)
 		        .withPaginationType('full_numbers')
 		        
@@ -85,18 +77,6 @@ app.controller('RoleController',
 							});
 		}
 
-		 function reloadData() {
-			var resetPaging = false;
-			self.dtInstance.reloadData(callback,
-					resetPaging);
-			self.dtInstance.rerender();
-		} 
-		 
-
-		function callback(json) {
-				console.log(json);
-		}
-			
 		 
        function createdRow(row, data, dataIndex) {
             // Recompiling so we can bind Angular directive to the DT

@@ -133,7 +133,11 @@
         }, {
           serie: true,
           name: 'main.user',
-          files: ['js/app/RoleService.js', 'js/app/UserController.js']
+          files: ['js/app/RoleService.js', 'js/app/UserController.js' ]
+        }, {
+          serie: true,
+          name: 'main.role',
+          files: ['js/app/RoleService.js', 'js/app/RoleController.js' ]
         }, {
           serie: true,
           name: 'main.lead',
@@ -436,7 +440,19 @@
           url: '/role',
           templateUrl: 'partials/role_list',
           controller: 'RoleController',
-          controllerAs: 'ctrl'
+          controllerAs: 'ctrl',
+          resolve: {
+            loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+              return $ocLazyLoad.load('main.role');
+            }],
+            leadStatusDetails: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+              var RoleService = $injector.get("RoleService");
+              console.log('Load all  roles');
+              var deferred = $q.defer();
+              RoleService.loadAllRoles().then(deferred.resolve, deferred.resolve);
+              return deferred.promise;
+            }]
+          }
         })
         .state('main.facilityType', {
           url: '/facilityType',

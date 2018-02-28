@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -39,12 +38,6 @@ public class Role extends RecordDetails implements Serializable {
 	@NotNull(message = "The role cannot be null")
 	@Column(name = "role")
 	private String role;
-
-	@OneToOne
-	@JoinTable(name = "user_roles", joinColumns = {
-			@JoinColumn(name = "role_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "user_id", referencedColumnName = "id") })
-	private User user;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "role_priorities", joinColumns = {
@@ -107,21 +100,6 @@ public class Role extends RecordDetails implements Serializable {
 	 */
 	public void setRole(String role) {
 		this.role = role;
-	}
-
-	/**
-	 * @return the user
-	 */
-	public User getUser() {
-		return user;
-	}
-
-	/**
-	 * @param user
-	 *            the user to set
-	 */
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	/**

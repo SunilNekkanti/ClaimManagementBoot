@@ -2,7 +2,7 @@
 <div class="generic-container">
    <div class="panel panel-success" ng-if="!ctrl.display">
         <!-- Default panel contents -->
-        <div class="panel-heading"><span class="role">List of Facility Types </span> 
+        <div class="panel-heading"><span class="role">List of Roles </span> 
                <button type="button"  ng-click="ctrl.addRole()" ng-hide="ctrl.displayEditButton" class="btn btn-success custom-width floatRight"> Add </button>   
                <button type="button" ng-click="ctrl.editRole(ctrl.facilityTypeId)" ng-show="ctrl.displayEditButton" class="btn btn-primary custom-width floatRight">Edit</button>  
               <button type="button" ng-click="ctrl.removeRole(ctrl.facilityTypeId)"  ng-show="ctrl.displayEditButton" class="btn btn-danger custom-width floatRight">Remove</button>  

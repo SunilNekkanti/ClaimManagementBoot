@@ -7,36 +7,32 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  *
  * @author sarath
  */
 @Entity(name = "user")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class User extends RecordDetails implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "Id", nullable = false)
 	private Integer id;
 
-	
 	@NotEmpty
 	@Column(name = "username")
 	private String username;
@@ -45,19 +41,18 @@ public class User extends RecordDetails implements Serializable {
 	@Column(name = "password")
 	private String password;
 
-	
 	@OneToMany(cascade =  CascadeType.ALL)
 	@JoinTable(name = "user_practices", joinColumns = {
 			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "prac_id", referencedColumnName = "id") })
 	public Set<Practice> practices;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne( cascade = CascadeType.ALL)
 	@JoinTable(name = "user_roles", joinColumns = {
-			@JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, unique = true) }, inverseJoinColumns = {
-					@JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false, unique = true) })
-	public Set<Role> roles;
-	
+			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
+					@JoinColumn(name = "role_id", referencedColumnName = "id") })
+	public Role role;
+
 	@Column(name = "effective_year")
 	private Integer effectiveYear;
 
@@ -123,16 +118,16 @@ public class User extends RecordDetails implements Serializable {
 	/**
 	 * @return the role
 	 */
-	public Set<Role> getRoles() {
-		return roles;
+	public  Role getRole() {
+		return role;
 	}
 
 	/**
 	 * @param role
 	 *            the role to set
 	 */
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	/**

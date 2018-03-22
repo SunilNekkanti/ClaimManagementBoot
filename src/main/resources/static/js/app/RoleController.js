@@ -3,45 +3,51 @@
 var app = angular.module('my-app');
 
 app.controller('RoleController',
-    ['RoleService', '$scope', '$compile','$state','DTOptionsBuilder', 'DTColumnBuilder',  function( RoleService, $scope, $compile,$state,DTOptionsBuilder, DTColumnBuilder) {
+    ['RoleService', 'PriorityService','ClaimStatusService','ClaimStatusDetailService','$scope', '$compile','$state','DTOptionsBuilder', 'DTColumnBuilder',  function( RoleService,PriorityService,ClaimStatusService,ClaimStatusDetailService, $scope, $compile,$state,DTOptionsBuilder, DTColumnBuilder) {
     	
         var self = this;
         self.role = {};
         self.roles=[];
+        self.prioritys = [];
+        self.claimStatuss=[];
+        self.claimStatusDetails=[];
         self.display =false;
         self.displayEditButton = false;
         self.submit = submit;
         self.addRole = addRole;
-        self.getAllRoles = getAllRoles;
+        //self.getAllRoles = getAllRoles;
         self.createRole = createRole;
         self.updateRole = updateRole;
         self.removeRole = removeRole;
         self.editRole = editRole;
+        self.roleEdit = roleEdit;
+        self.getAllPrioritys = getAllPrioritys;
+        self.getAllClaimStatuses = getAllClaimStatuses;
+        self.claimStatuss=getAllClaimStatuses();
+        self.getAllClaimStatusDetailes = getAllClaimStatusDetailes;
+        self.claimStatusDetails=getAllClaimStatusDetailes();
         self.reset = reset;
         self.cancelEdit = cancelEdit;
         self.dtInstance = {};
         self.successMessage = '';
         self.errorMessage = '';
         self.done = false;
-
+        self.prioritys = getAllPrioritys();
+        
+        
         self.onlyIntegers = /^\d+$/;
         self.onlyNumbers = /^\d+([,.]\d+)?$/;
         self.dtColumns = [
-            DTColumnBuilder.newColumn('role').withTitle('ROLE').renderWith(
+            DTColumnBuilder.newColumn('role').withTitle('Name').renderWith(
 					function(data, type, full,
 							meta) {
-						 return '<a href="javascript:void(0)" class="'+full.id+'" ng-click="ctrl.editRole('+full.id+')">'+data+'</a>';
+						 return '<a href="javascript:void(0)" class="'+full.id+'" ng-click="ctrl.roleEdit('+full.id+')">'+data+'</a>';
 					}).withClass("text-left")
           ];
      
         
         self.dtOptions = DTOptionsBuilder.newOptions()
-		.withOption(
-				'ajax',
-				{
-					url : '/ClaimManagement/api/role/',
-					type : 'GET'
-				}).withDataProp('data').withOption('bServerSide', true)
+		.withOption('bServerSide', true)
 				.withOption("bLengthChange", false)
 				.withOption("bPaginate", true)
 				.withOption('bProcessing', true)
@@ -152,6 +158,7 @@ app.controller('RoleController',
                 .then(
                     function(){
                         console.log('Role '+id + ' removed successfully');
+                        cancelEdit();
                     },
                     function(errResponse){
                         console.error('Error while removing role '+id +', Error :'+errResponse.data);
@@ -160,9 +167,9 @@ app.controller('RoleController',
         }
 
 
-        function getAllRoles(){
+       /* function getAllRoles(){
             return RoleService.getAllRoles();
-        }
+        }*/
 
         function editRole(id) {
             self.successMessage='';
@@ -199,8 +206,37 @@ app.controller('RoleController',
             self.display = false;
             $state.go('main.role');
         }
-    }
+        
+        function getAllPrioritys() {
+            self.prioritys = PriorityService.getAllPrioritys();
+            console.log('self.prioritys',self.prioritys);
+            return self.prioritys;
+          }
+        
+        function getAllClaimStatuses(){
+        	self.claimStatuses = ClaimStatusService.getAllClaimStatuses();
+            console.log('self.claimStatuss',self.claimStatuses);
+            return self.claimStatuses;
+        }
+        
+        function getAllClaimStatusDetailes(){
+        	self.claimStatusDetails = ClaimStatusDetailService.getAllClaimStatusDetailes();
+            console.log('self.claimStatusDetails',self.claimStatusDetails);
+            return self.claimStatusDetails;
+        }
+        
+        function roleEdit(id) {
+        	var params = {'roleDisplay':true};
+			var trans ;
+		    trans =  $state.go('main.role.edit',params).transition;
+			
+			trans.onSuccess({}, function() { editRole(id);  }, { priority: -1 },{claimStatusDetail: -1});
+			
+        }
 
+    }
+    
+    
 
     ]);
    })();

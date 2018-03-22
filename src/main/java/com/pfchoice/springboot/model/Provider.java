@@ -16,6 +16,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -65,7 +66,7 @@ public class Provider extends RecordDetails implements Serializable {
 	@Column(name = "temp")
 	private String temp;
 	
-	
+	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "prac_id", nullable = false, referencedColumnName = "id")
 	private Practice practice;

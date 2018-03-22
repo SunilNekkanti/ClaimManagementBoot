@@ -74,7 +74,7 @@ envProperties:
       queryTypeInsertLevel2: _insert_level2
 datasource:
   claimManagement:
-    url: jdbc:mysql://localhost:3308/claim_management?tinyInt1isBit=false&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/claim_management?tinyInt1isBit=false&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&autoReconnect=true&useSSL=false
     username: root
     password: test123
     driverClassName: com.mysql.jdbc.Driver
@@ -85,8 +85,8 @@ datasource:
         autocommit: false
       hbm2ddl.method: validate
       generate_statistics: false
-      show_sql: false
-      format_sql: false
+      show_sql: true
+      format_sql: true
       order_inserts: true
       order_updates: true
       jdbc:

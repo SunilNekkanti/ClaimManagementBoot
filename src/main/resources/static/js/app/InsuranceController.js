@@ -38,12 +38,12 @@ app.controller('InsuranceController',
         self.linkToScreen = $state.current.data.linkToScreen;
                 
         self.dtColumns = [
-            DTColumnBuilder.newColumn('name').withTitle('INSURANCE').renderWith(
+            DTColumnBuilder.newColumn('name').withTitle('Insurance Name').renderWith(
 					function(data, type, full,
 							meta) {
 						 return '<a href="javascript:void(0)" class="'+full.id+'" ng-click="ctrl.insuranceEdit('+full.id+')">'+data+'</a>';
 					}).withClass("text-left"),
-            DTColumnBuilder.newColumn('planType.description').withTitle('PLAN TYPE')
+            DTColumnBuilder.newColumn('filingLimit').withTitle('Filing Limit')
           ];
      
         
@@ -88,7 +88,7 @@ app.controller('InsuranceController',
 			 }
 			 
 			// Then just call your service to get the
-			// records from server side
+			// records from server side  
 			InsuranceService
 					.loadInsurances(page, length, search.value, sortCol+','+sortDir, self.currentScreen)
 					.then(
@@ -145,9 +145,9 @@ app.controller('InsuranceController',
 	            }, function () {
 	                self.serverResponse = 'An error has occurred';
 	            });
-			}else{
+			}else{ 
 				if (self.insurance.id === undefined || self.insurance.id === null) {
-					console.log('Saving New Insurance');
+					console.log('Saving New Insurance',self.insurance);
 					createInsurance(self.insurance);
 					
 				} else {
@@ -155,8 +155,8 @@ app.controller('InsuranceController',
 					console.log('Insurance updated with id ',
 							self.insurance.id);
 				}
-				self.displayEditButton = false;
-			}
+				   self.displayEditButton = false;
+	 		}
         }
 
         function createInsurance(insurance) {
@@ -169,9 +169,10 @@ app.controller('InsuranceController',
                         self.errorMessage='';
                         self.done = true;
                         self.display =false;
-                        self.insurances = getAllInsurances();
                         self.insurance={};
-                        cancelEdit();
+                        $scope.myForm.$setPristine();
+                        self.dtInstance.reloadData();
+                        self.dtInstance.rerender();
                     },
                     function (errResponse) {
                         console.error('Error while creating Insurance');
@@ -209,6 +210,7 @@ app.controller('InsuranceController',
                 .then(
                     function(){
                         console.log('Insurance '+id + ' removed successfully');
+                        cancelEdit();
                     },
                     function(errResponse){
                         console.error('Error while removing insurance '+id +', Error :'+errResponse.data);

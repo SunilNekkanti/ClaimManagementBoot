@@ -40,6 +40,9 @@ public class AllocationLevel extends RecordDetails implements Serializable {
 	@Column(name = "description")
 	private String description;
 
+	
+	
+
 	/**
 	 * 
 	 */

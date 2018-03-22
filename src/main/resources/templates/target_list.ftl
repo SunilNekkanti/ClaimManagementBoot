@@ -3,7 +3,7 @@
 <div class="generic-container" >
    <div class="panel panel-success" ng-if="!ctrl.display">
         <!-- Default panel contents -->
-        <div class="panel-heading"><span class="target">List of Target </span> 
+        <div class="panel-heading"><span class="target">Target List</span> 
                <button type="button"   ng-click="ctrl.addTarget()" ng-hide="ctrl.displayEditButton" class="btn btn-success  btn-xs custom-width floatRight"> Add </button>   
                <button type="button" ng-click="ctrl.editTarget(ctrl.targetId)" ng-show="ctrl.displayEditButton" class="btn btn-primary btn-xs custom-width floatRight">Edit</button>  
               <button type="button" ng-click="ctrl.removeTarget(ctrl.targetId)"  ng-show="ctrl.displayEditButton" class="btn btn-danger btn-xs custom-width floatRight">Remove</button>  
@@ -19,66 +19,41 @@
     
     <div class="panel panel-success" ng-if="ctrl.display">
         <!-- Default panel contents -->
-        <div class="panel-heading"><span class="cpt">Target</span></div>
+        <div class="panel-heading"><span class="target">Target</span></div>
 		<div class="panel-body">
 	        <div class="formcontainer">
-	            <div class="alert alert-success" role="alert" ng-if="ctrl.successMessage">{{ctrl.successMessage}}</div>
-	            <div class="alert alert-danger" role="alert" ng-if="ctrl.errorMessage">{{ctrl.errorMessage}}</div>
+	            <div class="alert alert-success" target="alert" ng-if="ctrl.successMessage">{{ctrl.successMessage}}</div>
+	            <div class="alert alert-danger" target="alert" ng-if="ctrl.errorMessage">{{ctrl.errorMessage}}</div>
 	            <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal">
 	                <input type="hidden" ng-model="ctrl.target.id" />
 	                
 	                
-	                   <div class="col-sm-12 ptInfo">
-	                 
-	                 
-	                <div class="row">
+	                  <div class="row">
 	                    <div class="form-group col-md-12">
-	                        <label class="col-md-2 control-lable" for="uname">Code</label>
-	                        <div class="col-md-9">
-	                            <input type="text" ng-model="ctrl.target.code" name="code" class="username form-control input-sm" placeholder="Enter CPT Code" required ng-minlength="5"/>
-	                             <div class="has-error" ng-show="myForm.$dirty">
-	                                  <span ng-show="myForm.code.$error.required">This is a required field</span>
-                                      <span ng-show="myForm.code.$error.minlength">Minimum length required is 5</span>
-                                      <span ng-show="myForm.code.$invalid">This field is invalid </span>
-                                  </div>
+	                        <label class="col-md-1 col-md-offset-4 control-lable" for="uname">Name</label>
+	                        <div class="col-md-3">
+	                            <input type="text" ng-model="ctrl.target.description" name="description" id="uname" class="username form-control input-sm" placeholder="Enter Targert name" required ng-minlength="4"/>
 	                        </div>
 	                    </div>
-	                    
-	                    <div class="form-group col-md-12">
-	                        <label class="col-md-2 control-lable" for="uname">Short Description</label>
-	                        <div class="col-md-9">
-	                            <input type="text" ng-model="ctrl.target.shortDescription" name="shortDescription" class="username form-control input-sm" placeholder="Enter Short Description" required ng-minlength="5"/>
-	                             <div class="has-error" ng-show="myForm.$dirty">
-	                                  <span ng-show="myForm.shortDescription.$error.required">This is a required field</span>
-                                      <span ng-show="myForm.shortDescription.$error.minlength">Minimum length required is 5</span>
-                                      <span ng-show="myForm.shortDescription.$invalid">This field is invalid </span>
-                                  </div>
+	                     <div class="form-group col-md-12">
+	                        <label class="col-md-1 col-md-offset-4 control-lable" for="uname">Count</label>
+	                        <div class="col-md-3">
+	                            <input type="text" ng-model="ctrl.target.targetCount" name="targetCount" id="uname" class="username form-control input-sm" placeholder=" Enter count" required ng-minlength="1"/>
+		                        <div class="has-error" ng-show="myForm.$dirty">
+		                          <span ng-show="myForm.targetCount.$error.required">This is a required field</span>
+		                          <span ng-show="myForm.targetCount.$error.minlength">Minimum length required is 4</span>
+		                          <span ng-show="myForm.targetCount.$invalid">This field is invalid </span>
+		                        </div>
 	                        </div>
 	                    </div>
-	                    
-	                      <div class="form-group col-md-12">
-	                        <label class="col-md-2 control-lable" for="uname">Description</label>
-	                        <div class="col-md-9">
-	                            <input type="text" ng-model="ctrl.target.description" name="description" class="username form-control input-sm" placeholder="Enter  Description" required ng-minlength="5"/>
-	                             <div class="has-error" ng-show="myForm.$dirty">
-	                                  <span ng-show="myForm.description.$error.required">This is a required field</span>
-                                      <span ng-show="myForm.description.$error.minlength">Minimum length required is 5</span>
-                                      <span ng-show="myForm.description.$invalid">This field is invalid </span>
-                                  </div>
-	                        </div>
+	                 <div class="row">
+	                    <div class="form-actions floatCenter col-md-offset-8">
+	                        <input type="submit"  value="{{!ctrl.target.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid || myForm.$pristine">
+	                        <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-show="!ctrl.target.id" ng-disabled="myForm.$pristine">Reset Form</button>
+	                        <button type="button" ng-click="ctrl.cancelEdit()" class="btn btn-warning btn-sm" ng-show="ctrl.target.id" >Cancel</button>
+	                        <button type="button" ng-click="ctrl.removeTarget(ctrl.target.id)" class="btn btn-warning btn-sm" ng-show="ctrl.target.id" >Delete</button>
 	                    </div>
-	               
-           
-        </div>
-        
-         
-          
-	                <div class="row">
-	                    <div class="form-actions floatRight">
-	                        <input type="submit"  value="{{!ctrl.target.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-xs" ng-disabled="myForm.$invalid || myForm.$pristine">
-	                        <button type="button" ng-click="ctrl.cancelEdit()" class="btn btn-warning btn-xs"    >Cancel</button>
-	                        <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-xs"  ng-if="ctrl.target.id" ng-disabled="myForm.$pristine">Reset Form</button>
-	                    </div>
+	                </div>
 	                </div>
 	            </form>
     	    </div>

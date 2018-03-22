@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -96,7 +97,8 @@ public class TargetController {
 	// ------------------------------------------------
 	@Secured({ "ROLE_ADMIN", "ROLE_MANAGER" })
 	@RequestMapping(value = "/target/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> updateTarget(@PathVariable("id") int id, @RequestBody Target target) {
+	public ResponseEntity<?> updateTarget(@PathVariable("id") int id, @RequestBody Target target,
+			@ModelAttribute("username") String username){
 		logger.info("Updating Target with id {}", id);
 
 		Target currentTarget = targetService.findById(id);
@@ -107,9 +109,9 @@ public class TargetController {
 					HttpStatus.NOT_FOUND);
 		}
 
-		currentTarget.setTargetCount(target.getTargetCount());
+		
 		currentTarget.setDescription(target.getDescription());
-
+		currentTarget.setTargetCount(target.getTargetCount());
 		targetService.updateTarget(currentTarget);
 		return new ResponseEntity<Target>(currentTarget, HttpStatus.OK);
 	}
@@ -118,7 +120,8 @@ public class TargetController {
 	// Target-----------------------------------------
 	@Secured({ "ROLE_ADMIN", "ROLE_MANAGER" })
 	@RequestMapping(value = "/target/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteTarget(@PathVariable("id") int id) {
+	public ResponseEntity<?> deleteTarget(@PathVariable("id") int id,
+			@ModelAttribute("username") String username){
 		logger.info("Fetching & Deleting Target with id {}", id);
 
 		Target target = targetService.findById(id);
@@ -127,7 +130,9 @@ public class TargetController {
 			return new ResponseEntity(new CustomErrorType("Unable to delete. Target with id " + id + " not found."),
 					HttpStatus.NOT_FOUND);
 		}
-		targetService.deleteTargetById(id);
+		target.setActiveInd('N');
+		target.setUpdatedBy(username);
+		targetService.updateTarget(target);
 		return new ResponseEntity<Target>(HttpStatus.NO_CONTENT);
 	}
 

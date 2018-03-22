@@ -25,17 +25,16 @@ public class PrioritySpecifications implements Specification<Priority> {
 
 		Predicate p = cb.conjunction();
 
-		if (searchTerm != null && !"".equals(searchTerm)) {
-			p.getExpressions()
-					.add(cb.or(cb.like(cb.lower(root.get("code")), containsLikePattern),
-							cb.like(cb.lower(root.get("shortDescription")), containsLikePattern),
+		
+	p.getExpressions().add(cb.or(cb.like(cb.lower(root.get("code")), containsLikePattern),
 							cb.like(cb.lower(root.get("description")), containsLikePattern)));
-		}
-
-		p.getExpressions().add(cb.and(cb.equal(root.get("activeInd"), 'Y')));
-		return p;
-
+	p.getExpressions().add(cb.and(cb.equal(root.get("activeInd"), 'Y')));
+	return p;
+	
 	}
+
+		
+	
 
 	private static String getContainsLikePattern(String searchTerm) {
 		if (searchTerm == null || searchTerm.isEmpty()) {

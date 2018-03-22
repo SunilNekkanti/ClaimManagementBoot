@@ -7,11 +7,14 @@
     MEMBERSHIP_SERVICE_API: '/ClaimManagement/api/membership/',
     MEMBERSHIP_FOLLOWUP_SERVICE_API: '/ClaimManagement/api/membershipFollowup/',
     MEMBERSHIP_ACTIVITY_SERVICE_API: '/ClaimManagement/api/membershipActivityMonth/',
-    ATTPHYISICIAN_SERVICE_API: '/ClaimManagement/api/attPhysician/',
+    INSURANCE_SERVICE_API: '/ClaimManagement/api/insurance/',
+    MAPPING_INSURANCE_SERVICE_API: '/ClaimManagement/api/mappingInsurance/',
     LEAD_SERVICE_API: '/ClaimManagement/api/lead/',
     GENDER_SERVICE_API: '/ClaimManagement/api/gender/',
     HOSPITAL_SERVICE_API: '/ClaimManagement/api/hospital/',
     ROLE_SERVICE_API: '/ClaimManagement/api/role/',
+    PRIORITY_SERVICE_API: '/ClaimManagement/api/priority/',
+    PRACTICE_SERVICE_API: '/ClaimManagement/api/practice/',
     STATE_SERVICE_API: '/ClaimManagement/api/state/',
     STATUS_SERVICE_API: '/ClaimManagement/api/membershipStatus/',
     REPORTMONTH_SERVICE_API: '/ClaimManagement/api/membershipClaimReportMonth/',
@@ -32,8 +35,8 @@
     MEMBERSHIP_PROBLEM_SERVICE_API: '/ClaimManagement/api/membershipProblem/',
     PLACE_OF_SERVICE_API: '/ClaimManagement/api/placeOfService/',
     CATEGORY_SERVICE_API: '/ClaimManagement/api/riskRecon/',
-    INSURANCE_SERVICE_API: '/ClaimManagement/api/insurance/',
-    CPT_MEASURE_SERVICE_API: '/ClaimManagement/api/cptMeasure/',
+    ALLOCATION_LEVEL_SERVICE_API: '/ClaimManagement/api/allocationLevel/',
+    
     ICD_MEASURE_SERVICE_API: '/ClaimManagement/api/icdMeasure/',
     HEDIS_MEASURE_SERVICE_API: '/ClaimManagement/api/hedisMeasure/',
     HEDIS_MEASURE_RULE_SERVICE_API: '/ClaimManagement/api/hedisMeasureRule/',
@@ -61,6 +64,11 @@
     LEADSTATUS_DETAIL_SERVICE_API: '/ClaimManagement/api/leadStatusDetail/',
     EVENTTYPE_SERVICE_API: '/ClaimManagement/api/eventType/',
     TARGET_SERVICE_API: '/ClaimManagement/api/target/',
+    ALLOCATION_LEVEL_SERVICE_API: '/ClaimManagement/api/allocationLevel/',
+    ALLOCATION_SERVICE_API: '/ClaimManagement/api/allocation/',
+    WEIGHTAGE_SERVICE_API: '/ClaimManagement/api/weightage/',
+    WEIGHTAGE_TYPE_SERVICE_API: '/ClaimManagement/api/weightageType/',
+    CLAIM_STATUS_DETAIL_SERVICE_API: '/ClaimManagement/api/claimStatusDetail/',
     CLAIM_STATUS_SERVICE_API: '/ClaimManagement/api/claimStatus/'
   });
 
@@ -125,7 +133,7 @@
         'modules': [{
           serie: true,
           name: 'main',
-          files: ['js/app/InsuranceService.js', 'js/app/ProviderService.js', 'js/app/GenderService.js', 'js/app/StateService.js', 'js/app/LanguageService.js', 'js/app/PlanTypeService.js', 'js/app/MedicalLossRatioService.js']
+          files: ['js/app/InsuranceService.js','js/app/ClaimStatusService.js', 'js/app/ProviderService.js','js/app/PriorityService.js', 'js/app/GenderService.js', 'js/app/StateService.js', 'js/app/LanguageService.js', 'js/app/PlanTypeService.js', 'js/app/MedicalLossRatioService.js']
         }, {
           serie: true,
           name: 'login',
@@ -137,7 +145,7 @@
         }, {
           serie: true,
           name: 'main.role',
-          files: ['js/app/RoleService.js', 'js/app/RoleController.js' ]
+          files: ['js/app/RoleService.js', 'js/app/ClaimStatusService.js','js/app/ClaimStatusDetailService.js','js/app/PriorityService.js','js/app/RoleController.js']
         }, {
           serie: true,
           name: 'main.lead',
@@ -154,7 +162,19 @@
           serie: true,
           name: 'main.provider',
           files: ['js/app/ProviderService.js', 'js/app/RefContractInsuranceService.js', 'js/app/FileUploadService.js', 'js/app/ProviderController.js']
-        }, {
+        }, 
+        {
+        	serie: true,
+            name: 'main.priority',
+            files: ['js/app/PriorityService.js', 'js/app/PriorityController.js']
+        },
+        
+        {
+        	serie: true,
+            name: 'main.practice',
+            files: ['js/app/PracticeService.js', 'js/app/PracticeController.js']
+        },
+        {
           serie: true,
           name: 'main.providerArchives',
           files: ['js/app/ProviderService.js', 'js/app/RefContractInsuranceService.js', 'js/app/FileUploadService.js', 'js/app/ProviderController.js']
@@ -162,7 +182,13 @@
           name: 'main.insurance',
           serie: true,
           files: ['js/app/PlanTypeService.js', 'js/app/FileUploadService.js', 'js/app/InsuranceController.js']
-        }, {
+        }, 
+        {
+            name: 'main.mappingInsurance',
+            serie: true,
+            files: ['js/app/MappingInsuranceService.js','js/app/PlanTypeService.js', 'js/app/FileUploadService.js', 'js/app/MappingInsuranceController.js']
+          },
+        {
           name: 'main.insuranceArchives',
           serie: true,
           files: ['js/app/PlanTypeService.js', 'js/app/FileUploadService.js', 'js/app/InsuranceController.js']
@@ -190,7 +216,13 @@
           name: 'main.planType',
           serie: true,
           files: ['js/app/PlanTypeService.js', 'js/app/PlanTypeController.js']
-        }, {
+        },
+        {
+        	 name: 'main.target',
+             serie: true,
+             files: ['js/app/TargetService.js', 'js/app/TargetController.js']
+        },
+        {
           name: 'main.problem',
           serie: true,
           files: ['js/app/ICDMeasureService.js', 'js/app/ProblemService.js', 'js/app/ProblemController.js']
@@ -202,19 +234,51 @@
           name: 'main.frequencyType',
           serie: true,
           files: ['js/app/FrequencyTypeService.js', 'js/app/FrequencyTypeController.js']
-        }, {
+        }, 
+        
+          {
+            name: 'main.weightageType',
+            serie: true,
+            files: ['js/app/WeightageTypeService.js', 'js/app/WeightageTypeController.js']
+          },
+          
+          {
+              name: 'main.weightage',
+              serie: true,
+              files: ['js/app/WeightageService.js', 'js/app/WeightageController.js','js/app/WeightageTypeService.js']
+            },
+        {
           name: 'main.fileType',
           serie: true,
           files: ['js/app/FileTypeService.js', 'js/app/FileTypeController.js']
-        }, {
+        }, 
+        {
+        	 name: 'main.claimStatus',
+             serie: true,
+             files: ['js/app/ClaimStatusService.js', 'js/app/ClaimStatusController.js']
+        },
+        {
+       	     name: 'main.allocationLevel',
+             serie: true,
+             files: ['js/app/AllocationLevelService.js', 'js/app/AllocationLevelController.js']
+        },
+       
+         {
+         	  name: 'main.allocation',
+              serie: true,
+              files: ['js/app/AllocationLevelService.js','js/app/AllocationService.js', 'js/app/AllocationController.js','js/app/PriorityService.js']
+         },
+        {
+        	 name: 'main.claimStatusDetail',
+             serie: true,
+             files: ['js/app/ClaimStatusDetailService.js', 'js/app/ClaimStatusDetailController.js']
+        },
+        {
           name: 'main.roomType',
           serie: true,
           files: ['js/app/PlaceOfServiceService.js', 'js/app/PlaceOfServiceController.js']
-        }, {
-          name: 'main.attPhysician',
-          serie: true,
-          files: ['js/app/AttPhysicianService.js', 'js/app/AttPhysicianController.js']
-        }, {
+        }, 
+        {
           name: 'main.hospital',
           serie: true,
           files: ['js/app/HospitalService.js', 'js/app/HospitalController.js']
@@ -442,18 +506,49 @@
           controller: 'RoleController',
           controllerAs: 'ctrl',
           resolve: {
-            loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.role');
-            }],
-            leadStatusDetails: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              var RoleService = $injector.get("RoleService");
-              console.log('Load all  roles');
-              var deferred = $q.defer();
-              RoleService.loadAllRoles().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }]
+        	  loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                  return $ocLazyLoad.load('main.role');
+                }]
           }
         })
+          .state('main.role.edit', {
+          url: '/',
+          templateUrl: 'partials/role_list',
+          controller: 'RoleController',
+          controllerAs: 'ctrl',
+          params: {
+            'id': '',
+            'roleDisplay': false,
+          },
+          resolve: {
+        	  loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                  return $ocLazyLoad.load('main.role');
+                }],
+                prioritys: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                    var PriorityService = $injector.get("PriorityService");
+                    console.log('Load all  prioritys');
+                    var deferred = $q.defer();
+                    PriorityService.loadAllPrioritys().then(deferred.resolve, deferred.resolve);
+                    return deferred.promise;
+                }],
+                claimStatus: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                    console.log('Load all claimStatuses');
+                    var ClaimStatusService = $injector.get("ClaimStatusService");
+                    var deferred = $q.defer();
+                    ClaimStatusService.loadAllClaimStatuses().then(deferred.resolve, deferred.resolve);
+                    return deferred.promise;
+                }],
+                claimStatusDetails: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                    console.log('Load all claimStatusDetails');
+                    var ClaimStatusDetailService = $injector.get("ClaimStatusDetailService");
+                    var deferred = $q.defer();
+                    ClaimStatusDetailService.loadAllClaimStatusDetailes().then(deferred.resolve, deferred.resolve);
+                    return deferred.promise;
+                }]
+                
+          }
+        })
+             
         .state('main.facilityType', {
           url: '/facilityType',
           templateUrl: 'partials/facilityType_list',
@@ -651,6 +746,48 @@
             }]
           }
         })
+        
+        .state('main.insurance.edit', {
+          url: '/',
+          templateUrl: 'partials/insurance_list',
+          controller: 'InsuranceController',
+          controllerAs: 'ctrl',
+          params: {
+            'id': '',
+            'insuranceDisplay': false,
+          },
+          resolve: {  }
+        })
+        
+         .state('main.mappingInsurance', {
+          url: '/mappingInsurance',
+          templateUrl: 'partials/mappingInsurance_list',
+          controller: 'MappingInsuranceController',
+          controllerAs: 'ctrl',
+          data: {
+            'currentScreen': 'Active',
+            'toScreen': 'Archive',
+            'linkToScreen': 'main.mappingInsurance'
+          },
+          resolve: {
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              return $ocLazyLoad.load('main.mappingInsurance'); // Resolve promise and load before view
+            }]
+          }
+        })
+        
+        .state('main.mappingInsurance.edit', {
+          url: '/',
+          templateUrl: 'partials/mappingInsurance_list',
+          controller: 'MappingInsuranceController',
+          controllerAs: 'ctrl',
+          params: {
+            'id': '',
+            'mappingInsuranceDisplay': false,
+          },
+          resolve: {  }
+        })
+        
         .state('main.insuranceArchives', {
           url: '/insuranceArchives',
           templateUrl: 'partials/insurance_list',
@@ -666,17 +803,6 @@
               return $ocLazyLoad.load('main.insurance'); // Resolve promise and load before view
             }]
           }
-        })
-        .state('main.insurance.edit', {
-          url: '/',
-          templateUrl: 'partials/insurance_list',
-          controller: 'InsuranceController',
-          controllerAs: 'ctrl',
-          params: {
-            'id': '',
-            'insuranceDisplay': false,
-          },
-          resolve: {  }
         })
         .state('main.insuranceArchives.edit', {
           url: '/',
@@ -953,6 +1079,114 @@
           },
           resolve: {}
         })
+               .state('main.allocationLevel', {
+          url: '/allocationLevel',
+          templateUrl: 'partials/allocationLevel_list',
+          controller: 'AllocationLevelController',
+          controllerAs: 'ctrl',
+          resolve: {
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              return $ocLazyLoad.load('main.allocationLevel'); // Resolve promise and load before view
+            }]
+          }
+        })
+        .state('main.allocationLevel.edit', {
+          url: '/',
+          templateUrl: 'partials/allocationLevel_list',
+          controller: 'AllocationLevelController',
+          controllerAs: 'ctrl',
+          params: {
+            'id': '',
+            'allocationLevelDisplay': false,
+          },
+          resolve: {}
+        })
+             .state('main.claimStatus', {
+          url: '/claimStatus',
+          templateUrl: 'partials/claimStatus_list',
+          controller: 'ClaimStatusController',
+          controllerAs: 'ctrl',
+          resolve: {
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              return $ocLazyLoad.load('main.claimStatus'); // Resolve promise and load before view
+            }]
+          }
+        })
+        .state('main.claimStatus.edit', {
+          url: '/',
+          templateUrl: 'partials/claimStatus_list',
+          controller: 'ClaimStatusController',
+          controllerAs: 'ctrl',
+          params: {
+            'id': '',
+            'claimStatusDisplay': false,
+          },
+          resolve: {}
+        })
+        .state('main.claimStatusDetail', {
+          url: '/claimStatusDetail',
+          templateUrl: 'partials/claimStatusDetail_list',
+          controller: 'ClaimStatusDetailController',
+          controllerAs: 'ctrl',
+          resolve: {
+            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+              return $ocLazyLoad.load('main.claimStatusDetail'); // Resolve promise and load before view
+            }]
+          }
+        })
+        .state('main.claimStatusDetail.edit', {
+          url: '/',
+          templateUrl: 'partials/claimStatusDetail_list',
+          controller: 'ClaimStatusDetailController',
+          controllerAs: 'ctrl',
+          params: {
+            'id': '',
+            'claimStatusDetailDisplay': false,
+          },
+          resolve: {}
+        })
+        
+           .state('main.allocation', {
+          url: '/allocation',
+          templateUrl: 'partials/allocation_list',
+          controller: 'AllocationController',                                                
+          controllerAs: 'ctrl',
+          resolve: {
+        	  loadMyService: ['$ocLazyLoad',function($ocLazyLoad) {
+              return $ocLazyLoad.load('main.allocation'); // Resolve promise and load before view
+            }]
+          }
+        })
+        .state('main.allocation.edit', {
+          url: '/',
+          templateUrl: 'partials/allocation_list',
+          controller: 'AllocationController',
+          controllerAs: 'ctrl',
+          params: {
+            'id': '',
+            'allocationDisplay': false,
+          },
+          resolve: {
+        	  loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                  return $ocLazyLoad.load('main.allocation'); // Resolve promise and load before view
+                }],
+              prioritys: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                  var PriorityService = $injector.get("PriorityService");
+                  console.log('Load all  prioritys');
+                  var deferred = $q.defer();
+                  PriorityService.loadAllPrioritys().then(deferred.resolve, deferred.resolve);
+                  return deferred.promise;
+              }],
+              allocationLevels: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                  var AllocationLevelService = $injector.get("AllocationLevelService");
+                  console.log('Load all  allocationLevels');
+                  var deferred = $q.defer();
+                  AllocationLevelService.loadAllAllocationLeveles().then(deferred.resolve, deferred.resolve);
+                  return deferred.promise;
+              }]
+          }
+        })
+
         .state('main.roomType', {
           url: '/placeOfService',
           templateUrl: 'partials/placeOfService_list',
@@ -977,39 +1211,154 @@
 
           }
         })
-        .state('main.attPhysician', {
-          url: '/attPhysician',
-          templateUrl: 'partials/attPhysician_list',
-          controller: 'AttPhysicianController',
+        
+           .state('main.target', {
+          url: '/target',
+          templateUrl: 'partials/target_list',
+          controller: 'TargetController',
           controllerAs: 'ctrl',
           resolve: {
-            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.attPhysician'); // Resolve promise and load before view
-            }]
-          }
+              loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load('main.target');
+              }]
+            
+            }
         })
-        .state('main.attPhysician.edit', {
+        .state('main.target.edit', {
           url: '/',
-          templateUrl: 'partials/attPhysician_list',
-          controller: 'AttPhysicianController',
+          templateUrl: 'partials/target_list',
+          controller: 'TargetController',
           controllerAs: 'ctrl',
           params: {
             'id': '',
-            'attPhysicianDisplay': false,
+            'targetDisplay': false,
+          },
+          resolve: {
+        	  
+               }
+        })
+
+         .state('main.weightageType', {
+          url: '/weightageType',
+          templateUrl: 'partials/weightageType_list',
+          controller: 'WeightageTypeController',
+          controllerAs: 'ctrl',
+          resolve: {
+              loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load('main.weightageType');
+              }]
+            
+            }
+        })
+        .state('main.weightageType.edit', {
+          url: '/',
+          templateUrl: 'partials/weightageType_list',
+          controller: 'WeightageTypeController',
+          controllerAs: 'ctrl',
+          params: {
+            'id': '',
+            'weightageTypeDisplay': false,
+          },
+          resolve: {
+        	  
+               }
+        }) 
+        
+        .state('main.weightage', {
+          url: '/weightage',
+          templateUrl: 'partials/weightage_list',
+          controller: 'WeightageController',
+          controllerAs: 'ctrl',
+          resolve: {
+              loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load('main.weightage');
+              }],
+              weightages: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                  var WeightageTypeService = $injector.get("WeightageTypeService");
+                  console.log('Load all  weightageTypes');
+                  var deferred = $q.defer();
+                  WeightageTypeService.loadAllWeightageTypes().then(deferred.resolve, deferred.resolve);
+                  return deferred.promise;
+              }]
+            
+            }
+        })
+        .state('main.weightage.edit', {
+          url: '/',
+          templateUrl: 'partials/weightage_list',
+          controller: 'WeightageController',
+          controllerAs: 'ctrl',
+          params: {
+            'id': '',
+            'weightageDisplay': false,
+          },
+          resolve: {
+        	  
+               }
+        })
+
+         .state('main.priority', {
+          url: '/priority',
+          templateUrl: 'partials/priority_list',
+          controller: 'PriorityController',
+          controllerAs: 'ctrl',
+          resolve: {
+              loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load('main.priority');
+              }],
+              leadStatusDetails: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                var PriorityService = $injector.get("PriorityService");
+                console.log('Load all  roles');
+                var deferred = $q.defer();
+                PriorityService.loadAllPrioritys().then(deferred.resolve, deferred.resolve);
+                return deferred.promise;
+              }]
+            }
+        })
+        .state('main.priority.edit', {
+          url: '/',
+          templateUrl: 'partials/priority_list',
+          controller: 'PriorityController',
+          controllerAs: 'ctrl',
+          params: {
+            'id': '',
+            'priorityDisplay': false,
           },
           resolve: {
 
           }
         })
-        .state('main.hospital', {
-          url: '/hospital',
-          templateUrl: 'partials/hospital_list',
-          controller: 'HospitalController',
+        
+         .state('main.practice', {
+          url: '/practice',
+          templateUrl: 'partials/practice_list',
+          controller: 'PracticeController',
           controllerAs: 'ctrl',
           resolve: {
-            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.hospital'); // Resolve promise and load before view
-            }]
+              loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load('main.practice');
+              
+              }],
+              practices: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                  var PracticeService = $injector.get("PracticeService");
+                  console.log('Load all  roles');
+                  var deferred = $q.defer();
+                  PracticeService.loadAllPractices().then(deferred.resolve, deferred.resolve);
+                  return deferred.promise;
+                }]
+            }
+        })
+        .state('main.practice.edit', {
+          url: '/',
+          templateUrl: 'partials/practice_list',
+          controller: 'PracticeController',
+          controllerAs: 'ctrl',
+          params: {
+            'id': '',
+            'practiceDisplay': false,
+          },
+          resolve: {
+
           }
         })
         .state('main.hospital.edit', {

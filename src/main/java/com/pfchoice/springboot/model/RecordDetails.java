@@ -41,6 +41,8 @@ public class RecordDetails {
 	@Column(name = "active_ind", insertable = false)
 	private Character activeInd = new Character('Y');
 
+	
+
 	/**
 	 * 
 	 */

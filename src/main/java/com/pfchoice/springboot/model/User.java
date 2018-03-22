@@ -7,6 +7,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotEmpty;
 
 
@@ -41,12 +45,15 @@ public class User extends RecordDetails implements Serializable {
 	@Column(name = "password")
 	private String password;
 
-	@OneToMany(cascade =  CascadeType.ALL)
+	@Fetch(FetchMode.SELECT)
+	@BatchSize(size = 25)
+	@OneToMany(cascade =  CascadeType.ALL,fetch = FetchType.LAZY)  //EAGER
 	@JoinTable(name = "user_practices", joinColumns = {
 			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "prac_id", referencedColumnName = "id") })
 	public Set<Practice> practices;
 
+	
 	@OneToOne( cascade = CascadeType.ALL)
 	@JoinTable(name = "user_roles", joinColumns = {
 			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {

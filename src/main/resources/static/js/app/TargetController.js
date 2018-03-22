@@ -38,7 +38,7 @@
 
 
       self.dtOptions = DTOptionsBuilder.newOptions()
-        .withDisplayLength(20)
+       .withDisplayLength(20)
         .withOption('bServerSide', true)
         .withOption('responsive', true)
         .withOption("bLengthChange", false)
@@ -137,10 +137,11 @@
               self.errorMessage = '';
               self.done = true;
               self.display = false;
-              self.targets = getAllTargets();
+             
               self.target = {};
               $scope.myForm.$setPristine();
-              cancelEdit();
+              self.dtInstance.reloadData();
+              self.dtInstance.rerender();
 
             },
             function(errResponse) {
@@ -162,7 +163,9 @@
               self.errorMessage = '';
               self.done = true;
               self.display = false;
-              cancelEdit();
+              $scope.myForm.$setPristine();
+              self.dtInstance.reloadData();
+              self.dtInstance.rerender();
             },
             function(errResponse) {
               console.error('Error while updating Target');
@@ -179,6 +182,7 @@
           .then(
             function() {
               console.log('Target ' + id + ' removed successfully');
+              cancelEdit();
             },
             function(errResponse) {
               console.error('Error while removing target ' + id + ', Error :' + errResponse.data);
@@ -221,7 +225,7 @@
         self.errorMessage = '';
         self.target = {};
         self.display = false;
-        $state.go('main.cpt', {}, {
+        $state.go('main.target', {}, {
           location: true,
           reload: false,
           notify: false
@@ -232,7 +236,7 @@
         var params = {
           'targetDisplay': true
         };
-        var trans = $state.go('main.cpt.edit', params).transition;
+        var trans = $state.go('main.target.edit', params).transition;
         trans.onSuccess({}, function() {
           editTarget(id);
         }, {

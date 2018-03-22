@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,7 +93,8 @@ public class RoleController {
 	// ------------------------------------------------
 	@Secured({ "ROLE_ADMIN" })
 	@RequestMapping(value = "/role/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> updateRole(@PathVariable("id") int id, @RequestBody Role role) {
+	public ResponseEntity<?> updateRole(@PathVariable("id") int id, @RequestBody Role role,
+			@ModelAttribute("username") String username){
 		logger.info("Updating Role with id {}", id);
 
 		Role currentRole = roleService.findById(id);
@@ -113,7 +115,8 @@ public class RoleController {
 	// Role-----------------------------------------
 	@Secured({ "ROLE_ADMIN" })
 	@RequestMapping(value = "/role/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteRole(@PathVariable("id") int id) {
+	public ResponseEntity<?> deleteRole(@PathVariable("id") int id,
+			@ModelAttribute("username") String username){
 		logger.info("Fetching & Deleting Role with id {}", id);
 
 		Role role = roleService.findById(id);
@@ -122,7 +125,9 @@ public class RoleController {
 			return new ResponseEntity(new CustomErrorType("Unable to delete. Role with id " + id + " not found."),
 					HttpStatus.NOT_FOUND);
 		}
-		roleService.deleteRoleById(id);
+		role.setActiveInd('N');
+		role.setUpdatedBy(username);
+		roleService.updateRole(role);
 		return new ResponseEntity<Role>(HttpStatus.NO_CONTENT);
 	}
 

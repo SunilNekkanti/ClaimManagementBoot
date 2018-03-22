@@ -6,8 +6,8 @@ app.controller('ClaimStatusController',
     ['ClaimStatusService', '$scope', '$compile','$state','DTOptionsBuilder', 'DTColumnBuilder',  function( ClaimStatusService, $scope, $compile,$state,DTOptionsBuilder, DTColumnBuilder) {
     	
         var self = this;
-        self.claimstatus = {};
-        self.claimstatuss=[];
+        self.claimStatus = {};
+        self.claimStatuss=[];
         self.display =false;
         self.displayEditButton = false;
         self.submit = submit;
@@ -27,7 +27,7 @@ app.controller('ClaimStatusController',
         self.onlyIntegers = /^\d+$/;
         self.onlyNumbers = /^\d+([,.]\d+)?$/;
         self.dtColumns = [
-            DTColumnBuilder.newColumn('description').withTitle('CLAIM_STATUS').renderWith(
+            DTColumnBuilder.newColumn('description').withTitle('Name').renderWith(
 					function(data, type, full,
 							meta) {
 						 return '<a href="javascript:void(0)" class="'+full.id+'" ng-click="ctrl.editClaimStatus('+full.id+')">'+data+'</a>';
@@ -39,7 +39,7 @@ app.controller('ClaimStatusController',
 		.withOption(
 				'ajax',
 				{
-					url : '/ClaimManagement/api/claimstatus/',
+					url : '/ClaimManagement/api/claimStatus/',
 					type : 'GET'
 				}).withDataProp('data').withOption('bServerSide', true)
 				.withOption("bLengthChange", false)
@@ -95,7 +95,7 @@ app.controller('ClaimStatusController',
 
 		function callback(json) {
 				console.log(json);
-		}
+		} 
 			
 		 
        function createdRow(row, data, dataIndex) {
@@ -110,18 +110,18 @@ app.controller('ClaimStatusController',
 		}
         function submit() {
             console.log('Submitting');
-            if (self.claimstatus.id === undefined || self.claimstatus.id === null) {
-                console.log('Saving New ClaimStatus', self.claimstatus);
-                createClaimStatus(self.claimstatus);
+            if (self.claimStatus.id === undefined || self.claimStatus.id === null) {
+                console.log('Saving New ClaimStatus', self.claimStatus);
+                createClaimStatus(self.claimStatus);
             } else {
-                updateClaimStatus(self.claimstatus, self.claimstatus.id);
-                console.log('ClaimStatus updated with id ', self.claimstatus.id);
+                updateClaimStatus(self.claimStatus, self.claimStatus.id);
+                console.log('ClaimStatus updated with id ', self.claimStatus.id);
             }
         }
 
-        function createClaimStatus(claimstatus) {
-            console.log('About to create claimstatus');
-            ClaimStatusService.createClaimStatus(claimstatus)
+        function createClaimStatus(claimStatus) {
+            console.log('About to create claimStatus');
+            ClaimStatusService.createClaimStatus(claimStatus)
                 .then(
                     function (response) {
                         console.log('ClaimStatus created successfully');
@@ -129,7 +129,7 @@ app.controller('ClaimStatusController',
                         self.errorMessage='';
                         self.done = true;
                         self.display =false;
-                        self.claimstatus={};
+                        self.claimStatus={};
                         $scope.myForm.$setPristine();
                         self.dtInstance.reloadData();
                         self.dtInstance.rerender();
@@ -143,9 +143,9 @@ app.controller('ClaimStatusController',
         }
 
 
-        function updateClaimStatus(claimstatus, id){
-            console.log('About to update claimstatus');
-            ClaimStatusService.updateClaimStatus(claimstatus, id)
+        function updateClaimStatus(claimStatus, id){
+            console.log('About to update claimStatus');
+            ClaimStatusService.updateClaimStatus(claimStatus, id)
                 .then(
                     function (response){
                         console.log('ClaimStatus updated successfully');
@@ -172,9 +172,10 @@ app.controller('ClaimStatusController',
                 .then(
                     function(){
                         console.log('ClaimStatus '+id + ' removed successfully');
+                        cancelEdit();
                     },
                     function(errResponse){
-                        console.error('Error while removing claimstatus '+id +', Error :'+errResponse.data);
+                        console.error('Error while removing claimStatus '+id +', Error :'+errResponse.data);
                     }
                 );
         }
@@ -188,12 +189,12 @@ app.controller('ClaimStatusController',
             self.successMessage='';
             self.errorMessage='';
             ClaimStatusService.getClaimStatus(id).then(
-                function (claimstatus) {
-                    self.claimstatus = claimstatus;
+                function (claimStatus) {
+                    self.claimStatus = claimStatus;
                     self.display =true;
                 },
                 function (errResponse) {
-                    console.error('Error while removing claimstatus ' + id + ', Error :' + errResponse.data);
+                    console.error('Error while removing claimStatus ' + id + ', Error :' + errResponse.data);
                 }
             );
         }
@@ -208,16 +209,16 @@ app.controller('ClaimStatusController',
         function reset(){
             self.successMessage='';
             self.errorMessage='';
-            self.claimstatus={};
+            self.claimStatus={};
             $scope.myForm.$setPristine(); //reset Form
         }
         
         function cancelEdit(){
             self.successMessage='';
             self.errorMessage='';
-            self.claimstatus={};
+            self.claimStatus={};
             self.display = false;
-            $state.go('main.claimstatus');
+            $state.go('main.claimStatus');
         }
     }
 

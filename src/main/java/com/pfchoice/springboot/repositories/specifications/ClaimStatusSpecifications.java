@@ -24,9 +24,7 @@ public class ClaimStatusSpecifications implements Specification<ClaimStatus> {
 		cq.distinct(true);
 
 		Predicate p = cb.conjunction();
-		p.getExpressions().add(cb.or(cb.like(cb.lower(root.get("claimstatus")), containsLikePattern)
-
-		));
+		p.getExpressions().add(cb.like(cb.lower(root.get("description")), containsLikePattern));
 		p.getExpressions().add(cb.and(cb.equal(root.get("activeInd"), 'Y')));
 		return p;
 

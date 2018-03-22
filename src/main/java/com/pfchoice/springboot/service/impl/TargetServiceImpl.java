@@ -23,8 +23,8 @@ public class TargetServiceImpl implements TargetService {
 	public Target findById(Integer id) {
 		return targetRepository.findOne(id);
 	}
-
-
+    
+	
 	public Target findByDescription(String description) {
 		return targetRepository.findByDescription(description);
 	}
@@ -54,7 +54,10 @@ public class TargetServiceImpl implements TargetService {
 	}
 
 	public boolean isTargetExist(Target target) {
-		return findById(target.getId()) != null;
+		return findByDescription(target.getDescription()) != null;
 	}
 
 }
+
+
+ 

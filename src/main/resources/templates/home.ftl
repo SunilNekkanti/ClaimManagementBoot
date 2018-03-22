@@ -72,9 +72,9 @@
 
       <div class="navbar-collapse collapse in " collapse="isCollapsed" aria-expanded="true">
         <ul class="nav navbar-nav">
-          <li><a ui-sref="main.insurance" ui-sref-active="active">Home</a> </li>
+          <li><a ui-sref="main" ui-sref-active="active">Home</a> </li>
           <li class="dropdown" dropdown ng-if="(loginUser.roleName === 'ADMIN' || loginUser.roleName === 'MANAGER')">
-            <a href="#" class="dropdown-toggle" dropdown-toggle role="button" aria-expanded="false">Admin <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" dropdown-toggle role="button" aria-expanded="false">Lookups<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
 			  <li><a ui-sref="main.fileUpload" ui-sref-active="active">File Uploads</a> </li>
               <li><a ui-sref="main.user" ui-sref-active="active">User Accounts</a> </li>
@@ -82,34 +82,35 @@
               <li class="divider"></li>
               <li class="dropdown-submenu" dropdown>
                 <a href="#" class="dropdown-toggle" dropdown-toggle role="button" aria-expanded="false">Lookups</a>
-                <ul class="dropdown-menu" role="submenu">
-                  <li><a ui-sref="main.hedisGroup" ui-sref-active="active">Allocation</a></li>
-                  <li><a ui-sref="main.planType" ui-sref-active="active">Allocation Level</a></li>
-                  <li><a ui-sref="main.fileType" ui-sref-active="active">Claim Status</a> </li>
-                  <li><a ui-sref="main.roomType" ui-sref-active="active">Claim Status Detail</a></li>
-                  <li><a ui-sref="main.frequencyType" ui-sref-active="active">Insurance</a></li>
-                  <li><a ui-sref="main.hospital" ui-sref-active="active">Mapping Insurance</a></li>
-                  <li><a ui-sref="main.attPhysician" ui-sref-active="active">Provider</a></li>
+                <ul class="dropdown-menu" role="submenu"> 
+                  <li><a ui-sref="main.allocation" ui-sref-active="active">Allocation</a></li>
+                  <li><a ui-sref="main.allocationLevel" ui-sref-active="active">Allocation Level</a></li>
+                  <li><a ui-sref="main.claimStatus" ui-sref-active="active">Claim Status</a> </li>
+                  <li><a ui-sref="main.claimStatusDetail" ui-sref-active="active">Claim Status Detail</a></li>
+                  <li><a ui-sref="main.insurance" ui-sref-active="active">Insurance</a></li>
+                  <li><a ui-sref="main.mappingInsurance" ui-sref-active="active">Mapping Insurance</a></li>
+                  <li><a ui-sref="main.provider" ui-sref-active="active">Provider</a></li>
                   <li><a ui-sref="main.eventType" ui-sref-active="active">Provider Insurance Detail</a></li>
-                  <li><a ui-sref="main.leadStatus" ui-sref-active="active">Practice</a></li>
-                  <li><a ui-sref="main.leadStatusDetail" ui-sref-active="active">Priority</a></li>
+                  <li><a ui-sref="main.practice" ui-sref-active="active">Practice</a></li>
+                  <li><a ui-sref="main.priority" ui-sref-active="active">Priority</a></li>
                   <li><a ui-sref="main.role" ui-sref-active="active">Role</a></li>
-                  <li><a ui-sref="main.role" ui-sref-active="active">Target</a></li>
-                  <li><a ui-sref="main.role" ui-sref-active="active">Weightage</a></li>
-                  <li><a ui-sref="main.role" ui-sref-active="active">Weightage Type</a></li>
-                  <li><a ui-sref="main.role" ui-sref-active="active">Url Monitor</a></li>
+                  <li><a ui-sref="main.target" ui-sref-active="active">Target</a></li>
+                  <li><a ui-sref="main.weightage" ui-sref-active="active">Weightage</a></li>
+                  <li><a ui-sref="main.weightageType" ui-sref-active="active">Weightage Type</a></li>
+                  
               </ul>
           </li>
+              </ul>
+              </li>
           
 
-          </ul>
-          </li>
+         
           <li class="dropdown" dropdown ng-if="(loginUser.roleName === 'ADMIN' || loginUser.roleName === 'MANAGER')">
             <a href="#" class="dropdown-toggle" dropdown-toggle role="button" aria-expanded="false">Reports <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><a ui-sref="main.membershipHedis" ui-sref-active="active">Dashboard</a></li>
               <li><a ui-sref="main.membershipHospitalization" ui-sref-active="active">Provider Requests</a></li>
-              <li><a ui-sref="main.membershipClaims" ui-sref-active="active">User Report</a></li>
+              <li><a ui-sref="main.membershipClaims" ui-sref-active="active">User Report</a></li> 
             
             </ul>
           </li>

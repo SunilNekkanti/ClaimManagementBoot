@@ -20,54 +20,54 @@ import static java.util.stream.Collectors.toCollection;
 
 import java.util.ArrayList;
 
-@Service("claimstatusService")
+@Service("claimStatusService")
 @Transactional
 public class ClaimStatusServiceImpl implements ClaimStatusService {
 
 	@Autowired
-	private ClaimStatusRepository claimstatusRepository;
+	private ClaimStatusRepository claimStatusRepository;
 
 	public ClaimStatus findById(Integer id) {
-		return claimstatusRepository.findOne(id);
+		return claimStatusRepository.findOne(id);
 	}
 
 	public ClaimStatus findByDescription(String name) {
-		return claimstatusRepository.findByDescription(name);
+		return claimStatusRepository.findByDescription(name);
 	}
 
-	public void saveClaimStatus(ClaimStatus claimstatus) {
-		claimstatusRepository.save(claimstatus);
+	public void saveClaimStatus(ClaimStatus claimStatus) {
+		claimStatusRepository.save(claimStatus);
 	}
 
-	public void updateClaimStatus(ClaimStatus claimstatus) {
-		saveClaimStatus(claimstatus);
+	public void updateClaimStatus(ClaimStatus claimStatus) {
+		saveClaimStatus(claimStatus);
 	}
 
 	public void deleteClaimStatusById(Integer id) {
-		claimstatusRepository.delete(id);
+		claimStatusRepository.delete(id);
 	}
 
 	public void deleteAllClaimStatuss() {
-		claimstatusRepository.deleteAll();
+		claimStatusRepository.deleteAll();
 	}
 
 	public Page<ClaimStatus> findAllClaimStatussByPage(Specification<ClaimStatus> spec, Pageable pageable) {
-		return claimstatusRepository.findAll(spec, pageable);
+		return claimStatusRepository.findAll(spec, pageable);
 	}
 
 	public List<ClaimStatus> findAllClaimStatuss() {
-		return (List<ClaimStatus>) claimstatusRepository.findAll();
+		return (List<ClaimStatus>) claimStatusRepository.findAll();
 	}
 
-	public boolean isClaimStatusExist(ClaimStatus claimstatus) {
-		return findByDescription(claimstatus.getDescription()) != null;
+	public boolean isClaimStatusExist(ClaimStatus claimStatus) {
+		return findByDescription(claimStatus.getDescription()) != null;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<ClaimStatus> findDistinctClaimStatuss() {
-		List<ClaimStatus> claimstatuss = findAllClaimStatuss();
+		List<ClaimStatus> claimStatuss = findAllClaimStatuss();
 
-		List<ClaimStatus> uniqueClaimStatuss = claimstatuss.stream().collect(
+		List<ClaimStatus> uniqueClaimStatuss = claimStatuss.stream().collect(
 				collectingAndThen(toCollection(() -> new TreeSet<>(comparingInt(ClaimStatus::getId))), ArrayList::new));
 		return uniqueClaimStatuss;
 	}

@@ -11,6 +11,8 @@ public interface TargetRepository
 		extends PagingAndSortingRepository<Target, Integer>, JpaSpecificationExecutor<Target> {
 
 	public Target findById(Integer id);
+	
+	
 
 	public Target findByDescription(String description);
 

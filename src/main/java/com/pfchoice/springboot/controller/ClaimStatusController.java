@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,107 +33,111 @@ public class ClaimStatusController {
 	public static final Logger logger = LoggerFactory.getLogger(ClaimStatusController.class);
 
 	@Autowired
-	ClaimStatusService claimstatusService; // Service which will do all data
+	ClaimStatusService claimStatusService; // Service which will do all data
 								// retrieval/manipulation work
 
 	// -------------------Retrieve All
 	// ClaimStatuss---------------------------------------------
 	@Secured({ "ROLE_ADMIN", "ROLE_AGENT", "ROLE_EVENT_COORDINATOR", "ROLE_CARE_COORDINATOR", "ROLE_MANAGER" })
-	@RequestMapping(value = "/claimstatus/", method = RequestMethod.GET)
+	@RequestMapping(value = "/claimStatus/", method = RequestMethod.GET)
 	public ResponseEntity<Page<ClaimStatus>> listAllClaimStatuss(@PageableDefault(page = 0, size = 100) Pageable pageRequest,
 			@RequestParam(value = "search", required = false) String search) {
 
 		Specification<ClaimStatus> spec = new ClaimStatusSpecifications(search);
-		Page<ClaimStatus> claimstatuss = claimstatusService.findAllClaimStatussByPage(spec, pageRequest);
+		Page<ClaimStatus> claimStatuses = claimStatusService.findAllClaimStatussByPage(spec, pageRequest);
 
-		if (claimstatuss.getTotalElements() == 0) {
+		if (claimStatuses.getTotalElements() == 0) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 			// You many decide to return HttpStatus.NOT_FOUND
 		}
-		return new ResponseEntity<Page<ClaimStatus>>(claimstatuss, HttpStatus.OK);
+		return new ResponseEntity<Page<ClaimStatus>>(claimStatuses, HttpStatus.OK);
 	}
 
 	// -------------------Retrieve Single
 	// ClaimStatus------------------------------------------
 	@Secured({ "ROLE_ADMIN", "ROLE_MANAGER" })
-	@RequestMapping(value = "/claimstatus/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/claimStatus/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getClaimStatus(@PathVariable("id") int id) {
 		logger.info("Fetching ClaimStatus with id {}", id);
-		ClaimStatus claimstatus = claimstatusService.findById(id);
-		if (claimstatus == null) {
+		ClaimStatus claimStatus = claimStatusService.findById(id);
+		if (claimStatus == null) {
 			logger.error("ClaimStatus with id {} not found.", id);
 			return new ResponseEntity(new CustomErrorType("ClaimStatus with id " + id + " not found"), HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<ClaimStatus>(claimstatus, HttpStatus.OK);
+		return new ResponseEntity<ClaimStatus>(claimStatus, HttpStatus.OK);
 	}
 
 	// -------------------Create a
 	// ClaimStatus-------------------------------------------
 	@Secured({ "ROLE_ADMIN" })
-	@RequestMapping(value = "/claimstatus/", method = RequestMethod.POST)
-	public ResponseEntity<?> createClaimStatus(@RequestBody ClaimStatus claimstatus, UriComponentsBuilder ucBuilder) {
-		logger.info("Creating ClaimStatus : {}", claimstatus);
+	@RequestMapping(value = "/claimStatus/", method = RequestMethod.POST)
+	public ResponseEntity<?> createClaimStatus(@RequestBody ClaimStatus claimStatus, UriComponentsBuilder ucBuilder) {
+		logger.info("Creating ClaimStatus : {}", claimStatus);
 
-		if (claimstatusService.isClaimStatusExist(claimstatus)) {
-			logger.error("Unable to create. A ClaimStatus with name {} already exist", claimstatus.getDescription());
+		if (claimStatusService.isClaimStatusExist(claimStatus)) {
+			logger.error("Unable to create. A ClaimStatus with name {} already exist", claimStatus.getDescription());
 			return new ResponseEntity(
-					new CustomErrorType("Unable to create. A ClaimStatus with name " + claimstatus.getDescription() + " already exist."),
+					new CustomErrorType("Unable to create. A ClaimStatus with name " + claimStatus.getDescription() + " already exist."),
 					HttpStatus.CONFLICT);
 		}
-		claimstatus.setCreatedBy("sarath");
-		claimstatus.setUpdatedBy("sarath");
-		claimstatusService.saveClaimStatus(claimstatus);
+		claimStatus.setCreatedBy("sarath");
+		claimStatus.setUpdatedBy("sarath");
+		claimStatusService.saveClaimStatus(claimStatus);
 
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/api/claimstatus/{id}").buildAndExpand(claimstatus.getId()).toUri());
+		headers.setLocation(ucBuilder.path("/api/claimStatus/{id}").buildAndExpand(claimStatus.getId()).toUri());
 		return new ResponseEntity<String>(headers, HttpStatus.CREATED);
 	}
 
 	// ------------------- Update a ClaimStatus
 	// ------------------------------------------------
 	@Secured({ "ROLE_ADMIN" })
-	@RequestMapping(value = "/claimstatus/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> updateClaimStatus(@PathVariable("id") int id, @RequestBody ClaimStatus claimstatus) {
+	@RequestMapping(value = "/claimStatus/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> updateClaimStatus(@PathVariable("id") int id, @RequestBody ClaimStatus claimStatus,
+			@ModelAttribute("username") String username){
 		logger.info("Updating ClaimStatus with id {}", id);
 
-		ClaimStatus currentClaimStatus = claimstatusService.findById(id);
+		ClaimStatus currentClaimStatus = claimStatusService.findById(id);
 
 		if (currentClaimStatus == null) {
 			logger.error("Unable to update. ClaimStatus with id {} not found.", id);
 			return new ResponseEntity(new CustomErrorType("Unable to upate. ClaimStatus with id " + id + " not found."),
 					HttpStatus.NOT_FOUND);
 		}
+		currentClaimStatus.setId(claimStatus.getId());
+		currentClaimStatus.setDescription(claimStatus.getDescription());
 
-		currentClaimStatus.setDescription(claimstatus.getDescription());
-
-		claimstatusService.updateClaimStatus(currentClaimStatus);
+		claimStatusService.updateClaimStatus(currentClaimStatus);
 		return new ResponseEntity<ClaimStatus>(currentClaimStatus, HttpStatus.OK);
 	}
 
 	// ------------------- Delete a
 	// ClaimStatus-----------------------------------------
 	@Secured({ "ROLE_ADMIN" })
-	@RequestMapping(value = "/claimstatus/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteClaimStatus(@PathVariable("id") int id) {
+	@RequestMapping(value = "/claimStatus/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteClaimStatus(@PathVariable("id") int id,
+			@ModelAttribute("username") String username) {
 		logger.info("Fetching & Deleting ClaimStatus with id {}", id);
 
-		ClaimStatus claimstatus = claimstatusService.findById(id);
-		if (claimstatus == null) {
+		ClaimStatus claimStatus = claimStatusService.findById(id);
+		if (claimStatus == null) {
 			logger.error("Unable to delete. ClaimStatus with id {} not found.", id);
 			return new ResponseEntity(new CustomErrorType("Unable to delete. ClaimStatus with id " + id + " not found."),
 					HttpStatus.NOT_FOUND);
 		}
-		claimstatusService.deleteClaimStatusById(id);
+		claimStatus.setActiveInd('N');
+		claimStatus.setUpdatedBy(username);
+		claimStatusService.updateClaimStatus(claimStatus);
 		return new ResponseEntity<ClaimStatus>(HttpStatus.NO_CONTENT);
 	}
 
 	// ------------------- Delete All ClaimStatuss-----------------------------
 	@Secured({ "ROLE_ADMIN" })
-	@RequestMapping(value = "/claimstatus/", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/claimStatus/", method = RequestMethod.DELETE)
 	public ResponseEntity<ClaimStatus> deleteAllClaimStatuss() {
 		logger.info("Deleting All ClaimStatuss");
 
-		claimstatusService.deleteAllClaimStatuss();
+		claimStatusService.deleteAllClaimStatuss();
 		return new ResponseEntity<ClaimStatus>(HttpStatus.NO_CONTENT);
 	}
 

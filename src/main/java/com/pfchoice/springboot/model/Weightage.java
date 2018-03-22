@@ -138,7 +138,7 @@ public class Weightage extends RecordDetails implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.infocus.core.entity.Weightage[ id=" + id + " ]";
+		return "com.pfchoice.springboot.model.Weightage[ id=" + id + " ]";
 	}
 
 }

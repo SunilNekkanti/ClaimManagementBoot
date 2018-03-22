@@ -28,13 +28,12 @@
       self.onlyNumbers = /^\d+([,.]\d+)?$/;
       self.checkBoxChange = checkBoxChange;
       self.dtColumns = [
-        DTColumnBuilder.newColumn('code').withTitle('CPT_CODE').renderWith(
+        DTColumnBuilder.newColumn('code').withTitle('Code').renderWith(
           function(data, type, full,
             meta) {
-            return '<a href="javascript:void(0)" class="' + full.id + '" ng-click="ctrl.priorityEdit(' + full.id + ')">' + data + '</a>';
+            return '<a href="javascript:void(0)" class="' + full.id + '" ng-click="ctrl.editPriority(' + full.id + ')">' + data + '</a>';
           }).withClass("text-left").withOption("width", '20%'),
-        DTColumnBuilder.newColumn('shortDescription').withTitle('SHORT DESCRIPTION').withOption("width", '20%'),
-        DTColumnBuilder.newColumn('description').withTitle('DESCRIPTION').withOption("sWidth", '60%').withOption("sClass", ' { max-width: 300px; word-wrap: break-word;  }')
+             DTColumnBuilder.newColumn('description').withTitle('Description').withOption("sWidth", '60%').withOption("sClass", ' { max-width: 300px; word-wrap: break-word;  }')
       ];
 
 
@@ -138,11 +137,11 @@
               self.errorMessage = '';
               self.done = true;
               self.display = false;
-              self.prioritys = getAllPrioritys();
+              
               self.priority = {};
               $scope.myForm.$setPristine();
-              cancelEdit();
-
+              self.dtInstance.reloadData();
+              self.dtInstance.rerender();
             },
             function(errResponse) {
               console.error('Error while creating Priority');
@@ -163,7 +162,9 @@
               self.errorMessage = '';
               self.done = true;
               self.display = false;
-              cancelEdit();
+              $scope.myForm.$setPristine();
+              self.dtInstance.reloadData();
+              self.dtInstance.rerender();
             },
             function(errResponse) {
               console.error('Error while updating Priority');
@@ -180,6 +181,7 @@
           .then(
             function() {
               console.log('Priority ' + id + ' removed successfully');
+              cancelEdit();
             },
             function(errResponse) {
               console.error('Error while removing priority ' + id + ', Error :' + errResponse.data);
@@ -222,7 +224,7 @@
         self.errorMessage = '';
         self.priority = {};
         self.display = false;
-        $state.go('main.cpt', {}, {
+        $state.go('main.priority', {}, {
           location: true,
           reload: false,
           notify: false
@@ -230,10 +232,11 @@
       }
 
       function priorityEdit(id) {
+    	  console.log('id',id);
         var params = {
-          'priorityDisplay': true
+          'priorityDisplay': true ,'id':id
         };
-        var trans = $state.go('main.cpt.edit', params).transition;
+        var trans = $state.go('main.priority.edit', params).transition;
         trans.onSuccess({}, function() {
           editPriority(id);
         }, {

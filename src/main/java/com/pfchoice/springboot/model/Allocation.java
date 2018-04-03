@@ -37,12 +37,12 @@ public class Allocation extends RecordDetails implements Serializable {
 	private Integer id;
 
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "priority_id", nullable = false, referencedColumnName = "id")
 	private Priority priority;
 
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "allocation_level_id", nullable = false, referencedColumnName = "id")
 	private AllocationLevel allocLevel;
 

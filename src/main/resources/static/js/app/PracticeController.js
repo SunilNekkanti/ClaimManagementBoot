@@ -239,13 +239,9 @@
 
       function practiceEdit(id) {
     	  console.log('id',id);
-        var params = {'practiceDisplay': true };
+        var params = {'practiceDisplay': true, 'id':id };
         var trans = $state.go('main.practice.edit', params).transition;
-        trans.onSuccess({}, function() {
-          editPractice(id);
-        }, {
-          practice: -1
-        });
+        trans.onSuccess({}, function() {editPractice(id);}, { practice: -1});
       }
 
       function addPractice() {

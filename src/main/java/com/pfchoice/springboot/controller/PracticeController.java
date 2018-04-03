@@ -137,7 +137,7 @@ public class PracticeController {
 			return new ResponseEntity(new CustomErrorType("Unable to delete. Practice with id " + id + " not found."),
 					HttpStatus.NOT_FOUND);
 		}
-		practice.setActiveInd(new Character('N'));
+		practice.setActiveInd('N');
 		practice.setUpdatedBy(username);
 		practiceService.updatePractice(practice);
 		return new ResponseEntity<Practice>(HttpStatus.NO_CONTENT);

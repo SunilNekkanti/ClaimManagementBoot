@@ -11,6 +11,8 @@ import com.pfchoice.springboot.model.Allocation;
 public interface AllocationService {
 
 	Allocation findById(Integer id);
+	
+	Allocation findByPercentage(Integer percentage);
 
 	void saveAllocation(Allocation allocation);
 

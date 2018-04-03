@@ -1,80 +1,75 @@
 (function(){
 'use strict';
 var app = angular.module('my-app');
-
-app.service('ProviderService',
+app.service('ProviderInsuranceDetailsService',
     ['$localStorage', '$http', '$q', 'urls',
         function ($localStorage, $http, $q, urls) {
 
             var factory = {
-                loadAllProviders: loadAllProviders,
-                loadProviders: loadProviders,
-                getAllProviders: getAllProviders,
-                getProvider: getProvider,
-                createProvider: createProvider,
-                updateProvider: updateProvider,
-                removeProvider: removeProvider
+                loadAllProviderInsuranceDetailss: loadAllProviderInsuranceDetailss,
+                loadProviderInsuranceDetailss: loadProviderInsuranceDetailss,
+                getAllProviderInsuranceDetailss: getAllProviderInsuranceDetailss,
+                getProviderInsuranceDetails: getProviderInsuranceDetails,
+                createProviderInsuranceDetails: createProviderInsuranceDetails,
+                updateProviderInsuranceDetails: updateProviderInsuranceDetails,
+                removeProviderInsuranceDetails: removeProviderInsuranceDetails
             };
 
             return factory;
-            
-            function loadAllProviders() {
-                console.log('Fetching all providers');
+
+            function loadAllProviderInsuranceDetailss() {
+                console.log('Fetching all providerInsuranceDetailss');
                 var deferred = $q.defer();
-                $http.get(urls.PROVIDER_SERVICE_API)
+                $http.get(urls.PROVIDER_INSURANCE_DETAILS_SERVICE_API)
                     .then(
                         function (response) {
-                            console.log('Fetched successfully all providers');
-                            $localStorage.providers = response.data.content;
+                            console.log('Fetched successfully all providerInsuranceDetailss');
+                            $localStorage.providerInsuranceDetailss = response.data.content;
                             deferred.resolve(response);
                         },
                         function (errResponse) {
-                            console.error('Error while loading providers');
+                            console.error('Error while loading providerInsuranceDetailss');
                             deferred.reject(errResponse);
                         }
                     );
                 return deferred.promise;
             }
 
-            function loadProviders(pageNo, length, search, order) {
-                console.log('Fetching  Providers');
-                var deferred = $q.defer();
+            function loadProviderInsuranceDetailss(pageNo, length, search, order) {
+                console.log('Fetching  ProviderInsuranceDetailss');
                 var pageable = {
-                  		 page:pageNo, size:length,sort:order,search: search||'' 
+                  		 page:pageNo, size:length,sort:order,search: search||''
                   		};
 
                   		var config = {
                   		 params: pageable,
                   		 headers : {'Accept' : 'application/json'}
                   		};
-            return     $http.get(urls.PROVIDER_SERVICE_API,  config)
+            return     $http.get(urls.PROVIDER_INSURANCE_DETAILS_SERVICE_API,  config)
                     .then(
                         function (response) {
                             console.log('Fetched successfully  providers');
-                            $localStorage.providers = response.data.content;
-                            deferred.resolve(response);
                          return     response ;
                         },
                         function (errResponse) {
                             console.error('Error while loading providers');
-                            deferred.reject(errResponse);
                             return   errResponse ;
                         }
                     );
             }
             
-            function getAllProviders(){
-            	console.log('$localStorage.providers');
-                return $localStorage.providers;
+            function getAllProviderInsuranceDetailss(){
+            	console.log('$localStorage.providerInsuranceDetailss');
+                return $localStorage.providerInsuranceDetailss;
             }
 
-            function getProvider(id) {
-                console.log('Fetching Provider with id :'+id);
+            function getProviderInsuranceDetails(id) {
+                console.log('Fetching ProviderInsuranceDetails with id :'+id);
                 var deferred = $q.defer();
-                $http.get(urls.PROVIDER_SERVICE_API + id)
+                $http.get(urls.PROVIDER_INSURANCE_DETAILS_SERVICE_API + id)
                     .then(
                         function (response) {
-                            console.log('Fetched successfully Provider with id :'+id);
+                            console.log('Fetched successfully ProviderInsuranceDetails with id :'+id);
                             deferred.resolve(response.data);
                         },
                         function (errResponse) {
@@ -85,51 +80,51 @@ app.service('ProviderService',
                 return deferred.promise;
             }
 
-            function createProvider(prvdr) {
-                console.log('Creating Provider');
+            function createProviderInsuranceDetails(user) {
+                console.log('Creating ProviderInsuranceDetails');
                 var deferred = $q.defer();
-                $http.post(urls.PROVIDER_SERVICE_API, prvdr)
+                $http.post(urls.PROVIDER_INSURANCE_DETAILS_SERVICE_API, user)
                     .then(
                         function (response) {
-                            loadAllProviders();
+                            loadAllProviderInsuranceDetailss();
                             deferred.resolve(response.data);
                         },
                         function (errResponse) {
-                           console.error('Error while creating Provider : '+errResponse.data.errorMessage);
+                           console.error('Error while creating ProviderInsuranceDetails : '+errResponse.data.errorMessage);
                            deferred.reject(errResponse);
                         }
                     );
                 return deferred.promise;
             }
 
-            function updateProvider(prvdr, id) {
-                console.log('Updating Provider with id '+id);
+            function updateProviderInsuranceDetails(user, id) {
+                console.log('Updating ProviderInsuranceDetails with id '+id);
                 var deferred = $q.defer();
-                $http.put(urls.PROVIDER_SERVICE_API + id, prvdr )
+                $http.put(urls.PROVIDER_INSURANCE_DETAILS_SERVICE_API + id, user)
                     .then(
                         function (response) {
-                        	 loadAllProviders();
+                            loadAllProviderInsuranceDetailss();
                             deferred.resolve(response.data);
                         },
                         function (errResponse) {
-                            console.error('Error while updating Provider with id :'+id);
+                            console.error('Error while updating ProviderInsuranceDetails with id :'+id);
                             deferred.reject(errResponse);
                         }
                     );
                 return deferred.promise;
             }
 
-            function removeProvider(id) {
-                console.log('Removing Provider with id '+id);
+            function removeProviderInsuranceDetails(id) {
+                console.log('Removing ProviderInsuranceDetails with id '+id);
                 var deferred = $q.defer();
-                $http.delete(urls.PROVIDER_SERVICE_API + id)
+                $http.delete(urls.PROVIDER_INSURANCE_DETAILS_SERVICE_API + id)
                     .then(
                         function (response) {
-                            loadAllProviders();
+                            loadAllProviderInsuranceDetailss();
                             deferred.resolve(response.data);
                         },
                         function (errResponse) {
-                            console.error('Error while removing Provider with id :'+id);
+                            console.error('Error while removing ProviderInsuranceDetails with id :'+id);
                             deferred.reject(errResponse);
                         }
                     );

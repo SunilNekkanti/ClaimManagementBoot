@@ -88,6 +88,7 @@ public class Practice extends RecordDetails implements Serializable {
 					@JoinColumn(name = "user_id", referencedColumnName = "id") }) 
 	private  Set<User> users = new HashSet<>(); 
  
+    @JsonIgnore
    @Fetch(FetchMode.SELECT)
 	@BatchSize(size = 25)
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "practice")

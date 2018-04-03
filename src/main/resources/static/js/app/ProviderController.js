@@ -3,11 +3,12 @@
 var app = angular.module('my-app');
 
 app.controller('ProviderController',
-    ['ProviderService', 'LanguageService', 'StateService', 'InsuranceService','RefContractInsuranceService','FileUploadService', '$sce','$scope', '$compile','$state','$stateParams', '$filter' ,'DTOptionsBuilder', 'DTColumnBuilder', function( ProviderService,  LanguageService, StateService,InsuranceService, RefContractInsuranceService, FileUploadService, $sce,$scope,$compile,$state,$stateParams, $filter, DTOptionsBuilder, DTColumnBuilder) {
+    ['ProviderService','PracticeService', 'LanguageService', 'StateService', 'InsuranceService','RefContractInsuranceService','FileUploadService', '$sce','$scope', '$compile','$state','$stateParams', '$filter' ,'DTOptionsBuilder', 'DTColumnBuilder', function( ProviderService,PracticeService, LanguageService, StateService,InsuranceService, RefContractInsuranceService, FileUploadService, $sce,$scope,$compile,$state,$stateParams, $filter, DTOptionsBuilder, DTColumnBuilder) {
 
         var self = this;
         self.prvdr = {};
         self.prvdrs=[];
+        self.practices = [];
         self.display =false;
         self.displayEditButton = false;
         self.submit = submit;
@@ -15,6 +16,8 @@ app.controller('ProviderController',
         self.states=[];
         self.insurances=[];
         self.getAllProviders = getAllProviders;
+        self.getAllPractices = getAllPractices;
+        self.practices = getAllPractices();
         self.createProvider = createProvider;
         self.updateProvider = updateProvider;
         self.removeProvider = removeProvider;
@@ -39,17 +42,20 @@ app.controller('ProviderController',
         self.onlyNumbers = /^\d+([,.]\d+)?$/;
         self.checkBoxChange = checkBoxChange;
         self.providers=[];
-        self.currentScreen = $state.current.data.currentScreen;
-        self.toScreen = $state.current.data.toScreen;
-        self.linkToScreen = $state.current.data.linkToScreen;
         self.dtColumns = [
             
-            DTColumnBuilder.newColumn('name').withTitle('PROVIDER').renderWith(
+            DTColumnBuilder.newColumn('name').withTitle('Name').renderWith(
 					function(data, type, full,
 							meta) {
 						 return '<a href="javascript:void(0)" class="'+full.id+'" ng-click="ctrl.providerEdit('+full.id+')">'+data+'</a>';
 					}).withClass("text-left"),
-			DTColumnBuilder.newColumn('code').withTitle('NPI').withOption('defaultContent', '')
+			DTColumnBuilder.newColumn('npi').withTitle('NPI').withOption("sWidth", '30%'),
+			DTColumnBuilder.newColumn('practice.name').withTitle('Practice').withOption("sWidth", '30%'),
+			DTColumnBuilder.newColumn('practice.taxId').withTitle('Tax ID').withOption("sWidth", '30%'),
+			DTColumnBuilder.newColumn('practice.npi').withTitle('Practice NPI').withOption("sWidth", '30%'),
+			DTColumnBuilder.newColumn('contact').withTitle('Contact').withOption("sWidth", '30%'),
+			DTColumnBuilder.newColumn('facilityAddress').withTitle('Facility Address').withOption("sWidth", '30%'),
+			DTColumnBuilder.newColumn('temp').withTitle('Temp').withOption("sWidth", '30%')
            /* DTColumnBuilder.newColumn('prvdrInsContracts').renderWith(function(data) {
             	var insurances=[];
             	var keys = Object.keys(data);
@@ -112,7 +118,7 @@ app.controller('ProviderController',
 			// Then just call your service to get the
 			// records from server side
 			ProviderService
-					.loadProviders(page, length, search.value, sortCol+','+sortDir, self.currentScreen)
+					.loadProviders(page, length, search.value, sortCol+','+sortDir)
 					.then(
 							function(result) {
 								var records = {
@@ -202,9 +208,12 @@ app.controller('ProviderController',
                         self.errorMessage='';
                         self.done = true;
                         self.display =false;
-                        self.prvdrs = getAllProviders();
+                        
                         self.prvdr={};
-                        cancelEdit();
+                        $scope.myForm.$setPristine();
+                        self.dtInstance.reloadData();
+                        self.dtInstance.rerender();
+
                     },
                     function (errResponse) {
                         console.error('Error while creating Provider');
@@ -216,7 +225,7 @@ app.controller('ProviderController',
 
 
         function updateProvider(prvdr, id){
-            console.log('About to update prvdr');
+            console.log('About to update prvdr' + prvdr);
             ProviderService.updateProvider(prvdr, id)
                 .then(
                     function (response){
@@ -224,9 +233,10 @@ app.controller('ProviderController',
                         self.successMessage='Provider updated successfully';
                         self.errorMessage='';
                         self.done = true;
-                        self.prvdr = {};
                         self.display =false;
-                        cancelEdit();
+                        $scope.myForm.$setPristine();
+                        self.dtInstance.reloadData();
+                        self.dtInstance.rerender();
                     },
                     function(errResponse){
                         console.error('Error while updating Provider');
@@ -238,11 +248,12 @@ app.controller('ProviderController',
 
 
         function removeProvider(id){
-            console.log('About to remove Provider with id '+id);
+            console.log('About to remove Provider with id ' +id);
             ProviderService.removeProvider(id)
                 .then(
                     function(){
                         console.log('Provider '+id + ' removed successfully');
+                        cancelEdit();
                     },
                     function(errResponse){
                         console.error('Error while removing prvdr '+id +', Error :'+errResponse.data);
@@ -276,6 +287,11 @@ app.controller('ProviderController',
 			 
 		}
         
+        function getAllPractices(){
+        	self.practices = PracticeService.getAllPractices();
+            console.log('self.practices',self.practices);
+            return self.practices;
+        }
         
         function editProvider(id) {
             self.successMessage='';
@@ -304,11 +320,7 @@ app.controller('ProviderController',
         function providerEdit(id) {
         	var params = {'providerDisplay':true};
 			var trans ;
-			if(self.currentScreen === 'Active') {
-				trans =  $state.go('main.provider.edit',params).transition;
-			}else {
 			    trans =  $state.go('main.providerArchives.edit',params).transition;
-			}
 			
 			trans.onSuccess({}, function() { editProvider(id);  }, { priority: -1 });
 			
@@ -324,11 +336,7 @@ app.controller('ProviderController',
         function cancelEdit(){
             self.successMessage='';
             self.errorMessage='';
-            if(self.currentScreen === 'Active') {
-           		 $state.go('main.provider', {}, {location: true,reload: false,notify: false});
-            }else{
             	$state.go('main.providerArchives', {}, {location: true,reload: false,notify: false});
-            }
             self.prvdr={};
             self.display = false;
         }

@@ -29,7 +29,7 @@
 	                    <div class="form-group col-md-12">
 	                        <label class="col-md-1 col-md-offset-4 control-lable" for="uname">Priority</label>
 	                        <div class="col-md-3">
-	                            <input type="text" ng-model="ctrl.allocation.priority.description" id="uname" class="username form-control input-sm" placeholder="Enter your name" required ng-minlength="4" />
+	                            <input type="text" ng-model="ctrl.allocation.priority.description" id="uname" class="username form-control input-sm" placeholder="Enter priority name" required ng-minlength="4" />
 	                        </div>
 	                    </div>
 	                </div>
@@ -58,10 +58,11 @@
 	                </div>
 
 	                <div class="row">
-	                    <div class="form-actions floatCenter col-md-offset-8">
-	                        <input type="submit"  value="{{!ctrl.allocation.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid || myForm.$pristine">
-	                        <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-show="!ctrl.allocation.id" ng-disabled="myForm.$pristine">Reset Form</button>
-	                        <button type="button" ng-click="ctrl.cancelEdit()" class="btn btn-warning btn-sm" ng-show="ctrl.allocation.id" >Cancel</button>
+	                    <div class="form-actions floatRight col-md-offset-8">
+	                        <input type="submit"  value="{{!ctrl.allocation.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-xs" ng-disabled="myForm.$invalid || myForm.$pristine">
+	                        <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-xs" ng-show="!ctrl.allocation.id" ng-disabled="myForm.$pristine">Reset Form</button>
+	                        <button type="button" ng-click="ctrl.cancelEdit()" class="btn btn-warning btn-xs">Cancel</button>
+	                    <button type="button" ng-click="ctrl.removeAllocation(ctrl.allocation.id)" class="btn btn-danger btn-xs" ng-show="ctrl.allocation.id" >Delete</button>
 	                    </div>
 	                </div>
 	            </form>

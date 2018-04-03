@@ -37,8 +37,8 @@
 	                    <div class="form-group col-md-12">
 	                        <label class="col-md-1 col-md-offset-4 control-lable" for="uname">Priority</label>
 	                        <div class="col-md-3">
-	                        <select class=" form-control" ng-model="ctrl.role.priorities" name="priorities" ng-options="priority.code for priority in ctrl.prioritys | orderBy:'code' track by priority.code" required>
-	                            <!-- <multiselect ng-model="ctrl.selectedPrioritys"  ng-change ="ctrl.reset()" options="ctrl.prioritys"  id-prop="id" display-prop="code" show-search="true" show-select-all="true" show-unselect-all="true"  search-limit="10"></multiselect> -->
+	                      <!--   <select class=" form-control" ng-model="ctrl.role.priorities" name="priorities" ng-options="priority.code for priority in ctrl.prioritys | orderBy:'code' track by priority.code" required></select> -->
+	                            <multiselect ng-model="ctrl.selectedPrioritys"  ng-change ="ctrl.reset()" options="ctrl.prioritys"  id-prop="id" display-prop="code" show-search="true" show-select-all="true" show-unselect-all="true"  search-limit="10"></multiselect> 
 	                        </div>
 	                    </div>
 	                </div>
@@ -47,8 +47,8 @@
 	                    <div class="form-group col-md-12">
 	                        <label class="col-md-1 col-md-offset-4 control-lable" for="uname">Claim Status Details</label>
 	                        <div class="col-md-3">
-	                        <select class=" form-control" ng-model="ctrl.role.claimStatusDetails" name="claimStatusDetails" ng-options="claimStatusDetail.description for claimStatusDetail in ctrl.claimStatusDetails | orderBy:'description' track by claimStatusDetail.description" required>
-	                         <!--  <multiselect ng-model="ctrl.selectedClaimStatusDetails"    ng-change ="ctrl.reset()" options="ctrl.claimStatusDetails"  id-prop="id" display-prop="description" show-search="true" show-select-all="true" show-unselect-all="true"  search-limit="10"></multiselect> -->
+	                      <!--  <select class=" form-control" ng-model="ctrl.role.claimStatusDetails" name="claimStatusDetails" ng-options="claimStatusDetail.description for claimStatusDetail in ctrl.claimStatusDetails | orderBy:'description' track by claimStatusDetail.description" required></select>  -->
+	                           <multiselect ng-model="ctrl.selectedClaimStatusDetails"    ng-change ="ctrl.reset()" options="ctrl.claimStatusDetails"  id-prop="id" display-prop="description" show-search="true" show-select-all="true" show-unselect-all="true"  search-limit="10"></multiselect> 
 	                        </div>
 	                    </div>
 	                </div>
@@ -57,18 +57,18 @@
 	                    <div class="form-group col-md-12">
 	                        <label class="col-md-1 col-md-offset-4 control-lable" for="uname">Claim Status</label>
 	                        <div class="col-md-3">
-	                        <select class=" form-control" ng-model="ctrl.role.claimstatus" name="claimstatus" ng-options="claimstatus.description for claimstatus in ctrl.claimstatuss | orderBy:'description' track by claimstatus.description" required>
-	                         <!--  <multiselect ng-model="ctrl.selectedClaimStatuss"    ng-change ="ctrl.reset()" options="ctrl.claimStatuss"  id-prop="id" display-prop="description" show-search="true" show-select-all="true" show-unselect-all="true"  search-limit="10"></multiselect> -->
+	                       <!--   <select class=" form-control" ng-model="ctrl.role.claimstatus" name="claimstatus" ng-options="claimstatus.description for claimstatus in ctrl.claimstatuss | orderBy:'description' track by claimstatus.description" required></select>  -->
+	                         <multiselect ng-model="ctrl.selectedClaimStatuss"    ng-change ="ctrl.reset()" options="ctrl.claimStatuss"  id-prop="id" display-prop="description" show-search="true" show-select-all="true" show-unselect-all="true"  search-limit="10"></multiselect> 
 	                        </div>
 	                    </div>
 	                </div>
 
 	                <div class="row">
-	                    <div class="form-actions floatCenter col-md-offset-8">
-	                        <input type="submit"  value="{{!ctrl.role.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid || myForm.$pristine">
-	                        <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-show="!ctrl.role.id" ng-disabled="myForm.$pristine">Reset Form</button>
-	                        <button type="button" ng-click="ctrl.cancelEdit()" class="btn btn-warning btn-sm" ng-show="ctrl.role.id" >Cancel</button>
-	                        <button type="button" ng-click="ctrl.removeRole(ctrl.role.id)" class="btn btn-warning btn-sm" ng-show="ctrl.role.id" >Delete</button>
+	                    <div class="form-actions floatRight col-md-offset-8">
+	                        <input type="submit"  value="{{!ctrl.role.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-xs" ng-disabled="myForm.$invalid || myForm.$pristine">
+	                        <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-xs" ng-show="!ctrl.role.id" ng-disabled="myForm.$pristine">Reset Form</button>
+	                        <button type="button" ng-click="ctrl.cancelEdit()" class="btn btn-warning btn-xs" ng-show="ctrl.role.id" >Cancel</button>
+	                        <button type="button" ng-click="ctrl.removeRole(ctrl.role.id)" class="btn btn-danger btn-xs" ng-show="ctrl.role.id" >Delete</button>
 	                    </div>
 	                </div>
 	            </form>

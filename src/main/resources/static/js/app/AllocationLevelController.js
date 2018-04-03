@@ -172,6 +172,7 @@ app.controller('AllocationLevelController',
                 .then(
                     function(){
                         console.log('AllocationLevel '+id + ' removed successfully');
+                        cancelEdit();
                     },
                     function(errResponse){
                         console.error('Error while removing allocationLevel '+id +', Error :'+errResponse.data);

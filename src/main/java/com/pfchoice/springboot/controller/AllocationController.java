@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,7 +93,8 @@ public class AllocationController {
 	// ------------------------------------------------
 	@Secured({ "ROLE_ADMIN" })
 	@RequestMapping(value = "/allocation/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> updateAllocation(@PathVariable("id") int id, @RequestBody Allocation allocation) {
+	public ResponseEntity<?> updateAllocation(@PathVariable("id") int id, @RequestBody Allocation allocation,
+			@ModelAttribute("username") String username){
 		logger.info("Updating Allocation with id {}", id);
 
 		Allocation currentAllocation = allocationService.findById(id);
@@ -102,10 +104,11 @@ public class AllocationController {
 			return new ResponseEntity(new CustomErrorType("Unable to upate. Allocation with id " + id + " not found."),
 					HttpStatus.NOT_FOUND);
 		}
-
-      currentAllocation.setAllocLevel(allocation.getAllocLevel());
-      currentAllocation.setPercentage(allocation.getPercentage());
-      currentAllocation.setPriority(allocation.getPriority());
+		
+		currentAllocation.setId(allocation.getId());
+		currentAllocation.setPriority(allocation.getPriority());
+        currentAllocation.setAllocLevel(allocation.getAllocLevel());
+        currentAllocation.setPercentage(allocation.getPercentage());
 
 		allocationService.updateAllocation(currentAllocation);
 		return new ResponseEntity<Allocation>(currentAllocation, HttpStatus.OK);
@@ -115,7 +118,8 @@ public class AllocationController {
 	// Allocation-----------------------------------------
 	@Secured({ "ROLE_ADMIN" })
 	@RequestMapping(value = "/allocation/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteAllocation(@PathVariable("id") int id) {
+	public ResponseEntity<?> deleteAllocation(@PathVariable("id") int id,
+			@ModelAttribute("username") String username){
 		logger.info("Fetching & Deleting Allocation with id {}", id);
 
 		Allocation allocation = allocationService.findById(id);
@@ -124,7 +128,9 @@ public class AllocationController {
 			return new ResponseEntity(new CustomErrorType("Unable to delete. Allocation with id " + id + " not found."),
 					HttpStatus.NOT_FOUND);
 		}
-		allocationService.deleteAllocationById(id);
+		allocation.setActiveInd('N');
+		allocation.setUpdatedBy(username);
+		allocationService.updateAllocation(allocation);
 		return new ResponseEntity<Allocation>(HttpStatus.NO_CONTENT);
 	}
 

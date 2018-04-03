@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,7 +93,8 @@ public class AllocationLevelController {
 	// ------------------------------------------------
 	@Secured({ "ROLE_ADMIN" })
 	@RequestMapping(value = "/allocationLevel/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> updateAllocationLevel(@PathVariable("id") int id, @RequestBody AllocationLevel allocationLevel) {
+	public ResponseEntity<?> updateAllocationLevel(@PathVariable("id") int id, @RequestBody AllocationLevel allocationLevel,
+			@ModelAttribute("username") String username){
 		logger.info("Updating AllocationLevel with id {}", id);
 
 		AllocationLevel currentAllocationLevel = allocationLevelService.findById(id);
@@ -102,7 +104,7 @@ public class AllocationLevelController {
 			return new ResponseEntity(new CustomErrorType("Unable to upate. AllocationLevel with id " + id + " not found."),
 					HttpStatus.NOT_FOUND);
 		}
-
+		currentAllocationLevel.setId(allocationLevel.getId());
 		currentAllocationLevel.setDescription(allocationLevel.getDescription());
 
 		allocationLevelService.updateAllocationLevel(currentAllocationLevel);
@@ -113,7 +115,8 @@ public class AllocationLevelController {
 	// AllocationLevel-----------------------------------------
 	@Secured({ "ROLE_ADMIN" })
 	@RequestMapping(value = "/allocationLevel/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteAllocationLevel(@PathVariable("id") int id) {
+	public ResponseEntity<?> deleteAllocationLevel(@PathVariable("id") int id,
+			@ModelAttribute("username") String username){
 		logger.info("Fetching & Deleting AllocationLevel with id {}", id);
 
 		AllocationLevel allocationLevel = allocationLevelService.findById(id);
@@ -122,7 +125,9 @@ public class AllocationLevelController {
 			return new ResponseEntity(new CustomErrorType("Unable to delete. AllocationLevel with id " + id + " not found."),
 					HttpStatus.NOT_FOUND);
 		}
-		allocationLevelService.deleteAllocationLevelById(id);
+		allocationLevel.setActiveInd('N');
+		allocationLevel.setUpdatedBy(username);
+		allocationLevelService.updateAllocationLevel(allocationLevel);
 		return new ResponseEntity<AllocationLevel>(HttpStatus.NO_CONTENT);
 	}
 

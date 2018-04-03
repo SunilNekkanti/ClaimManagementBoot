@@ -7,31 +7,35 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.pfchoice.springboot.model.Priority;
+import com.pfchoice.springboot.model.ProviderInsuranceDetails;
 
-public class PrioritySpecifications implements Specification<Priority> {
+public class ProviderInsuranceDetailsSpecifications implements Specification<ProviderInsuranceDetails> {
 
 	private String searchTerm;
 
-	public PrioritySpecifications(String searchTerm) {
+	public ProviderInsuranceDetailsSpecifications(String searchTerm) {
 		super();
 		this.searchTerm = searchTerm;
 	}
 
-	public Predicate toPredicate(Root<Priority> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+	public Predicate toPredicate(Root<ProviderInsuranceDetails> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
 
 		String containsLikePattern = getContainsLikePattern(searchTerm);
 		cq.distinct(true);
-		Predicate p = cb.conjunction();
-	    p.getExpressions().add(cb.or(cb.like(cb.lower(root.get("code")), containsLikePattern),
-	 						cb.like(cb.lower(root.get("description")), containsLikePattern)));
-	    p.getExpressions().add(cb.and(cb.equal(root.get("activeInd"), 'Y')));
-	    return p;
-	
-	}
 
+		Predicate p = cb.conjunction();
+
+		if (searchTerm != null && !"".equals(searchTerm)) {
+			p.getExpressions().add(cb.or(cb.like(cb.lower(root.get("id")), containsLikePattern)));
+		}
+
+		p.getExpressions().add(cb.and(cb.equal(root.get("activeInd"), 'Y')));
+		// p.getExpressions().add(cb.and(cb.isNull(root.join("contract").join("referenceContract").get("prvdr"))));
 		
-	
+		
+		return p;
+
+	}
 
 	private static String getContainsLikePattern(String searchTerm) {
 		if (searchTerm == null || searchTerm.isEmpty()) {

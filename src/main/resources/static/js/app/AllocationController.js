@@ -24,6 +24,7 @@ app.controller('AllocationController',
         self.reset = reset;
         self.cancelEdit = cancelEdit;
         self.dtInstance = {};
+        self.allocationId = null;
         self.successMessage = '';
         self.errorMessage = '';
         self.done = false;
@@ -43,29 +44,21 @@ app.controller('AllocationController',
      
         
         self.dtOptions = DTOptionsBuilder.newOptions()
-		.withOption(
-				'ajax',
-				{
-					url : '/ClaimManagement/api/allocation/',
-					type : 'GET'
-				}).withDataProp('data').withOption('bServerSide', true)
-				.withOption("bLengthChange", false)
-				.withOption("bPaginate", true)
-				.withOption('bProcessing', true)
-				.withOption('bStateSave', true)
-		        .withDisplayLength(20).withOption( 'columnDefs', [ {
-					                                orderable : false,
-													className : 'select-checkbox',
-													targets : 0,
-													sortable : false,
-													aTargets : [ 0, 1 ] } ])
-				.withOption('select', {
-										style : 'os',
-										selector : 'td:first-child' })
-			    .withOption('createdRow', createdRow)
-		        .withPaginationType('full_numbers')
-		        
-		        .withFnServerData(serverData);
+        		 .withDisplayLength(20)
+		.withOption('bServerSide', true)
+		.withOption('responsive', true)
+		.withOption("bLengthChange", false)
+		.withOption("bPaginate", true)
+		.withOption('bProcessing', true)
+		.withOption('bSaveState', true)
+		.withOption('searchDelay', 1000)
+	    .withOption('createdRow', createdRow)
+        .withPaginationType('full_numbers')
+        .withOption('ordering', true)
+		.withOption('order', [[0,'ASC']])
+		.withOption('aLengthMenu', [[15, 20, -1],[ 15, 20, "All"]])
+		.withOption('bDeferRender', true)
+		.withFnServerData(serverData);
 
     	function serverData(sSource, aoData, fnCallback) {
 			
@@ -180,6 +173,7 @@ app.controller('AllocationController',
                 .then(
                     function(){
                         console.log('Allocation '+id + ' removed successfully');
+                        cancelEdit();
                     },
                     function(errResponse){
                         console.error('Error while removing allocation '+id +', Error :'+errResponse.data);
@@ -228,10 +222,11 @@ app.controller('AllocationController',
 
         
         function allocationEdit(id) {
-        	var params = {'allocationDisplay':true};
+        	console.log('id',id);
+        	var params = {'allocationDisplay':true, 'id':id};
 			var trans ;
 			    trans =  $state.go('main.allocation.edit',params).transition;
-			trans.onSuccess({}, function() { editAllocation(id);  }, { priority}, { AllocationLevel : -1},{percentage: -1});
+			trans.onSuccess({}, function() { editAllocation(id);  }, { priority : -1 });
         }
         
         

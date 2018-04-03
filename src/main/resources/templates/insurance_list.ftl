@@ -29,9 +29,9 @@
 
                   <div class="row">
                     <div class="form-group col-md-12">
-                      <label class="col-md-1 col-md-offset-4 control-lable" for="uname">Name</label>
+                      <label class="col-md-1 col-md-offset-4 control-lable" for="uname">Insurance Name</label>
                       <div class="col-md-3">
-                        <input type="text" ng-model="ctrl.insurance.name" id="uname" class="username form-control input-sm" placeholder="Enter your name" required ng-minlength="4" />
+                        <input type="text" ng-model="ctrl.insurance.name" id="uname" class="username form-control input-sm" placeholder="Enter Insurance name" required ng-minlength="4" />
                         
                       </div>
                     </div>
@@ -46,11 +46,11 @@
 
 
           <div class="row">
-            <div class="form-actions floatCenter col-md-offset-8">
-              <input type="submit" value="{{!ctrl.insurance.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid || myForm.$pristine">
-              <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-show="!ctrl.insurance.id" ng-disabled="myForm.$pristine">Reset Form</button>
-	          <button type="button" ng-click="ctrl.cancelEdit()" class="btn btn-warning btn-sm" ng-show="ctrl.insurance.id" >Cancel</button>
-              <button type="button" ng-click="ctrl.removeInsurance(ctrl.insurance.id)" class="btn btn-warning btn-sm" ng-show="ctrl.insurance.id" >Delete</button>
+            <div class="form-actions floatRight col-md-offset-8">
+              <input type="submit" value="{{!ctrl.insurance.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-xs" ng-disabled="myForm.$invalid || myForm.$pristine">
+              <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-xs" ng-show="!ctrl.insurance.id" ng-disabled="myForm.$pristine">Reset Form</button>
+	          <button type="button" ng-click="ctrl.cancelEdit()" class="btn btn-warning btn-xs">Cancel</button>
+              <button type="button" ng-click="ctrl.removeInsurance(ctrl.insurance.id)" class="btn btn-danger btn-xs" ng-show="ctrl.insurance.id" >Delete</button>
             </div>
           </div>
           </div>

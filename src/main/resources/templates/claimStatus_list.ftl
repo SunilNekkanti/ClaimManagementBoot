@@ -4,8 +4,8 @@
         <!-- Default panel contents -->
         <div class="panel-heading"><span class="claimStatus">Claim Status List</span> 
                <button type="button"  ng-click="ctrl.addClaimStatus()" ng-hide="ctrl.displayEditButton" class="btn btn-success custom-width floatRight"> Add </button>   
-               <button type="button" ng-click="ctrl.editClaimStatus(ctrl.facilityTypeId)" ng-show="ctrl.displayEditButton" class="btn btn-primary custom-width floatRight">Edit</button>  
-              <button type="button" ng-click="ctrl.removeClaimStatus(ctrl.facilityTypeId)"  ng-show="ctrl.displayEditButton" class="btn btn-danger custom-width floatRight">Remove</button> 
+               <button type="button" ng-click="ctrl.editClaimStatus(ctrl.claimStatusId)" ng-show="ctrl.displayEditButton" class="btn btn-primary custom-width floatRight">Edit</button>  
+              <button type="button" ng-click="ctrl.removeClaimStatus(ctrl.claimstatusId)"  ng-show="ctrl.displayEditButton" class="btn btn-danger custom-width floatRight">Remove</button> 
         </div>
         <div class="table-responsive">
 			<div class="panel-body">
@@ -33,11 +33,11 @@
 	                </div>
 
 	                <div class="row">
-	                    <div class="form-actions floatCenter col-md-offset-8">
-	                        <input type="submit"  value="{{!ctrl.claimStatus.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid || myForm.$pristine">
-	                        <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-show="!ctrl.claimStatus.id" ng-disabled="myForm.$pristine">Reset Form</button>
-	                        <button type="button" ng-click="ctrl.cancelEdit()" class="btn btn-warning btn-sm" ng-show="ctrl.claimStatus.id" >Cancel</button>
-	                          <button type="button" ng-click="ctrl.removeClaimStatus(ctrl.claimStatus.id)" class="btn btn-warning btn-sm" ng-show="ctrl.claimStatus.id" >Delete</button>
+	                    <div class="form-actions floatRight col-md-offset-8">
+	                        <input type="submit"  value="{{!ctrl.claimStatus.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-xs" ng-disabled="myForm.$invalid || myForm.$pristine">
+	                        <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-xs" ng-show="!ctrl.claimStatus.id" ng-disabled="myForm.$pristine">Reset Form</button>
+	                        <button type="button" ng-click="ctrl.cancelEdit()" class="btn btn-warning btn-xs">Cancel</button>
+	                          <button type="button" ng-click="ctrl.removeClaimStatus(ctrl.claimStatus.id)" class="btn btn-danger btn-xs" ng-show="ctrl.claimStatus.id" >Delete</button>
 	                    </div>
 	                </div>
 	            </form>

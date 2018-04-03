@@ -11,6 +11,6 @@ public interface AllocationRepository extends PagingAndSortingRepository<Allocat
 
 	Allocation findById(Integer id);
 	
-	
+	Allocation findByPercentage(Integer percentage);
 
 }

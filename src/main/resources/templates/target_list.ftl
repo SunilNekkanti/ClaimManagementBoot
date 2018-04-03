@@ -47,11 +47,11 @@
 	                        </div>
 	                    </div>
 	                 <div class="row">
-	                    <div class="form-actions floatCenter col-md-offset-8">
-	                        <input type="submit"  value="{{!ctrl.target.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid || myForm.$pristine">
-	                        <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-show="!ctrl.target.id" ng-disabled="myForm.$pristine">Reset Form</button>
-	                        <button type="button" ng-click="ctrl.cancelEdit()" class="btn btn-warning btn-sm" ng-show="ctrl.target.id" >Cancel</button>
-	                        <button type="button" ng-click="ctrl.removeTarget(ctrl.target.id)" class="btn btn-warning btn-sm" ng-show="ctrl.target.id" >Delete</button>
+	                    <div class="form-actions floatRight col-md-offset-8">
+	                        <input type="submit"  value="{{!ctrl.target.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-xs" ng-disabled="myForm.$invalid || myForm.$pristine">
+	                        <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-xs" ng-show="!ctrl.target.id" ng-disabled="myForm.$pristine">Reset Form</button>
+	                        <button type="button" ng-click="ctrl.cancelEdit()" class="btn btn-warning btn-xs">Cancel</button>
+	                        <button type="button" ng-click="ctrl.removeTarget(ctrl.target.id)" class="btn btn-danger btn-xs" ng-show="ctrl.target.id" >Delete</button>
 	                    </div>
 	                </div>
 	                </div>

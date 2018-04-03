@@ -106,8 +106,9 @@ public class ClaimStatusDetailController {
 			return new ResponseEntity(new CustomErrorType("Unable to upate. ClaimStatusDetail with id " + id + " not found."),
 					HttpStatus.NOT_FOUND);
 		}
-
+		currentClaimStatusDetail.setId(claimStatusDetail.getId());
 		currentClaimStatusDetail.setDescription(claimStatusDetail.getDescription());
+		currentClaimStatusDetail.setClaimStatusId(claimStatusDetail.getClaimStatusId());
       
 		claimStatusDetailService.updateClaimStatusDetail(currentClaimStatusDetail);
 		return new ResponseEntity<ClaimStatusDetail>(currentClaimStatusDetail, HttpStatus.OK);

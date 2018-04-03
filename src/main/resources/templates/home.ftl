@@ -90,7 +90,7 @@
                   <li><a ui-sref="main.insurance" ui-sref-active="active">Insurance</a></li>
                   <li><a ui-sref="main.mappingInsurance" ui-sref-active="active">Mapping Insurance</a></li>
                   <li><a ui-sref="main.provider" ui-sref-active="active">Provider</a></li>
-                  <li><a ui-sref="main.eventType" ui-sref-active="active">Provider Insurance Detail</a></li>
+                  <li><a ui-sref="main.providerInsuranceDetails" ui-sref-active="active">Provider Insurance Detail</a></li>
                   <li><a ui-sref="main.practice" ui-sref-active="active">Practice</a></li>
                   <li><a ui-sref="main.priority" ui-sref-active="active">Priority</a></li>
                   <li><a ui-sref="main.role" ui-sref-active="active">Role</a></li>

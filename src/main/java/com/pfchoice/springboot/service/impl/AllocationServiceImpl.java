@@ -31,7 +31,9 @@ public class AllocationServiceImpl implements AllocationService {
 		return allocationRepository.findOne(id);
 	}
 
-	
+	public Allocation findByPercentage(Integer percentage) {
+		return allocationRepository.findOne(percentage);
+	}
 
 	public void saveAllocation(Allocation allocation) {
 		allocationRepository.save(allocation);

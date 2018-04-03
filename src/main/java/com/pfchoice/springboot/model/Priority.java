@@ -2,8 +2,11 @@ package com.pfchoice.springboot.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
@@ -29,7 +32,9 @@ public class Priority extends RecordDetails implements Serializable {
 
 	
 	@Id
-	@NotNull @Min(1) @Max(10000)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@NotNull @Min(1) @Max(10000)
+	@Basic(optional = false)
 	@Column(name = "id", nullable = false)
 	private Integer id;
 

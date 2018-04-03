@@ -42,9 +42,10 @@ public class MappingInsuranceController {
 	@Secured({ "ROLE_ADMIN", "ROLE_AGENT", "ROLE_EVENT_COORDINATOR", "ROLE_CARE_COORDINATOR", "ROLE_MANAGER" })
 	@RequestMapping(value = "/mappingInsurance/", method = RequestMethod.GET)
 	public ResponseEntity<?> listAllMappingInsurances(@PageableDefault(page = 0, size = 100) Pageable pageRequest,
+			@RequestParam(value = "currentScreen", required = false) String currentScreen,
 			@RequestParam(value = "search", required = false) String search) {
 
-		Specification<MappingInsurance> spec = new MappingInsuranceSpecifications(search);
+		Specification<MappingInsurance> spec = new MappingInsuranceSpecifications(search,currentScreen);
 		Page<MappingInsurance> mappingInsurances = mappingInsuranceService.findAllMappingInsurancesByPage(spec, pageRequest);
 
 		if (mappingInsurances.getTotalElements() == 0) {
@@ -108,8 +109,10 @@ public class MappingInsuranceController {
 			return new ResponseEntity(new CustomErrorType("Unable to upate. MappingInsurance with id " + id + " not found."),
 					HttpStatus.NOT_FOUND);
 		}
-		currentMappingInsurance.setName(mappingInsurance.getName());
 		currentMappingInsurance.setId(mappingInsurance.getId());
+		currentMappingInsurance.setName(mappingInsurance.getName());
+		currentMappingInsurance.setInsId(mappingInsurance.getInsId());
+		
 		mappingInsuranceService.updateMappingInsurance(currentMappingInsurance);
 		return new ResponseEntity<MappingInsurance>(currentMappingInsurance, HttpStatus.OK);
 	}

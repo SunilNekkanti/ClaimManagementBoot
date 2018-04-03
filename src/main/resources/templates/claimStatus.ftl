@@ -4,7 +4,6 @@
         <!-- Default panel contents -->
         <div class="panel-heading"><span class="claimstatus">List of Facility Types </span> 
                <button type="button"  ng-click="ctrl.addClaimStatus()" ng-hide="ctrl.displayEditButton" class="btn btn-success custom-width floatRight"> Add </button>   
-               <button type="button" ng-click="ctrl.editClaimStatus(ctrl.facilityTypeId)" ng-show="ctrl.displayEditButton" class="btn btn-primary custom-width floatRight">Edit</button>  
               <button type="button" ng-click="ctrl.removeClaimStatus(ctrl.facilityTypeId)"  ng-show="ctrl.displayEditButton" class="btn btn-danger custom-width floatRight">Remove</button>  
         </div>
         <div class="table-responsive">
@@ -36,7 +35,7 @@
 	                    <div class="form-actions floatCenter col-md-offset-8">
 	                        <input type="submit"  value="{{!ctrl.claimstatus.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid || myForm.$pristine">
 	                        <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-show="!ctrl.claimstatus.id" ng-disabled="myForm.$pristine">Reset Form</button>
-	                        <button type="button" ng-click="ctrl.cancelEdit()" class="btn btn-warning btn-sm" ng-show="ctrl.claimstatus.id" >Cancel</button>
+	                        <button type="button" ng-click="ctrl.cancelEdit()" class="btn btn-warning btn-sm">Cancel</button>
 	                    </div>
 	                </div>
 	            </form>

@@ -1,10 +1,7 @@
 package com.pfchoice.springboot.repositories.specifications;
 
-import java.util.Date;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -16,12 +13,9 @@ public class MappingInsuranceSpecifications implements Specification<MappingInsu
 
 	private String searchTerm;
 	
-	private String currentScreen;
-
-	public MappingInsuranceSpecifications(String searchTerm, String currentScreen) {
+	public MappingInsuranceSpecifications(String searchTerm) {
 		super();
 		this.searchTerm = searchTerm;
-		this.currentScreen = (currentScreen != null) ? currentScreen :"Active";
 		
 	}
 
@@ -36,10 +30,6 @@ public class MappingInsuranceSpecifications implements Specification<MappingInsu
 			p.getExpressions().add(cb.or(cb.like(cb.lower(root.get("name")), containsLikePattern)));
 		}
 
-		p.getExpressions().add(cb.and(cb.equal(root.get("activeInd"), 'Y')));
-		// p.getExpressions().add(cb.and(cb.isNull(root.join("contract").join("referenceContract").get("prvdr"))));
-		
-		
 		return p;
 
 	}

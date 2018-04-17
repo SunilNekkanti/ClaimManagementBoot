@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-
 public class ClaimDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -87,6 +86,44 @@ public class ClaimDTO implements Serializable {
 	
 	private String followupDetails;
 
+	public ClaimDTO(){
+		super();
+	}
+	
+	public ClaimDTO(Integer claimId, Integer cnt, String lookup, Long claimno, 
+			Date serviceDate, Date claimDate, String patient, Date dob, String patientPhone, Double charges,
+			String insurance, String insuranceType, String statuses, String userName, String priority,
+			Integer allocCount, Integer workedCount, Date reminder,  String followupDetails) {
+		super();
+		this.claimId = claimId;
+		this.cnt = cnt;
+		this.lookup = lookup;
+		this.claimno = claimno;
+		this.serviceDate = serviceDate;
+		this.claimDate = claimDate;
+		this.patient = patient;
+		this.dob = dob;
+		this.patientPhone = patientPhone;
+		this.charges = charges;
+		this.insurance = insurance;
+		this.insuranceType = insuranceType;
+		this.statuses = statuses;
+		this.userName = userName;
+		this.priority = priority;
+		this.allocCount = allocCount;
+		this.workedCount = workedCount;
+		this.reminder = reminder;
+		this.followupDetails = followupDetails;
+	}
+
+	public ClaimDTO(Integer claimId, Integer cnt, String lookup, Long claimno) {
+		super();
+		this.claimId = claimId;
+		this.cnt = cnt;
+		this.lookup = lookup;
+		this.claimno = claimno;
+	}
+	
 	public Integer getClaimId() {
 		return claimId;
 	}

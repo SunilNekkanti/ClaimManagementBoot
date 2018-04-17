@@ -20,7 +20,8 @@ import java.util.List;
 public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler
 		implements AuthenticationSuccessHandler {
 
-	private List<String> leadHomePageRoles = Arrays.asList("ROLE_ADMIN","ROLE_USER", "ROLE_AGENT", "ROLE_CARE_COORDINATOR");
+	private List<String> leadHomePageRoles = Arrays.asList("ROLE_ADMIN","ROLE_TEAM_LEAD", "ROLE_AR", "ROLE_ERA",
+			"ROLE_CALLER","ROLE_CODER","ROLE_SUBMITTER","ROLE_AR_APPEAL_SPECIALIST","ROLE_REPORTER","ROLE_CALL_SUPPORT");
 
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
@@ -90,7 +91,7 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
 		}
 
 		if (isLead) {
-			return "/home#/claimList";
+			return "/home#/claim";
 		} else if (isEvent) {
 			return "/home#/event";
 		} else {

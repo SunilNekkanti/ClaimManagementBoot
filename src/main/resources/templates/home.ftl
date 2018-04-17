@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/plugins/bootstrap/datatables.bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.3/css/fixedHeader.dataTables.min.css"/>
   <link rel="stylesheet" href="css/bootstrap-datepicker.min.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.4/css/fixedColumns.dataTables.min.css" />
   <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css" />
@@ -39,6 +40,10 @@
   <script src="https://cdn.datatables.net/fixedcolumns/3.2.4/js/dataTables.fixedColumns.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="http://l-lin.github.io/angular-datatables/archives/vendor/datatables-light-columnfilter/dist/dataTables.lightColumnFilter.min.js"></script> 
+  
+  <script src="https://cdn.datatables.net/fixedheader/3.1.3/js/dataTables.fixedHeader.min.js"></script>
+  
   <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.colVis.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
@@ -46,12 +51,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.min.js"></script>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/plugins/buttons/angular-datatables.buttons.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/plugins/fixedcolumns/angular-datatables.fixedcolumns.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/plugins/fixedheader/angular-datatables.fixedheader.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/plugins/tabletools/angular-datatables.tabletools.min.js"></script>
-
+  <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/plugins/light-columnfilter/angular-datatables.light-columnfilter.min.js"></script -->
+<script src="http://l-lin.github.io/angular-datatables/archives/dist/plugins/light-columnfilter/angular-datatables.light-columnfilter.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/plugins/fixedheader/angular-datatables.fixedheader.min.js"> </script>
 
   <script src="js/app/app.js"></script>
   <script src="js/app/UserService.js"></script>
@@ -72,7 +78,7 @@
 
       <div class="navbar-collapse collapse in " collapse="isCollapsed" aria-expanded="true">
         <ul class="nav navbar-nav">
-          <li><a ui-sref="main" ui-sref-active="active">Home</a> </li>
+          <li><a ui-sref="main.claim" ui-sref-active="active">Home</a> </li>
           <li class="dropdown" dropdown ng-if="(loginUser.roleName === 'ADMIN' || loginUser.roleName === 'MANAGER')">
             <a href="#" class="dropdown-toggle" dropdown-toggle role="button" aria-expanded="false">Lookups<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">

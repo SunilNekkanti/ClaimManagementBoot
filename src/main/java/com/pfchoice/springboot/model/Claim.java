@@ -8,6 +8,8 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,7 +17,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.NamedStoredProcedureQueries;
+import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.SqlResultSetMapping;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -29,15 +34,68 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  * @author sarath
  */
-@Entity
-@Table(name = "claims")
+@Entity(name="claims")
+
+@SqlResultSetMapping(
+	    name="claimDTOMapping",
+	    classes={
+	        @ConstructorResult(
+	            targetClass=ClaimDTO.class, 
+	            columns = { 
+	            		 @ColumnResult(name = "claimId"),
+	            		 @ColumnResult(name = "cnt"),
+	            		 @ColumnResult(name = "lookup"),
+	            		 @ColumnResult(name = "claimno",type = Long.class),
+	            	     @ColumnResult(name = "serviceDate"),
+	            		 @ColumnResult(name = "claimDate"),
+	            		 @ColumnResult(name = "patient"),
+	            		 @ColumnResult(name = "dob"),
+	            		 @ColumnResult(name = "patientPhone"),
+	            		 @ColumnResult(name = "charges",type = Double.class),
+	            		 @ColumnResult(name = "insurance"),
+	            		 @ColumnResult(name = "insuranceType"),
+	            		 @ColumnResult(name = "statuses"),
+	            		 @ColumnResult(name = "userName"),
+	            		 @ColumnResult(name = "priority"),
+	            		 @ColumnResult(name = "allocCount"),
+	            		 @ColumnResult(name = "workedCount"),
+	            		 @ColumnResult(name = "reminder"),
+	            		 @ColumnResult(name = "followupDetails") 
+	             }	            
+	        )
+	    }
+	)
+
+@NamedStoredProcedureQueries({
+	@NamedStoredProcedureQuery(name = "claimStatuses", 
+			resultSetMappings="claimDTOMapping",
+			procedureName = "CLAIM_STATUSES", parameters = {
+			@StoredProcedureParameter(name = "tableName", type = String.class),
+			@StoredProcedureParameter(name = "userId", type = Integer.class),
+			@StoredProcedureParameter(name = "roleId", type = Integer.class),
+			@StoredProcedureParameter(name = "firstPosition", type = Integer.class),
+			@StoredProcedureParameter(name = "pageSize", type = Integer.class),
+			@StoredProcedureParameter(name = "search", type = String.class),
+			@StoredProcedureParameter(name = "allocationDate", type = String.class),
+			@StoredProcedureParameter(name = "teamAssignment", type = Integer.class),
+			@StoredProcedureParameter(name = "practices", type = String.class),
+			@StoredProcedureParameter(name = "remarks", type = String.class),
+			@StoredProcedureParameter(name = "serviceDtFrom", type = String.class),
+			@StoredProcedureParameter(name = "serviceDtTo", type = String.class),
+			@StoredProcedureParameter(name = "patientName", type = String.class),
+			@StoredProcedureParameter(name = "birthDt", type = String.class),
+			@StoredProcedureParameter(name = "insurances", type = String.class),
+			@StoredProcedureParameter(name = "insuranceTypes", type = String.class),
+			@StoredProcedureParameter(name = "chargesMin", type = Double.class),
+			@StoredProcedureParameter(name = "chargesMax", type = Double.class),
+			@StoredProcedureParameter(name = "claimStatuses", type = String.class),
+			@StoredProcedureParameter(name = "priorities", type = String.class) }) })
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Claim extends RecordDetails implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
@@ -103,10 +161,10 @@ public class Claim extends RecordDetails implements Serializable {
 	private Double charges;
 	
 	
-	@Column(name = "priority_id", nullable = false)
-	private Integer priorityId;
-	
-	
+	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name = "priority_id", nullable = false, referencedColumnName = "id")
+	private Priority priorityId;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "reminder")
 	private Date reminderDate;
@@ -122,9 +180,14 @@ public class Claim extends RecordDetails implements Serializable {
 	
 	@Column(name = "file_id", nullable = false)
 	private Integer fileId;
+	
+
+/*	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "followup_details", nullable = false, referencedColumnName = "user_claim_followup_id")
+	private UserClaimFollowup followupDetails;
 	/**
 	 * 
-	 */
+	*/   
 	public Claim() {
 		super();
 	}
@@ -255,6 +318,30 @@ public class Claim extends RecordDetails implements Serializable {
 	/**
 	 * @return
 	 */
+	/*
+	 * public UserClaimFollowup getFollowupDetails() {
+	 
+		return followupDetails;
+	}
+
+	/**
+	 * @param insId
+	 
+	public void setUserClaimFollowup(UserClaimFollowup followupDetails) {
+		this.followupDetails = followupDetails;
+	}
+	*/
+	public Priority getPriorityId() {
+		return priorityId;
+	}
+
+	/**
+	 * @param insId
+	 */
+	public void setPriorityId(Priority priorityId) {
+		this.priorityId = priorityId;
+	}
+	
 	public ClaimStatusDetail getClaimStatusDetailId() {
 		return claimStatusDetailId;
 	}
@@ -286,6 +373,8 @@ public class Claim extends RecordDetails implements Serializable {
 	public void setClaimStatus(ClaimStatus claimStatus) {
 		this.claimStatus = claimStatus;
 	}
+	
+	
 
 	/**
 	 * @param patientName
@@ -318,16 +407,12 @@ public class Claim extends RecordDetails implements Serializable {
 	/**
 	 * @return
 	 */
-	public Integer getPriorityId() {
-		return priorityId;
-	}
+
 
 	/**
 	 * @param priorityId
 	 */
-	public void setPriorityId(Integer priorityId) {
-		this.priorityId = priorityId;
-	}
+	
 
 	/**
 	 * @return

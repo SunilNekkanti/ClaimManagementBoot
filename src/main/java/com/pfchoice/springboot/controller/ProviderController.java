@@ -1,7 +1,5 @@
 package com.pfchoice.springboot.controller;
 
-import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +42,9 @@ public class ProviderController {
 	@Secured({ "ROLE_ADMIN", "ROLE_AGENT", "ROLE_EVENT_COORDINATOR", "ROLE_CARE_COORDINATOR", "ROLE_MANAGER" })
 	@RequestMapping(value = "/provider/", method = RequestMethod.GET)
 	public ResponseEntity<Page<Provider>> listAllProviders(@PageableDefault(page = 0, size = 100) Pageable pageRequest,
-			@RequestParam(value = "currentScreen", required = false) String currentScreen,
 			@RequestParam(value = "search", required = false) String search) {
 
-		Specification<Provider> spec = new ProviderSpecifications(search,currentScreen);
+		Specification<Provider> spec = new ProviderSpecifications(search);
 		Page<Provider> providers = providerService.findAllProvidersByPage(spec, pageRequest);
 
 		if (providers.getTotalElements() == 0) {

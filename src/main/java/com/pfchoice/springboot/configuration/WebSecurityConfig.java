@@ -76,8 +76,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests().antMatchers()
-				.hasAnyAuthority("ROLE_AGENT", "ROLE_ADMIN", "ROLE_CARE_COORDINATOR", "ROLE_EVENT_COORDINATOR",
-						"ROLE_MANAGER")
+				.hasAnyAuthority("ROLE_AGENT", "ROLE_TEAM_LEAD", "ROLE_AR", "ROLE_ERA",
+						"ROLE_CALLER","ROLE_CODER","ROLE_SUBMITTER","ROLE_AR_APPEAL_SPECIALIST","ROLE_REPORTER","ROLE_CALL_SUPPORT")
 				.anyRequest().authenticated().and().formLogin().loginPage("/").usernameParameter("username")
 				.passwordParameter("password").loginProcessingUrl("/loginform.do").failureUrl("/login?error")
 				.successHandler(customAuthenticationSuccessHandler()).and().logout()

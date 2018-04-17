@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  var app = angular.module('my-app', ['datatables', 'ui.bootstrap', 'datatables.bootstrap', , 'datatables.buttons', 'datatables.fixedcolumns', 'ui.router', 'ngStorage', 'ngAnimate', 'ngSanitize', 'btorfs.multiselect', 'oc.lazyLoad', 'ui.select']);
+  var app = angular.module('my-app', ['datatables','datatables.light-columnfilter', 'datatables.fixedheader', 'ui.bootstrap', 'datatables.bootstrap', , 'datatables.buttons', 'datatables.fixedcolumns', 'ui.router', 'ngStorage', 'ngAnimate', 'ngSanitize', 'btorfs.multiselect', 'oc.lazyLoad', 'ui.select']);
   app.constant('urls', {
     BASE: '/ClaimManagement',
     USER_SERVICE_API: '/ClaimManagement/api/user/',
@@ -12,6 +12,7 @@
     PROVIDER_INSURANCE_DETAILS_SERVICE_API: '/ClaimManagement/api/providerInsuranceDetails/',
     LEAD_SERVICE_API: '/ClaimManagement/api/lead/',
     GENDER_SERVICE_API: '/ClaimManagement/api/gender/',
+    CLAIM_SERVICE_API: '/ClaimManagement/api/claim/',
     HOSPITAL_SERVICE_API: '/ClaimManagement/api/hospital/',
     ROLE_SERVICE_API: '/ClaimManagement/api/role/',
     PRIORITY_SERVICE_API: '/ClaimManagement/api/priority/',
@@ -134,11 +135,11 @@
         'modules': [{
           serie: true,
           name: 'main',
-          files: ['js/app/InsuranceService.js','js/app/ClaimStatusService.js', 'js/app/ProviderService.js','js/app/PriorityService.js', 'js/app/GenderService.js', 'js/app/StateService.js', 'js/app/LanguageService.js', 'js/app/PlanTypeService.js', 'js/app/MedicalLossRatioService.js']
+          files: ['js/app/InsuranceService.js','js/app/ClaimStatusService.js', 'js/app/ProviderService.js','js/app/PriorityService.js']
         }, {
           serie: true,
           name: 'login',
-          files: ['js/app/UserService.js', 'js/app/InsuranceService.js', 'js/app/ProviderService.js', 'js/app/GenderService.js', 'js/app/StateService.js', 'js/app/LanguageService.js', 'js/app/PlanTypeService.js', 'js/app/MedicalLossRatioService.js']
+          files: ['js/app/UserService.js', 'js/app/InsuranceService.js', 'js/app/ProviderService.js']
         }, {
           serie: true,
           name: 'main.user',
@@ -174,26 +175,17 @@
         	serie: true,
             name: 'main.practice',
             files: ['js/app/PracticeService.js', 'js/app/PracticeController.js']
-        },
-        {
-          serie: true,
-          name: 'main.providerArchives',
-          files: ['js/app/ProviderService.js', 'js/app/RefContractInsuranceService.js', 'js/app/FileUploadService.js', 'js/app/ProviderController.js']
         }, {
           name: 'main.insurance',
           serie: true,
-          files: ['js/app/PlanTypeService.js', 'js/app/FileUploadService.js', 'js/app/InsuranceController.js']
+          files: ['js/app/FileUploadService.js', 'js/app/InsuranceController.js']
         }, 
         {
             name: 'main.mappingInsurance',
             serie: true,
-            files: ['js/app/MappingInsuranceService.js','js/app/PlanTypeService.js', 'js/app/FileUploadService.js', 'js/app/MappingInsuranceController.js']
+            files: ['js/app/MappingInsuranceService.js','js/app/FileUploadService.js', 'js/app/MappingInsuranceController.js']
           },
-        {
-          name: 'main.insuranceArchives',
-          serie: true,
-          files: ['js/app/PlanTypeService.js', 'js/app/FileUploadService.js', 'js/app/InsuranceController.js']
-        }, {
+         {
           name: 'main.cpt',
           serie: true,
           files: ['js/app/CPTMeasureService.js', 'js/app/CPTMeasureController.js']
@@ -201,7 +193,13 @@
           name: 'main.icd',
           serie: true,
           files: ['js/app/ICDMeasureService.js', 'js/app/ICDMeasureController.js']
-        }, {
+        },
+          {
+            name: 'main.claim',
+            serie: true,
+            files: ['js/app/ClaimService.js', 'js/app/ClaimController.js','js/app/ProviderService.js','js/app/InsuranceService.js','js/app/ClaimStatusService.js','js/app/ClaimStatusDetailService.js','js/app/ProviderInsuranceDetailsService.js','js/app/PriorityService.js','js/app/PracticeService.js']
+          }
+        , {
           name: 'main.riskScore',
           serie: true,
           files: ['js/app/RiskScoreService.js', 'js/app/RiskScoreController.js']
@@ -213,10 +211,6 @@
           name: 'main.hedisGroup',
           serie: true,
           files: ['js/app/HedisMeasureGroupService.js', 'js/app/HedisMeasureGroupController.js']
-        }, {
-          name: 'main.planType',
-          serie: true,
-          files: ['js/app/PlanTypeService.js', 'js/app/PlanTypeController.js']
         },
         {
         	 name: 'main.target',
@@ -356,48 +350,11 @@
               ProviderService.loadAllProviders().then(deferred.resolve, deferred.resolve);
               return deferred.promise;
             }],
-            genders: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              console.log('Load all genders');
-              var GenderService = $injector.get("GenderService");
-              var deferred = $q.defer();
-              GenderService.loadAllGenders().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }],
-            states: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              console.log('Load all states');
-              var StateService = $injector.get("StateService");
-              var deferred = $q.defer();
-              StateService.loadAllStates().then(deferred.resolve, deferred.resolve);
-              console.log('deferred.promise' + deferred.promise);
-              return deferred.promise;
-            }],
-            languages: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              console.log('Load all languages');
-              var LanguageService = $injector.get("LanguageService");
-              var deferred = $q.defer();
-              LanguageService.loadAllLanguages().then(deferred.resolve, deferred.resolve);
-              console.log('deferred.promise' + deferred.promise);
-              return deferred.promise;
-            }],
             users: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
               console.log('Load all users');
               var UserService = $injector.get("UserService");
               var deferred = $q.defer();
               UserService.loadAllUsers().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }],
-            planTypes: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              console.log('Load all users');
-              var PlanTypeService = $injector.get("PlanTypeService");
-              var deferred = $q.defer();
-              PlanTypeService.loadAllPlanTypes().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }],
-            reportMonths: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              console.log('Load all reportMonths');
-              var MedicalLossRatioService = $injector.get("MedicalLossRatioService");
-              var deferred = $q.defer();
-              MedicalLossRatioService.loadAllReportMonths().then(deferred.resolve, deferred.resolve);
               return deferred.promise;
             }]
           }
@@ -435,25 +392,11 @@
               RoleService.loadAllRoles().then(deferred.resolve, deferred.resolve);
               return deferred.promise;
             }],
-            languages: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              var LanguageService = $injector.get("LanguageService");
-              console.log('Load all  Languages');
-              var deferred = $q.defer();
-              LanguageService.loadAllLanguages().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }],
             insurances: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
               var LanguageService = $injector.get("InsuranceService");
               console.log('Load all  insurances');
               var deferred = $q.defer();
               InsuranceService.loadAllInsurances().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }],
-            states: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              var LanguageService = $injector.get("StateService");
-              console.log('Load all  states');
-              var deferred = $q.defer();
-              StateService.loadAllStates().then(deferred.resolve, deferred.resolve);
               return deferred.promise;
             }]
           }
@@ -666,37 +609,6 @@
               }]
           }
         })
-        
-        .state('main.providerArchives', {
-          url: '/providerArchives',
-          parent: 'main',
-          templateUrl: 'partials/provider_list',
-          controller: 'ProviderController',
-          controllerAs: 'ctrl',
-          resolve: {
-            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.provider'); // Resolve promise and load before view
-            }]
-          }
-        })
-        .state('main.providerArchives.edit', {
-          url: '/',
-          templateUrl: 'partials/provider_list',
-          controller: 'ProviderController',
-          controllerAs: 'ctrl',
-          params: {
-            'id': '',
-            'providerDisplay': false,
-          },
-          resolve: {
-            refContractinsurances: function($q, RefContractInsuranceService) {
-              console.log('Load all RefContractInsuranceService');
-              var deferred = $q.defer();
-              RefContractInsuranceService.loadAllRefContractInsurances().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }
-          }
-        })
         .state('main.membership', {
           url: '/membership',
           templateUrl: 'partials/membership_list',
@@ -739,11 +651,6 @@
           templateUrl: 'partials/insurance_list',
           controller: 'InsuranceController',
           controllerAs: 'ctrl',
-          data: {
-            'currentScreen': 'Active',
-            'toScreen': 'Archive',
-            'linkToScreen': 'main.insuranceArchives'
-          },
           resolve: {
             loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
               return $ocLazyLoad.load('main.insurance'); // Resolve promise and load before view
@@ -768,11 +675,6 @@
           templateUrl: 'partials/mappingInsurance_list',
           controller: 'MappingInsuranceController',
           controllerAs: 'ctrl',
-          data: {
-            'currentScreen': 'Active',
-            'toScreen': 'Archive',
-            'linkToScreen': 'main.mappingInsurance'
-          },
           resolve: {
             loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
               return $ocLazyLoad.load('main.mappingInsurance'); // Resolve promise and load before view
@@ -802,41 +704,6 @@
                 }]
               }
            })
-        
-        .state('main.insuranceArchives', {
-          url: '/insuranceArchives',
-          templateUrl: 'partials/insurance_list',
-          controller: 'InsuranceController',
-          controllerAs: 'ctrl',
-          data: {
-            'currentScreen': 'Archive',
-            'toScreen': 'Active',
-            'linkToScreen': 'main.insurance'
-          },
-          resolve: {
-            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.insurance'); // Resolve promise and load before view
-            }]
-          }
-        })
-        .state('main.insuranceArchives.edit', {
-          url: '/',
-          templateUrl: 'partials/insurance_list',
-          controller: 'InsuranceController',
-          controllerAs: 'ctrl',
-          params: {
-            'id': '',
-            'insuranceDisplay': false,
-          },
-          resolve: {}
-        })
-        .state('main.language', {
-          url: '/language',
-          templateUrl: 'partials/language_list',
-          controller: 'LanguageController',
-          controllerAs: 'ctrl',
-          resolve: {}
-        })
         .state('logout', {
           url: '/logout',
           templateUrl: 'logout'
@@ -1323,7 +1190,81 @@
                }
         })
         
-        
+        .state('main.claim', {
+          url: '/claim',
+          templateUrl: 'partials/claim_list',
+          controller: 'ClaimController',
+          controllerAs: 'ctrl',
+          resolve: {
+              loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                return $ocLazyLoad.load('main.claim');
+              }]
+             }
+         })
+        .state('main.claim.edit', {
+          url: '/',
+          templateUrl: 'partials/claim_list',
+          controller: 'ClaimController',
+          controllerAs: 'ctrl',
+          params: {
+            'id': '',
+            'claimDisplay': false,
+          },
+          resolve: {
+        	  loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
+                  return $ocLazyLoad.load('main.claim');
+        	   }],
+        	           providers: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                  console.log('Load all providers');
+                  var ProviderService = $injector.get("ProviderService");
+                  var deferred = $q.defer();
+                  ProviderService.loadAllProviders().then(deferred.resolve, deferred.resolve);
+                  return deferred.promise;
+                }],
+                insurances: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                    var InsuranceService = $injector.get("InsuranceService");
+                    console.log('Load all  Insurances');
+                    var deferred = $q.defer();
+                    InsuranceService.loadAllInsurances().then(deferred.resolve, deferred.resolve);
+                    return deferred.promise;
+                  }],
+                claimStatus: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                      console.log('Load all claimStatuses');
+                      var ClaimStatusService = $injector.get("ClaimStatusService");
+                      var deferred = $q.defer();
+                      ClaimStatusService.loadAllClaimStatuses().then(deferred.resolve, deferred.resolve);
+                      return deferred.promise;
+                  }],
+                claimStatusDetails: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                      console.log('Load all claimStatusDetails');
+                      var ClaimStatusDetailService = $injector.get("ClaimStatusDetailService");
+                      var deferred = $q.defer();
+                      ClaimStatusDetailService.loadAllClaimStatusDetailes().then(deferred.resolve, deferred.resolve);
+                      return deferred.promise;
+                  }],
+                providerInsuranceDetailss: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                      var ProviderInsuranceDetailsService = $injector.get("ProviderInsuranceDetailsService");
+                      console.log('Load all  roles');
+                      var deferred = $q.defer();
+                      ProviderInsuranceDetailsService.loadAllProviderInsuranceDetailss().then(deferred.resolve, deferred.resolve);
+                      return deferred.promise;
+                    }],
+                prioritys: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                        var PriorityService = $injector.get("PriorityService");
+                        console.log('Load all  prioritys');
+                        var deferred = $q.defer();
+                        PriorityService.loadAllPrioritys().then(deferred.resolve, deferred.resolve);
+                        return deferred.promise;
+                    }],
+                    practices: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                        console.log('Load all practices');
+                        var PracticeService = $injector.get("PracticeService");
+                        var deferred = $q.defer();
+                        PracticeService.loadAllPractices().then(deferred.resolve, deferred.resolve);
+                        return deferred.promise;
+                      }]
+          }
+        })
 
          .state('main.weightageType', {
           url: '/weightageType',

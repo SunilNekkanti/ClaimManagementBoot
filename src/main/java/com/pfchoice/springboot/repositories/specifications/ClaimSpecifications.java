@@ -7,34 +7,27 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.pfchoice.springboot.model.Provider;
+import com.pfchoice.springboot.model.Claim;
 
-public class ProviderSpecifications implements Specification<Provider> {
+public class ClaimSpecifications implements Specification<Claim> {
 
 	private String searchTerm;
 
-	public ProviderSpecifications(String searchTerm) {
+	public ClaimSpecifications(String searchTerm) {
 		super();
 		this.searchTerm = searchTerm;
 	}
 
-	public Predicate toPredicate(Root<Provider> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+	public Predicate toPredicate(Root<Claim> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
 
 		String containsLikePattern = getContainsLikePattern(searchTerm);
-
 		cq.distinct(true);
+
 		Predicate p = cb.conjunction();
 
-		if (searchTerm != null && !"".equals(searchTerm)) {
-			p.getExpressions()
-					.add(cb.or(cb.like(cb.lower(root.get("name")), containsLikePattern),
-							cb.like(root.get("code").as(String.class), containsLikePattern)));
-		}
-
-		p.getExpressions().add(cb.and(cb.equal(root.get("activeInd"), 'Y')));
 		
-        
-	
+		p.getExpressions().add(cb.like(cb.lower(root.get("lookup")), containsLikePattern));
+		p.getExpressions().add(cb.and(cb.equal(root.get("activeInd"), 'Y')));
 		return p;
 
 	}

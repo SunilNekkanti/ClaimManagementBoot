@@ -122,7 +122,7 @@
 
         // All the parameters you need is in the aoData
         // variable
-    	var praId=(self.practice === undefined || self.practice === null)? 0 : self.practice.id;
+    	var pracId=(self.practice === undefined || self.practice === null)? 0 : self.practice.id;
         var order = aoData[2].value;
         var page = aoData[3].value / aoData[4].value;
         var length = aoData[4].value;
@@ -145,7 +145,7 @@
         // records from server side
             
         ClaimService
-          .loadClaims(praId,page, length, search.value, sortCol + ',' + sortDir,
+          .loadClaims(page, length, search.value, sortCol, sortDir,
           self.teamAssignments,   self.allocationDate,
             self.practices,  self.remarks,  self.srvcDtFrom,  self.srvcDtTo,  self.patientName,  self.birthDate,	self.insurances,
             self.insuranceTypes,  self.chargesMin,  self.chargesMax,  self.claimStatus,  self.priorities, self.userName

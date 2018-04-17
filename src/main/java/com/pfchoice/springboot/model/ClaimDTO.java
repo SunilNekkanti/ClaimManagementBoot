@@ -2,10 +2,6 @@ package com.pfchoice.springboot.model;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.Date;
-
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Component;
 
@@ -34,19 +30,16 @@ public class ClaimDTO implements Serializable {
 	private String provider;
 
 	
-	@Temporal(TemporalType.DATE)
-	Date serviceDate;
+	private String serviceDate;
 	
 	
-	@Temporal(TemporalType.DATE)
-	Date claimDate;
+	private String claimDate;
 
 	
 	private String patient;
 
 	
-	@Temporal(TemporalType.DATE)
-	Date dob;
+	private String dob;
 	
 	
 	private String patientPhone;
@@ -76,12 +69,10 @@ public class ClaimDTO implements Serializable {
 	private Integer workedCount;
 	
 	
-	@Temporal(TemporalType.DATE)
-	Date reminder;
+	private String reminder;
 	
 	
-	@Temporal(TemporalType.DATE)
-	Date followupDate;
+	private String followupDate;
 	
 	
 	private String followupDetails;
@@ -91,9 +82,9 @@ public class ClaimDTO implements Serializable {
 	}
 	
 	public ClaimDTO(Integer claimId, Integer cnt, String lookup, Long claimno, 
-			Date serviceDate, Date claimDate, String patient, Date dob, String patientPhone, Double charges,
+			String serviceDate, String claimDate, String patient, String dob, String patientPhone, Double charges,
 			String insurance, String insuranceType, String statuses, String userName, String priority,
-			Integer allocCount, Integer workedCount, Date reminder,  String followupDetails) {
+			Integer allocCount, Integer workedCount, String reminder, String followupDetails) {
 		super();
 		this.claimId = claimId;
 		this.cnt = cnt;
@@ -116,14 +107,7 @@ public class ClaimDTO implements Serializable {
 		this.followupDetails = followupDetails;
 	}
 
-	public ClaimDTO(Integer claimId, Integer cnt, String lookup, Long claimno) {
-		super();
-		this.claimId = claimId;
-		this.cnt = cnt;
-		this.lookup = lookup;
-		this.claimno = claimno;
-	}
-	
+ 
 	public Integer getClaimId() {
 		return claimId;
 	}
@@ -180,19 +164,19 @@ public class ClaimDTO implements Serializable {
 		this.provider = provider;
 	}
 
-	public Date getServiceDate() {
+	public String getServiceDate() {
 		return serviceDate;
 	}
 
-	public void setServiceDate(Date serviceDate) {
+	public void setServiceDate(String serviceDate) {
 		this.serviceDate = serviceDate;
 	}
 	
-	public Date getClaimDate() {
+	public String getClaimDate() {
 		return claimDate;
 	}
 
-	public void setClaimDate(Date claimDate) {
+	public void setClaimDate(String claimDate) {
 		this.claimDate = claimDate;
 	}
 
@@ -228,11 +212,11 @@ public class ClaimDTO implements Serializable {
 		this.statuses = statuses;
 	}
 
-	public Date getDob() {
+	public String getDob() {
 		return dob;
 	}
 
-	public void setDob(Date dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
 
@@ -252,11 +236,11 @@ public class ClaimDTO implements Serializable {
 		this.insuranceType = insuranceType;
 	}
 
-	public Date getReminder() {
+	public String getReminder() {
 		return reminder;
 	}
 
-	public void setReminder(Date reminder) {
+	public void setReminder(String reminder) {
 		this.reminder = reminder;
 	}
 
@@ -295,14 +279,14 @@ public class ClaimDTO implements Serializable {
 	/**
 	 * @return the followupDate
 	 */
-	public Date getFollowupDate() {
+	public String getFollowupDate() {
 		return followupDate;
 	}
 
 	/**
 	 * @param followupDate the followupDate to set
 	 */
-	public void setFollowupDate(Date followupDate) {
+	public void setFollowupDate(String followupDate) {
 		this.followupDate = followupDate;
 	}
 	

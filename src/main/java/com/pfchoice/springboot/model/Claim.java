@@ -42,25 +42,25 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 	        @ConstructorResult(
 	            targetClass=ClaimDTO.class, 
 	            columns = { 
-	            		 @ColumnResult(name = "claimId"),
-	            		 @ColumnResult(name = "cnt"),
-	            		 @ColumnResult(name = "lookup"),
+	            		 @ColumnResult(name = "claimId",type = Integer.class),
+	            		 @ColumnResult(name = "cnt",type = Integer.class),
+	            		 @ColumnResult(name = "lookup",type = String.class),
 	            		 @ColumnResult(name = "claimno",type = Long.class),
-	            	     @ColumnResult(name = "serviceDate"),
-	            		 @ColumnResult(name = "claimDate"),
-	            		 @ColumnResult(name = "patient"),
-	            		 @ColumnResult(name = "dob"),
-	            		 @ColumnResult(name = "patientPhone"),
+	            	     @ColumnResult(name = "serviceDate",type = String.class),
+	            		 @ColumnResult(name = "claimDate",type = String.class),
+	            		 @ColumnResult(name = "patient",type = String.class),
+	            		 @ColumnResult(name = "dob",type = String.class),
+	            		 @ColumnResult(name = "patientPhone",type = String.class),
 	            		 @ColumnResult(name = "charges",type = Double.class),
-	            		 @ColumnResult(name = "insurance"),
-	            		 @ColumnResult(name = "insuranceType"),
-	            		 @ColumnResult(name = "statuses"),
-	            		 @ColumnResult(name = "userName"),
-	            		 @ColumnResult(name = "priority"),
-	            		 @ColumnResult(name = "allocCount"),
-	            		 @ColumnResult(name = "workedCount"),
-	            		 @ColumnResult(name = "reminder"),
-	            		 @ColumnResult(name = "followupDetails") 
+	            		 @ColumnResult(name = "insurance",type = String.class),
+	            		 @ColumnResult(name = "insuranceType",type = String.class),
+	            		 @ColumnResult(name = "statuses",type = String.class),
+	            		 @ColumnResult(name = "userName",type = String.class),
+	            		 @ColumnResult(name = "priority",type = String.class),
+	            		 @ColumnResult(name = "allocCount",type = Integer.class),
+	            		 @ColumnResult(name = "workedCount",type = Integer.class),
+	            		 @ColumnResult(name = "reminder",type = String.class),
+	            		 @ColumnResult(name = "followupDetails",type = String.class) 
 	             }	            
 	        )
 	    }

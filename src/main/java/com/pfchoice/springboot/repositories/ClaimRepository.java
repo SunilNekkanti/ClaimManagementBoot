@@ -13,32 +13,32 @@ import com.pfchoice.springboot.model.ClaimDTO;
 
 @Repository
 public interface ClaimRepository
-		extends PagingAndSortingRepository<Claim, Integer>, JpaSpecificationExecutor<Claim> {
+		extends PagingAndSortingRepository<Claim, Integer>, JpaSpecificationExecutor<Claim> , ClaimRepositoryCustom{
 
-	public Claim findById(Integer id);
+	Claim findById(Integer id);
 	
-	public Claim findByLookup(String lookup);
+	Claim findByLookup(String lookup);
 	
-	public Claim findByClaimNo(Long claimNo);
+	Claim findByClaimNo(Long claimNo);
 	
-	public Claim findByServiceDate(Date serviceDate);
+	Claim findByServiceDate(Date serviceDate);
 	
-	public Claim findByPatientName(String patientName);
+	Claim findByPatientName(String patientName);
 	
-	public Claim findByInsId(Integer insId);
+	Claim findByInsId(Integer insId);
 	
-	public Claim findByInsuranceType(Integer insuranceType);
+	Claim findByInsuranceType(Integer insuranceType);
 	
-	public Claim findByCharges(Double charges);
+	Claim findByCharges(Double charges);
 	
-	public Claim findByClaimStatus(String claimStatus);
+	Claim findByClaimStatus(String claimStatus);
 	
-	public Claim findByPriorityId(Integer priorityId);
+	Claim findByPriorityId(Integer priorityId);
 	
 	@Procedure("Claim.claimStatuses")
 	List<ClaimDTO> getClaims(int pageNo,  int pageSize,  int teamAssigments,  String sSearch,  String allocationDate,  String sort,  String sortdir, 
 			 String practices,  String remarks,  String srvcDtFrom,  String srvcDtTo,  String patientName,  String birthDate,	 String insurances, 
 			 String insuranceTypes,  Double chargesMin,  Double chargesMax,  String claimStatus,  String priorities,	
-			 String tableName,  Integer userId,	 Integer roleId);
+			 String tableName,  int userId,	 int roleId);
 
 }

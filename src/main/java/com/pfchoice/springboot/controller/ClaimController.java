@@ -71,7 +71,7 @@ public class ClaimController {
 		         sortDir = order.getDirection().toString() ;
 		    }*/
 		 
-		List<ClaimDTO> claims = claimService.getClaims(pageRequest.getOffset(), pageRequest.getPageSize(),teamAssignments, search, allocationDate, 
+		List<ClaimDTO> claims = claimService.getClaims(pageRequest.getPageNumber(), pageRequest.getPageSize(),teamAssignments, search, allocationDate, 
 				"" , "",  practices, remarks, srvcDtFrom, srvcDtTo, patientName, birthDate,	insurances, 
 				  insuranceTypes, chargesMin, chargesMax, claimStatus, priorities,	
 				  username,   userId,	  roleId);

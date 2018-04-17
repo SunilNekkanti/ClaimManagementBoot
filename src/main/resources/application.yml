@@ -29,7 +29,7 @@ email:
 
 spring:
   profiles:
-    active: "local"
+    active: "server"
   main:
     banner-mode: "off"
  
@@ -155,20 +155,39 @@ envProperties:
       
 datasource:
   claimManagement:
-    url: jdbc:mysql://pras.cp2ok1lxfh49.us-east-1.rds.amazonaws.com:3306/pfchoices_final_20180205?tinyInt1isBit=false&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://pras-aws-prod.cp2ok1lxfh49.us-east-1.rds.amazonaws.com:3306/claim_management?tinyInt1isBit=false&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&autoReconnect=true&useSSL=false
     username: dbadmin
-    password: prasdb20!8
+    password: prasdb20!7
     driverClassName: com.mysql.jdbc.Driver
     defaultSchema:
     maxPoolSize: 10
     hibernate:
-      dialect: com.pfchoice.springboot.hibernate.MySQL5InnoDBDialect
-      hbm2ddl.method: validate
+      connection: 
+        autocommit: false
+      hbm2ddl.method: none
+      generate_statistics: false
       show_sql: false
       format_sql: false
+      order_inserts: true
+      order_updates: true
+      jdbc:
+        batch_size: 50
+      cache: 
+         use_second_level_cache: true
+         use_query_cache: true
+         net: 
+          sf:
+            ehcache: 
+              hibernate: 
+                 cache_lock_timeout: 300
+         region_prefix: ""
+         region: 
+           factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+      dialect: com.pfchoice.springboot.hibernate.MySQL5InnoDBDialect
       hikari:
        idleTimeout: 900000
        maxLifeTime: 840000
+       maximumPoolSize: 8
       
 
  

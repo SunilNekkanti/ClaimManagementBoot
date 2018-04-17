@@ -184,7 +184,7 @@ public class UserScore extends RecordDetails implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.infocus.core.entity.UserScore[ id=" + id + " ]";
+		return "com.pfchoice.springboot.model.UserScore[ id=" + id + " ]";
 	}
 
 }

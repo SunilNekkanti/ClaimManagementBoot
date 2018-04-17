@@ -9,9 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -131,7 +128,7 @@ public class Priority extends RecordDetails implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.infocus.core.entity.Priority[ id=" + id + " ]";
+		return "com.pfchoice.springboot.model[ id=" + id + " ]";
 	}
 
 }

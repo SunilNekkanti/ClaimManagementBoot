@@ -239,7 +239,7 @@ public class UserClaim extends RecordDetails implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.infocus.core.entity.UserClaim[ id=" + id + " ]";
+		return "com.pfchoice.springboot.model.UserClaim[ id=" + id + " ]";
 	}
 
 }

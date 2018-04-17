@@ -123,7 +123,7 @@ public class FileType extends RecordDetails implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.infocus.core.entity.FileType[ code=" + code + " ]";
+		return "com.pfchoice.springboot.model.FileType[ code=" + code + " ]";
 	}
 
 }

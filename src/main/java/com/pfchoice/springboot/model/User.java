@@ -187,7 +187,7 @@ public class User extends RecordDetails implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.infocus.core.entity.User[ id=" + id + "]";
+		return "com.pfchoice.springboot.model.User[ id=" + id + "]";
 	}
 
 }

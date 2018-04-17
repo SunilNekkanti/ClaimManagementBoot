@@ -126,7 +126,7 @@ public class RoleClaimStatusDetail implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.infocus.core.entity.RoleClaimStatusDetail[ id=" + id + " ]";
+		return "com.pfchoice.springboot.model.RoleClaimStatusDetail[ id=" + id + " ]";
 	}
 
 }

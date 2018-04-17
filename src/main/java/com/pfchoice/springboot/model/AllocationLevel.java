@@ -110,7 +110,7 @@ public class AllocationLevel extends RecordDetails implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.infocus.core.entity.AllocationLevel[ id=" + id + " ]";
+		return "com.pfchoice.springboot.model.AllocationLevel[ id=" + id + " ]";
 	}
 
 }

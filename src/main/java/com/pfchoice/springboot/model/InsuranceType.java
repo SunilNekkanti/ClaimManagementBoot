@@ -104,7 +104,7 @@ public class InsuranceType extends RecordDetails implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.infocus.core.entity.Insurance[ id=" + id + " ]";
+		return "com.pfchoice.springboot.model.Insurance[ id=" + id + " ]";
 	}
 
 }

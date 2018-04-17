@@ -151,7 +151,7 @@ public class UrlMonitor extends RecordDetails implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.infocus.core.entity.UserInsuranceLoginMonitor[ id=" + id + " ]";
+		return "com.pfchoice.springboot.model.UserInsuranceLoginMonitor[ id=" + id + " ]";
 	}
 
 }

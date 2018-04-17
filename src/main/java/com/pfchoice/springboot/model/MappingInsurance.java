@@ -117,7 +117,7 @@ public class MappingInsurance extends RecordDetails implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.infocus.core.entity.MappingInsurance[ id=" + id + " ]";
+		return "com.pfchoice.springboot.model.MappingInsurance[ id=" + id + " ]";
 	}
 
 }

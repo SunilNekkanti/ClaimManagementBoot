@@ -143,7 +143,7 @@ public class ClaimStatusDetail extends RecordDetails implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.infocus.core.entity.ClaimStatusDetail[ id=" + id + " ]";
+		return "com.pfchoice.springboot.model.ClaimStatusDetail[ id=" + id + " ]";
 	}
 
 }

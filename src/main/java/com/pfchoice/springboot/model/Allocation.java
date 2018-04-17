@@ -146,7 +146,7 @@ public class Allocation extends RecordDetails implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.infocus.core.entity.Allocation[ id=" + id + " ]";
+		return "com.pfchoice.springboot.model.Allocation[ id=" + id + " ]";
 	}
 
 }

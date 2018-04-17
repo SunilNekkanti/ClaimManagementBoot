@@ -183,7 +183,7 @@ public class UserAllocationLimit extends RecordDetails implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.infocus.core.entity.UserAllocationLimit[ id=" + id + " ]";
+		return "com.pfchoice.springboot.model.UserAllocationLimit[ id=" + id + " ]";
 	}
 
 }

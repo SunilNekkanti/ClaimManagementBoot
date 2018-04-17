@@ -147,7 +147,7 @@ public class ClaimScore extends RecordDetails implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.infocus.core.entity.ClaimScore[ id=" + id + " ]";
+		return "com.pfchoice.springboot.model.ClaimScore[ id=" + id + " ]";
 	}
 
 }

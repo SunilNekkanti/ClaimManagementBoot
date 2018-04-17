@@ -10,11 +10,7 @@ import com.pfchoice.springboot.configuration.JpaConfiguration;
 
 
 @Import(JpaConfiguration.class)
-@SpringBootApplication(scanBasePackages = { "com.pfchoice.springboot" }) // same
-																			// as
-																			// @Configuration
-																			// @EnableAutoConfiguration
-																			// @ComponentScan
+@SpringBootApplication(scanBasePackages = { "com.pfchoice.springboot" }) // same as @Configuration @EnableAutoConfiguration @ComponentScan
 @EnableAsync
 @EnableCaching
 public class SpringBootCRUDApp {
@@ -22,5 +18,5 @@ public class SpringBootCRUDApp {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootCRUDApp.class, args);
 	}
-
+	
 }

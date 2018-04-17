@@ -9,6 +9,7 @@ import com.pfchoice.springboot.repositories.ClaimRepository;
 import com.pfchoice.springboot.service.ClaimService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -129,9 +130,11 @@ public class ClaimServiceImpl implements ClaimService {
 	}
 	
 	@Override
+	@Cacheable("claims")
 	public List<ClaimDTO> getClaims(final int pageNo, final int pageSize, final int teamAssigments, final String sSearch,final String allocationDate,final String sort, final String sortdir,
 			final String practices, final String remarks, final String srvcDtFrom,final  String srvcDtTo,final String patientName, final String birthDate,final	String insurances, 
 			final String insuranceTypes,final Double chargesMin,final Double chargesMax,final String claimStatus,final String priorities,final	String userName, final Integer userId, final Integer roleId){
+		
 		
 		return claimRepository.getClaims( pageNo, pageSize, teamAssigments, sSearch, allocationDate, sort,  sortdir,
 				 practices, remarks, srvcDtFrom, srvcDtTo, patientName, birthDate,	insurances, 

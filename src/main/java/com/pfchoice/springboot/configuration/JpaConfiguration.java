@@ -110,8 +110,6 @@ public class JpaConfiguration {
 		properties.put("hibernate.hikari.maximumPoolSize",
 				environment.getRequiredProperty("datasource.claimManagement.hibernate.hikari.maximumPoolSize"));
 		
-	
-		
 		return properties;
 	}
 

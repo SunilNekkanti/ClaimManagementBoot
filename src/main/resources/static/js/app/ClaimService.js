@@ -41,6 +41,8 @@ app.service('ClaimService',
             insuranceTypes,  chargesMin,  chargesMax,  claimStatus,  priorities, userName,  
             ) {
                 console.log('Fetching  Claims');
+                console.log('pageNo'+pageNo);
+                console.log('length'+length);
                 var pageable = {
                   		 page:pageNo, size:length,sortCol:sortCol, sortDir:sortDir,search: search||'',
                   		 teamAssignments:teamAssignments,allocationDate:allocationDate,practices:practices, remarks:remarks,

@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  var app = angular.module('my-app', ['datatables','datatables.light-columnfilter', 'datatables.fixedheader', 'ui.bootstrap', 'datatables.bootstrap', , 'datatables.buttons', 'datatables.fixedcolumns', 'ui.router', 'ngStorage', 'ngAnimate', 'ngSanitize', 'btorfs.multiselect', 'oc.lazyLoad', 'ui.select']);
+  var app = angular.module('my-app', ['datatables','datatables.light-columnfilter', 'datatables.fixedheader', 'ui.bootstrap', 'datatables.bootstrap', 'datatables.colreorder' , 'datatables.buttons', 'datatables.fixedcolumns', 'ui.router', 'ngStorage', 'ngAnimate', 'ngSanitize', 'btorfs.multiselect', 'oc.lazyLoad', 'ui.select']);
   app.constant('urls', {
     BASE: '/ClaimManagement',
     USER_SERVICE_API: '/ClaimManagement/api/user/',

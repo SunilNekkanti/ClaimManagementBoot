@@ -15,9 +15,6 @@ email:
   mail.transport.protocol: smtp
   mail.debug: false
 ---
-  
-
- 
 
 spring:
   profiles:
@@ -90,11 +87,7 @@ datasource:
       cache: 
          use_second_level_cache: true
          use_query_cache: true
-         net: 
-          sf:
-            ehcache: 
-              hibernate: 
-                 cache_lock_timeout: 300
+         net.sf.ehcache.hibernate.cache_lock_timeout: 300
          region_prefix: ""
          region: 
            factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory

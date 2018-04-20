@@ -9,6 +9,7 @@
 
   <link rel="stylesheet" href="css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.3.2/css/colReorder.dataTables.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/plugins/bootstrap/datatables.bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.3/css/fixedHeader.dataTables.min.css"/>
   <link rel="stylesheet" href="css/bootstrap-datepicker.min.css" />
@@ -42,6 +43,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
   <script src="http://l-lin.github.io/angular-datatables/archives/vendor/datatables-light-columnfilter/dist/dataTables.lightColumnFilter.min.js"></script> 
   
+    <script src="https://cdn.datatables.net/colreorder/1.3.2/js/dataTables.colReorder.min.js"></script>
   <script src="https://cdn.datatables.net/fixedheader/3.1.3/js/dataTables.fixedHeader.min.js"></script>
   
   <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.colVis.min.js"></script>
@@ -57,7 +59,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/plugins/tabletools/angular-datatables.tabletools.min.js"></script>
   <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/plugins/light-columnfilter/angular-datatables.light-columnfilter.min.js"></script -->
 <script src="http://l-lin.github.io/angular-datatables/archives/dist/plugins/light-columnfilter/angular-datatables.light-columnfilter.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/plugins/fixedheader/angular-datatables.fixedheader.min.js"> </script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/plugins/colreorder/angular-datatables.colreorder.min.js"> </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/plugins/fixedheader/angular-datatables.fixedheader.min.js"> </script>
+
 
   <script src="js/app/app.js"></script>
   <script src="js/app/UserService.js"></script>

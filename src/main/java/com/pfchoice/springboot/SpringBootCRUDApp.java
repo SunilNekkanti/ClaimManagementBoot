@@ -1,5 +1,8 @@
 package com.pfchoice.springboot;
 
+import org.ehcache.CacheManager;
+import org.ehcache.config.builders.CacheManagerBuilder;
+import org.ehcache.xml.XmlConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;

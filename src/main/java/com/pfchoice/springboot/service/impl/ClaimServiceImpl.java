@@ -130,7 +130,7 @@ public class ClaimServiceImpl implements ClaimService {
 	}
 	
 	@Override
-	@Cacheable("claims")
+	//@Cacheable("claims")
 	public List<ClaimDTO> getClaims(final int pageNo, final int pageSize, final int teamAssigments, final String sSearch,final String allocationDate,final String sort, final String sortdir,
 			final String practices, final String remarks, final String srvcDtFrom,final  String srvcDtTo,final String patientName, final String birthDate,final	String insurances, 
 			final String insuranceTypes,final Double chargesMin,final Double chargesMax,final String claimStatus,final String priorities,final	String userName, final Integer userId, final Integer roleId){

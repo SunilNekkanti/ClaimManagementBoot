@@ -22,10 +22,10 @@ public class ClaimRepositoryImpl implements ClaimRepositoryCustom {
 			final String tableName, final Integer userId,	final Integer roleId) {
         StoredProcedureQuery claimStatuses =
               em.createNamedStoredProcedureQuery("claimStatuses");
-        claimStatuses.setParameter("firstPosition", 0);
-        claimStatuses.setParameter("pageSize", 10);
-        claimStatuses.setParameter("teamAssignment", 0);
-        claimStatuses.setParameter("search", "");
+        claimStatuses.setParameter("firstPosition", firstPosition);
+        claimStatuses.setParameter("pageSize", pageSize);
+        claimStatuses.setParameter("teamAssignment", teamAssignments);
+        claimStatuses.setParameter("search", sSearch);
         claimStatuses.setParameter("allocationDate", allocationDate);
         claimStatuses.setParameter("practices", practices);
         claimStatuses.setParameter("remarks", remarks);

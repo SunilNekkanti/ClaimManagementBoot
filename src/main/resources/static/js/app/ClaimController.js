@@ -2,19 +2,20 @@
   'use strict';
   var app = angular.module('my-app');
 
-  app.controller('ClaimController', ['ClaimService','ProviderService','InsuranceService','ClaimStatusService','ClaimStatusDetailService','ProviderInsuranceDetailsService','PriorityService','PracticeService', '$scope', '$compile', '$state', '$stateParams', 'DTOptionsBuilder', 'DTColumnBuilder', function(ClaimService,ProviderService,InsuranceService,ClaimStatusService,ClaimStatusDetailService,ProviderInsuranceDetailsService,PriorityService,PracticeService,$scope, $compile, $state, $stateParams, DTOptionsBuilder, DTColumnBuilder) {
+  app.controller('ClaimController', ['ClaimService', 'ProviderService', 'InsuranceService', 'ClaimStatusService', 'ClaimStatusDetailService', 'ProviderInsuranceDetailsService', 'PriorityService', 'PracticeService', '$scope', '$compile', '$state', '$stateParams', 'DTOptionsBuilder', 'DTColumnBuilder', function(ClaimService, ProviderService, InsuranceService, ClaimStatusService, ClaimStatusDetailService, ProviderInsuranceDetailsService, PriorityService, PracticeService, $scope, $compile, $state, $stateParams, DTOptionsBuilder, DTColumnBuilder) {
 
       var self = this;
+      self.finalData = [];
       self.claim = {};
       self.claims = [];
-      self.prvdrs=[];
-      self.insurances=[];
-      self.claimStatuss=[];
-      self.claimStatusDetails=[];
+      self.prvdrs = [];
+      self.insurances = [];
+      self.claimStatuss = [];
+      self.claimStatusDetails = [];
       self.providerInsuranceDetailss = [];
-      self.practices=[];
+      self.practices = [];
       self.prioritys = [];
-      
+      self.displayTables = [false, false, false, false, false, false, false];
       self.display = $stateParams.claimDisplay || false;;
       self.displayEditButton = false;
       self.submit = submit;
@@ -27,7 +28,7 @@
       self.getAllPrioritys = getAllPrioritys;
       self.getAllPractices = getAllPractices;
       self.setTeamAssignment = setTeamAssignment;
-      
+
       self.prvdrs = getAllProviders();
       self.insurances = getAllInsurances();
       self.claimStatuss = getAllClaimStatuses();
@@ -35,10 +36,16 @@
       self.providerInsuranceDetailss = getAllProviderInsuranceDetailss();
       self.prioritys = getAllPrioritys();
       self.practices = getAllPractices();
-      
+      self.generateData = generateData;
       self.editClaim = editClaim;
       self.addClaim = addClaim;
+      self.dtInstance = {};
       self.dt1Instance = {};
+      self.dt2Instance = {};
+      self.dt3Instance = {};
+      self.dt4Instance = {};
+      self.dt5Instance = {};
+      self.dt6Instance = {};
       self.claimId = null;
       self.reset = reset;
       self.claimEdit = claimEdit;
@@ -49,31 +56,39 @@
       self.onlyIntegers = /^\d+$/;
       self.onlyNumbers = /^\d+([,.]\d+)?$/;
       self.checkBoxChange = checkBoxChange;
-      self.teamAssignments=0;
-      self.allocationDate='';
-      self.practices='';
-      self.remarks='';
-      self.srvcDtFrom='';
-      self.srvcDtTo='';
-      self.patientName='';
-      self.birthDate='';
-      self.insurances='';
-      self.insuranceTypes='';
-      self.chargesMin=0;
-      self.chargesMax=9999999;
-      self.claimStatus='';
-      self.priorities='';
-      self.userName='';
-      
-      if(self.practices != null && self.practices.length > 0){
-          self.practice = self.practice || self.practices[0];
-       }else  {
-          self.practice = {};
-       }
-      
-    
-      
-      self.dt1Columns = [
+      self.teamAssignments = 0;
+      self.allocationDate = '';
+      self.practices = '';
+      self.remarks = '';
+      self.srvcDtFrom = '';
+      self.srvcDtTo = '';
+      self.patientName = '';
+      self.birthDate = '';
+      self.insurances = '';
+      self.insuranceTypes = '';
+      self.chargesMin = 0;
+      self.chargesMax = 9999999;
+      self.claimStatus = '';
+      self.priorities = '';
+      self.userName = '';
+      self.dt1InstanceCallback = dt1InstanceCallback;
+      self.dt2InstanceCallback = dt2InstanceCallback;
+
+      if (self.practices != null && self.practices.length > 0) {
+        self.practice = self.practice || self.practices[0];
+      } else {
+        self.practice = {};
+      }
+
+
+      function dt1InstanceCallback(dt1Instance) {
+        self.dt1Instance = dt1Instance;
+      }
+
+      function dt2InstanceCallback(dt2Instance) {
+        self.dt2Instance = dt2Instance;
+      }
+      self.dtColumns = [
         DTColumnBuilder.newColumn('lookup').withTitle('LOOKUP').renderWith(
           function(data, type, full,
             meta) {
@@ -87,42 +102,28 @@
         DTColumnBuilder.newColumn('charges').withTitle('CHARGES').withOption("width", '20%'),
         DTColumnBuilder.newColumn('statuses').withTitle('STATUS').withOption("width", '20%'),
         DTColumnBuilder.newColumn('priority').withTitle('PRIORITY').withOption("width", '20%')
-      
+
       ];
 
+      setTeamAssignment(0);
 
-      self.dt1Options = DTOptionsBuilder.newOptions()
-       .withDisplayLength(20)
-        .withOption('bServerSide', true)
-        .withOption('responsive', true)
-        .withOption("bLengthChange", false)
-        .withOption("bPaginate", true)
-        .withOption('bProcessing', true)
-        .withOption('bSaveState', true)
-        .withOption('searchDelay', 1000)
-        .withOption('createdRow', createdRow)
-        .withPaginationType('full_numbers')
-        .withOption('ordering', true)
-        .withOption('order', [[0, 'ASC']])
-        .withOption('aLengthMenu', [[15, 20, -1],[15, 20, "All"]])
-        .withOption('bDeferRender', true)
-        .withFixedHeader({bottom: true})
-        .withLightColumnFilter({
-          '0' : { },
-          '1' : {  html: 'input',type : 'dateRange' },
-          '2' : {  html: 'input',type : 'text' },
-          '3' : { html: 'input',type : 'select' },
-          '4' : { type : 'text' },
-          '5' : { type : 'text' }
-        })
-        .withFnServerData(serverData);
-        
+      function createdRow(row, data, dataIndex) {
+        // Recompiling so we can bind Angular directive to the DT
+        $compile(angular.element(row).contents())($scope);
+      }
+
+      function checkBoxChange(checkStatus, claimId) {
+        self.displayEditButton = checkStatus;
+        self.claimId = claimId;
+
+      }
+
       function serverData(sSource, aoData, fnCallback) {
 
-
+        console.log('inside serverData');
         // All the parameters you need is in the aoData
         // variable
-    	var pracId=(self.practice === undefined || self.practice === null)? 0 : self.practice.id;
+        var pracId = (self.practice === undefined || self.practice === null) ? 0 : self.practice.id;
         var order = aoData[2].value;
         var page = aoData[3].value / aoData[4].value;
         var length = aoData[4].value;
@@ -136,44 +137,31 @@
         var sortCol = '';
         var sortDir = '';
         // extract sort information
-        if (paramMap['columns'] !== undefined && paramMap['columns'] !== null && paramMap['order'] !== undefined && paramMap['order'] !== null) {
-          sortCol = paramMap['columns'][paramMap['order'][0]['column']].data;
-          sortDir = paramMap['order'][0]['dir'];
-        }
-
+        //  if (paramMap['columns'] !== undefined && paramMap['columns'] !== null && paramMap['order'] !== undefined && paramMap['order'] !== null) {
+        //     sortCol = paramMap['columns'][paramMap['order'][0]['column']].data;
+        //     sortDir = paramMap['order'][0]['dir'];
+        //  }
+        console.log('before service call search.value ' + search.value);
         // Then just call your service to get the
         // records from server side
-            
         ClaimService
           .loadClaims(page, length, search.value, sortCol, sortDir,
-          self.teamAssignments,   self.allocationDate,
-            self.practices,  self.remarks,  self.srvcDtFrom,  self.srvcDtTo,  self.patientName,  self.birthDate,	self.insurances,
-            self.insuranceTypes,  self.chargesMin,  self.chargesMax,  self.claimStatus,  self.priorities, self.userName
-            )
+            self.teamAssignments, self.allocationDate,
+            self.practices, self.remarks, self.srvcDtFrom, self.srvcDtTo, self.patientName, self.birthDate, self.insurances,
+            self.insuranceTypes, self.chargesMin, self.chargesMax, self.claimStatus, self.priorities, self.userName
+          )
           .then(
             function(result) {
+              console.log('Fn server data result', result);
               var records = {
                 'recordsTotal': result.data.totalElements || 0,
                 'recordsFiltered': result.data.totalElements || 0,
                 'data': result.data || {}
               };
               fnCallback(records);
-              
+
             });
       }
-
-
-      function createdRow(row, data, dataIndex) {
-        // Recompiling so we can bind Angular directive to the DT
-        $compile(angular.element(row).contents())($scope);
-      }
-
-      function checkBoxChange(checkStatus, claimId) {
-        self.displayEditButton = checkStatus;
-        self.claimId = claimId;
-
-      }
-
 
       function submit() {
         console.log('Submitting');
@@ -186,8 +174,6 @@
         }
         self.displayEditButton = false;
       }
- 
-
 
 
       function getAllClaims() {
@@ -195,48 +181,41 @@
 
         return self.claims;
       }
-      
-      function getAllClaimStatuses(){
-      	self.claimStatuses = ClaimStatusService.getAllClaimStatuses();
-//          console.log('self.claimStatuss',self.claimStatuses);
-          return self.claimStatuses;
+
+      function getAllClaimStatuses() {
+        self.claimStatuses = ClaimStatusService.getAllClaimStatuses();
+        return self.claimStatuses;
       }
 
-      function getAllClaimStatusDetailes(){
-      	self.claimStatusDetailes = ClaimStatusDetailService.getAllClaimStatusDetailes();
-    //      console.log('self.claimStatusDetails',self.claimStatusDetailes);
-          return self.claimStatusDetailes;
+      function getAllClaimStatusDetailes() {
+        self.claimStatusDetailes = ClaimStatusDetailService.getAllClaimStatusDetailes();
+        return self.claimStatusDetailes;
       }
 
       function getAllProviders() {
-          self.prvdrs = ProviderService.getAllProviders();
-      //    console.log('self.prvdrs',self.prvdrs);
-          return self.prvdrs;
-        }
-      
+        self.prvdrs = ProviderService.getAllProviders();
+        return self.prvdrs;
+      }
+
       function getAllInsurances() {
-          self.insurances = InsuranceService.getAllInsurances();
-      //    console.log('self.insurances',self.insurances);
-          return self.insurances;
-        }
-      
+        self.insurances = InsuranceService.getAllInsurances();
+        return self.insurances;
+      }
+
       function getAllProviderInsuranceDetailss() {
-          self.providerInsuranceDetailss = ProviderInsuranceDetailsService.getAllProviderInsuranceDetailss();
-     //     console.log('self.providerInsuranceDetailss',self.providerInsuranceDetailss);
-          return self.providerInsuranceDetailss;
-        }
-      
+        self.providerInsuranceDetailss = ProviderInsuranceDetailsService.getAllProviderInsuranceDetailss();
+        return self.providerInsuranceDetailss;
+      }
+
       function getAllPrioritys() {
-          self.prioritys = PriorityService.getAllPrioritys();
-      //    console.log('self.prioritys',self.prioritys);
-          return self.prioritys;
-        }
-      
+        self.prioritys = PriorityService.getAllPrioritys();
+        return self.prioritys;
+      }
+
       function getAllPractices() {
-          self.practices = PracticeService.getAllPractices();
-      //    console.log('self.practices',self.practices);
-          return self.practices;
-        }
+        self.practices = PracticeService.getAllPractices();
+        return self.practices;
+      }
 
       function editClaim(id) {
         self.successMessage = '';
@@ -289,15 +268,185 @@
         self.errorMessage = '';
         self.display = true;
       }
-      
-      function setTeamAssignment(teamAssignment){
-      self.teamAssignments =teamAssignment;
-      alert('self.dt1Instance', JSON.stringify(self.dt1Instance));
-      self.dt1Instance.rerender;
+
+      function setTeamAssignment(teamAssignment) {
+        self.teamAssignments = teamAssignment;
+        generateData(false);
+      }
+
+      function generateData(resetvalue) {
+
+        if (resetvalue) {
+          self.finalData = [];
+        }
+        switch (self.teamAssignments) {
+          case 1:
+            self.dt1Options = DTOptionsBuilder.newOptions().withBootstrap()
+              .withDOM('ftip')
+              .withDisplayLength(20)
+              .withOption('bServerSide', true)
+              .withOption('searchDelay', 1000)
+              .withOption('bProcessing', true)
+              .withOption('bResponsive', true)
+              .withOption('bSaveState', true)
+              .withOption('createdRow', createdRow)
+              .withOption('bDeferRender', true)
+              .withColReorder()
+              .withFixedHeader({
+                bottom: true
+              })
+              .withFnServerData(serverData)
+              .withOption('bDestroy', true);
+            self.displayTables[self.teamAssignments] = true;
+            break;
+
+          case 2:
+            self.dt2Options = DTOptionsBuilder.newOptions().withBootstrap()
+              .withDOM('ftip')
+              .withDisplayLength(20)
+              .withOption('bServerSide', true)
+              .withOption('searchDelay', 5000)
+              .withOption('bProcessing', true)
+              .withOption('bResponsive', true)
+              .withOption('bSaveState', true)
+              .withOption('createdRow', createdRow)
+              .withOption('bDeferRender', true)
+              .withColReorder()
+              .withFixedHeader({
+                bottom: true
+              })
+              .withFnServerData(serverData)
+              .withOption('bDestroy', true);
+            self.displayTables[self.teamAssignments] = true;
+            break;
+
+          case 3:
+            self.dt3Options = DTOptionsBuilder.newOptions().withBootstrap()
+              .withDisplayLength(20)
+              .withDOM('ftip')
+              .withOption('bServerSide', true)
+              .withOption('bSort', false)
+              .withOption('searchDelay', 5000)
+              .withOption('bProcessing', true)
+              .withOption('bResponsive', true)
+              .withOption('bSaveState', true)
+              .withOption('createdRow', createdRow)
+              .withOption('bDeferRender', true)
+              .withColReorder()
+              .withFixedHeader({
+                bottom: true
+              })
+              .withFnServerData(serverData)
+              .withOption('bDestroy', true);
+            self.displayTables[self.teamAssignments] = true;
+            break;
+
+          case 4:
+            self.dt4Options = DTOptionsBuilder.newOptions().withBootstrap()
+              .withDisplayLength(20)
+              .withDOM('ftip')
+              .withOption('bServerSide', true)
+              .withOption('bSort', false)
+              .withOption('bSaveState', true)
+              .withOption('searchDelay', 5000)
+              .withOption('bProcessing', true)
+              .withOption('bResponsive', true)
+              .withOption('createdRow', createdRow)
+              .withOption('bDeferRender', true)
+              .withColReorder()
+              .withFixedHeader({
+                bottom: true
+              })
+              .withFnServerData(serverData)
+              .withOption('bDestroy', true);
+            self.displayTables[self.teamAssignments] = true;
+            break;
+          case 5:
+            self.dt5Options = DTOptionsBuilder.newOptions().withBootstrap()
+              .withDisplayLength(20)
+              .withDOM('ftip')
+              .withOption('bServerSide', true)
+              .withOption('bSort', false)
+              .withOption('searchDelay', 5000)
+              .withOption('bProcessing', true)
+              .withOption('bResponsive', true)
+              .withOption('bSaveState', true)
+              .withOption('createdRow', createdRow)
+              .withOption('bDeferRender', true)
+              .withColReorder()
+              .withFixedHeader({
+                bottom: true
+              })
+              .withFnServerData(serverData)
+              .withOption('bDestroy', true);
+            self.displayTables[self.teamAssignments] = true;
+            break;
+          case 6:
+            self.dt6Options = DTOptionsBuilder.newOptions().withBootstrap()
+              .withDisplayLength(20)
+              .withDOM('ftip')
+              .withOption('bServerSide', true)
+              .withOption('bSort', false)
+              .withOption('searchDelay', 5000)
+              .withOption('bProcessing', true)
+              .withOption('bResponsive', true)
+              .withOption('bSaveState', true)
+              .withOption('createdRow', createdRow)
+              .withOption('bDeferRender', true)
+              .withColReorder()
+              .withFixedHeader({
+                bottom: true
+              })
+              .withFnServerData(serverData)
+              .withOption('bDestroy', true);
+            self.displayTables[self.teamAssignments] = true;
+            break;
+          default:
+            console.log('case 0');
+            self.dtOptions = DTOptionsBuilder.newOptions().withBootstrap()
+              .withDOM('ftip')
+              .withDisplayLength(20)
+              .withOption('bServerSide', true)
+              .withOption('bSort', false)
+              .withOption('searchDelay', 5000)
+              .withOption('bProcessing', true)
+              .withOption('bResponsive', true)
+              .withOption("bPaginate", true)
+              .withOption('bSaveState', true)
+              .withOption('createdRow', createdRow)
+              .withOption('bDeferRender', true)
+              .withOption('scrollY', '450')
+              .withOption('scrollX', '716')
+              .withLightColumnFilter({
+                '0': {},
+                '1': {
+                  html: 'input',
+                  type: 'dateRange'
+                },
+                '2': {
+                  html: 'input',
+                  type: 'text'
+                },
+                '3': {
+                  html: 'input',
+                  type: 'select'
+                },
+                '4': {
+                  type: 'text'
+                },
+                '5': {
+                  type: 'text'
+                }
+              })
+              .withFnServerData(serverData)
+              .withOption('bDestroy', true);
+            self.displayTables[self.teamAssignments] = true;
+            console.log('case 0 end');
+            break;
+        }
+
       }
 
     }
-
-
   ]);
 })();

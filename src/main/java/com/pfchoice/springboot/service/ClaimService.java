@@ -46,7 +46,7 @@ public interface ClaimService {
 
 	boolean isClaimExist(Claim claim);
 	
-	List<ClaimDTO> getClaims(int pageNo, int pageSize, int teamAssigments, String sSearch, String allocationDate, String sort, String sortdir,
+	Page<ClaimDTO> getClaims(int pageNo, int pageSize, int teamAssigments, String sSearch, String allocationDate, String sort, String sortdir,
 			String practices, String remarks, String srvcDtFrom, String srvcDtTo, String patientName, String birthDate,	String insurances, 
 			String insuranceTypes, Double chargesMin, Double chargesMax, String claimStatus, String priorities,	String userName, Integer userId, Integer roleId);
 

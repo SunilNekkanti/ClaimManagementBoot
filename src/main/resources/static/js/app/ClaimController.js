@@ -119,8 +119,6 @@
       }
 
       function serverData(sSource, aoData, fnCallback) {
-
-        console.log('inside serverData');
         // All the parameters you need is in the aoData
         // variable
         var pracId = (self.practice === undefined || self.practice === null) ? 0 : self.practice.id;
@@ -141,7 +139,6 @@
         //     sortCol = paramMap['columns'][paramMap['order'][0]['column']].data;
         //     sortDir = paramMap['order'][0]['dir'];
         //  }
-        console.log('before service call search.value ' + search.value);
         // Then just call your service to get the
         // records from server side
         ClaimService
@@ -152,11 +149,10 @@
           )
           .then(
             function(result) {
-              console.log('Fn server data result', result);
               var records = {
                 'recordsTotal': result.data.totalElements || 0,
                 'recordsFiltered': result.data.totalElements || 0,
-                'data': result.data || {}
+                'data': result.data.content || {}
               };
               fnCallback(records);
 
@@ -402,16 +398,16 @@
             self.displayTables[self.teamAssignments] = true;
             break;
           default:
-            console.log('case 0');
             self.dtOptions = DTOptionsBuilder.newOptions().withBootstrap()
               .withDOM('ftip')
               .withDisplayLength(20)
               .withOption('bServerSide', true)
               .withOption('bSort', false)
-              .withOption('searchDelay', 5000)
+              .withOption('searchDelay', 1000)
               .withOption('bProcessing', true)
               .withOption('bResponsive', true)
               .withOption("bPaginate", true)
+              .withPaginationType('full_numbers')
               .withOption('bSaveState', true)
               .withOption('createdRow', createdRow)
               .withOption('bDeferRender', true)
@@ -441,7 +437,6 @@
               .withFnServerData(serverData)
               .withOption('bDestroy', true);
             self.displayTables[self.teamAssignments] = true;
-            console.log('case 0 end');
             break;
         }
 

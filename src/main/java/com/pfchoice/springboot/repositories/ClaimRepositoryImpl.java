@@ -6,6 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+
 import com.pfchoice.springboot.model.ClaimDTO;
 
 public class ClaimRepositoryImpl implements ClaimRepositoryCustom {
@@ -16,13 +20,13 @@ public class ClaimRepositoryImpl implements ClaimRepositoryCustom {
 
     @SuppressWarnings("unchecked")
 	@Override
-    public List<ClaimDTO> getClaims(final int firstPosition, final int pageSize, final int teamAssignments, final String sSearch, final String allocationDate, final String sort, final String sortdir, 
+    public Page<ClaimDTO> getClaims(final int pageNo, final int pageSize, final int teamAssignments, final String sSearch, final String allocationDate, final String sort, final String sortdir, 
 			final String practices, final String remarks, final String srvcDtFrom, final String srvcDtTo, final String patientName, final String birthDate,	final String insurances, 
 			final String insuranceTypes, final Double chargesMin, final Double chargesMax, final String claimStatus, final String priorities,	
 			final String tableName, final Integer userId,	final Integer roleId) {
         StoredProcedureQuery claimStatuses =
               em.createNamedStoredProcedureQuery("claimStatuses");
-        claimStatuses.setParameter("firstPosition", firstPosition);
+        claimStatuses.setParameter("firstPosition", pageNo);
         claimStatuses.setParameter("pageSize", pageSize);
         claimStatuses.setParameter("teamAssignment", teamAssignments);
         claimStatuses.setParameter("search", sSearch);
@@ -43,8 +47,11 @@ public class ClaimRepositoryImpl implements ClaimRepositoryCustom {
         claimStatuses.setParameter("userId", userId);
         claimStatuses.setParameter("roleId", roleId);
 
-        return (List<ClaimDTO>) claimStatuses.getResultList();
+        List<ClaimDTO>  claimList = (List<ClaimDTO>) claimStatuses.getResultList();
+        Integer cnt = claimList.size()> 0?claimList.get(0).getCnt():0;
         
+        return new PageImpl<ClaimDTO>(claimList, new PageRequest(pageNo, pageSize), cnt);
+   
     }
     
 }

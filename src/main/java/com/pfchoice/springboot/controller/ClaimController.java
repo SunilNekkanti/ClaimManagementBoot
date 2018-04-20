@@ -1,11 +1,9 @@
 package com.pfchoice.springboot.controller;
 
-import java.util.List;
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
@@ -70,17 +68,17 @@ public class ClaimController {
 		         sortCol =  order.getProperty();
 		         sortDir = order.getDirection().toString() ;
 		    }*/
-		List<ClaimDTO> claims = claimService.getClaims(pageRequest.getPageNumber(), pageRequest.getPageSize(),teamAssignments, search, allocationDate, 
+		Page<ClaimDTO> claims = claimService.getClaims(pageRequest.getPageNumber(), pageRequest.getPageSize(),teamAssignments, search, allocationDate, 
 				"" , "",  practices, remarks, srvcDtFrom, srvcDtTo, patientName, birthDate,	insurances, 
 				  insuranceTypes, chargesMin, chargesMax, claimStatus, priorities,	
 				  username,   userId,	  roleId);
 	
-		if (claims.size() == 0) {
+		if (claims.getNumberOfElements() == 0) {
 			System.out.println("no claims");
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 			// You many decide to return HttpStatus.NOT_FOUND
 		}
-		return new ResponseEntity<List<ClaimDTO>>(claims, HttpStatus.OK);
+		return new ResponseEntity<Page<ClaimDTO>>(claims, HttpStatus.OK);
 	}
 
 	// -------------------Retrieve Single

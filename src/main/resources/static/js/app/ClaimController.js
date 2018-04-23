@@ -70,14 +70,18 @@
     self.priorities = '';
     self.userName = '';
 
-console.log('insurnaces***********',self.insurances);
     if (self.practices != null && self.practices.length > 0) {
       self.practice = self.practice || self.practices[0];
     } else {
       self.practice = {};
     }
+    
+    self.filterInsList =[];
+    self.insurances.forEach(function(ins){ 
+       self.filterInsList.push( {value:ins.id, label:ins.name});
+    } );
 
-
+     console.log('self.filterInsList',self.filterInsList);
 
     self.dtColumns = [
       DTColumnBuilder.newColumn('lookup').withTitle('LOOKUP').renderWith(
@@ -122,7 +126,11 @@ console.log('insurnaces***********',self.insurances);
         bottom: true
       })
       .withLightColumnFilter({
-        '0': {},
+        '0': {
+          html: 'input',
+          type: 'select',
+          values:self.filterPracList
+          },
         '1': {
           html: 'range',
           type: 'dateRange',
@@ -140,7 +148,7 @@ console.log('insurnaces***********',self.insurances);
         '4': {
           html: 'input',
           type: 'select',
-          value:self.insurances
+          values:self.filterInsList
         },
         '5': {
           html: 'input',
@@ -153,7 +161,6 @@ console.log('insurnaces***********',self.insurances);
         })
       .withFnServerData(serverData)
       .withOption('bDestroy', true);
-
 
     
   //  setTeamAssignment(0);
@@ -184,9 +191,6 @@ console.log('insurnaces***********',self.insurances);
       self.selectedInsurances = aoData[1].value[4]['search'].value || '';
       self.insuranceTypes = aoData[1].value[5]['search'].value || '';
       
-       console.log ('self.insurances',self.insurances );
-      
-
       var paramMap = {};
       for (var i = 0; i < aoData.length; i++) {
         paramMap[aoData[i].name] = aoData[i].value;

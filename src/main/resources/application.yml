@@ -28,12 +28,16 @@ spring:
   profiles: local,default
   jpa:
    properties:
-    hibernate:
-     jdbc:
-      time_zone: America/Indiana/Indianapolis
+    hibernate.jdbc.time_zone: America/Indiana/Indianapolis
+    hibernate.dbc.time_zone: America/Indiana/Indianapolis
+    hibernate.cache.use_second_level_cache: true
+    hibernate.cache.use_query_cache: true
+    hibernate.generate_statistics: true
+    hibernate.cache.region.factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+    hibernate.javax.cache.provider: org.ehcache.jsr107.EhcacheCachingProvider
   cache:
    ehcache:
-    config: ehcache.xml
+    config: classpath:ehcache.xml
 envProperties:
       filesUploadDirectory:  C:\\ProgramData\\MySQL\\MySQL Server 5.6\\Uploads\\
       sqlDirectoryPath: c:\\softwares\\gitworkspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Pras\\WEB-INF\\classes\\sql\\

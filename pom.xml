@@ -112,6 +112,26 @@
 			<version>3.9</version>
 		</dependency>
 
+  <!-- Hibernate Jcache -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-jcache</artifactId>
+      <version>5.2.10.Final</version>
+    </dependency>
+    
+ <!-- Spring Framework Caching Support -->
+    <dependency>
+    		<groupId>org.ehcache</groupId>
+    		<artifactId>ehcache</artifactId>
+    		<version>3.5.0</version> 
+  		</dependency>
+        
+		 <dependency>
+		      <groupId>javax.cache</groupId>
+		      <artifactId>cache-api</artifactId>
+		      <version>1.1.0</version> 
+		</dependency>
+		
  <!-- Spring Framework Caching Support -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

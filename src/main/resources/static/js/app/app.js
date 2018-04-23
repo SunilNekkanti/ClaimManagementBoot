@@ -4,67 +4,27 @@
   app.constant('urls', {
     BASE: '/ClaimManagement',
     USER_SERVICE_API: '/ClaimManagement/api/user/',
-    MEMBERSHIP_SERVICE_API: '/ClaimManagement/api/membership/',
-    MEMBERSHIP_FOLLOWUP_SERVICE_API: '/ClaimManagement/api/membershipFollowup/',
-    MEMBERSHIP_ACTIVITY_SERVICE_API: '/ClaimManagement/api/membershipActivityMonth/',
     INSURANCE_SERVICE_API: '/ClaimManagement/api/insurance/',
     MAPPING_INSURANCE_SERVICE_API: '/ClaimManagement/api/mappingInsurance/',
     PROVIDER_INSURANCE_DETAILS_SERVICE_API: '/ClaimManagement/api/providerInsuranceDetails/',
-    LEAD_SERVICE_API: '/ClaimManagement/api/lead/',
-    GENDER_SERVICE_API: '/ClaimManagement/api/gender/',
     CLAIM_SERVICE_API: '/ClaimManagement/api/claim/',
-    HOSPITAL_SERVICE_API: '/ClaimManagement/api/hospital/',
     ROLE_SERVICE_API: '/ClaimManagement/api/role/',
     PRIORITY_SERVICE_API: '/ClaimManagement/api/priority/',
     PRACTICE_SERVICE_API: '/ClaimManagement/api/practice/',
     STATE_SERVICE_API: '/ClaimManagement/api/state/',
-    STATUS_SERVICE_API: '/ClaimManagement/api/membershipStatus/',
-    REPORTMONTH_SERVICE_API: '/ClaimManagement/api/membershipClaimReportMonth/',
-    PAYMENT_YEARS_SERVICE_API: '/ClaimManagement/api/paymentYears/',
-    LANGUAGE_SERVICE_API: '/ClaimManagement/api/language/',
     PLANTYPE_SERVICE_API: '/ClaimManagement/api/planType/',
     FILE_TYPE_SERVICE_API: '/ClaimManagement/api/fileType/',
     FILE_SERVICE_API: '/ClaimManagement/api/file/',
     FREQUENCY_TYPE_SERVICE_API: '/ClaimManagement/api/frequencyType/',
-    MLR_SERVICE_API: '/ClaimManagement/api/medicalLossRatio/',
-    NEW_MLR_SERVICE_API: '/ClaimManagement/api/newMedicalLossRatio/',
-    NEW_MLR_SUMMARY_SERVICE_API: '/ClaimManagement/api/newMedicalLossRatioSummary/',
-    CLAIM_REPORT_SERVICE_API: '/ClaimManagement/api/membershipClaimsReport/',
-    CLAIM_RISK_CATEGORY_SERVICE_API: '/ClaimManagement/api/membershipClaimRiskCategory/',
-    HEDIS_REPORT_SERVICE_API: '/ClaimManagement/api/hedisReport/',
-    HEDIS_REPORT_MEMBERSHIP_SERVICE_API: '/ClaimManagement/api/membershipHedisMeasure/',
-    MEMBERSHIP_FOLLOWUPDETAILS_SERVICE_API: '/ClaimManagement/api/membershipFollowupDetails/',
-    MEMBERSHIP_PROBLEM_SERVICE_API: '/ClaimManagement/api/membershipProblem/',
-    PLACE_OF_SERVICE_API: '/ClaimManagement/api/placeOfService/',
-    CATEGORY_SERVICE_API: '/ClaimManagement/api/riskRecon/',
     ALLOCATION_LEVEL_SERVICE_API: '/ClaimManagement/api/allocationLevel/',
-    
-    ICD_MEASURE_SERVICE_API: '/ClaimManagement/api/icdMeasure/',
-    HEDIS_MEASURE_SERVICE_API: '/ClaimManagement/api/hedisMeasure/',
-    HEDIS_MEASURE_RULE_SERVICE_API: '/ClaimManagement/api/hedisMeasureRule/',
-    PROBLEM_SERVICE_API: '/ClaimManagement/api/problem/',
-    HEDIS_MEASURE_GROUP_SERVICE_API: '/ClaimManagement/api/hedisMeasureGroup/',
     PROVIDER_SERVICE_API: '/ClaimManagement/api/provider/',
     FACILITYTYPE_SERVICE_API: '/ClaimManagement/api/facilityType/',
-    EVENT_SERVICE_API: '/ClaimManagement/api/event/',
-    EVENT_ASSIGNMENT_SERVICE_API: '/ClaimManagement/api/eventAssignment/',
     LOGIN_USER: '/ClaimManagement/getloginInfo',
     FILE_UPLOADER: '/ClaimManagement/api/fileUpload/fileProcessing.do',
     CONTRACT_FILE_UPLOADER: '/ClaimManagement/api/contractFileUpload/fileProcessing.do',
     CONSENT_FORM_FILE_UPLOADER: '/ClaimManagement/api/fileUpload/consentFormFileProcessing.do',
     COUNTY_SERVICE_API: '/ClaimManagement/api/county/',
-    EVENT_FREQUENCY_SERVICE_API: '/ClaimManagement/api/eventFrequency/',
-    EVENT_MONTH_SERVICE_API: '/ClaimManagement/api/eventMonth/',
-    EVENT_WEEKDAY_SERVICE_API: '/ClaimManagement/api/eventWeekDay/',
     FILE_UPLOADED_SERVICE_API: '/ClaimManagement/api/fileUploaded/',
-    EVENT_WEEKNUMBER_SERVICE_API: '/ClaimManagement/api/eventWeekNumber/',
-    BESTTIMETOCALL_SERVICE_API: '/ClaimManagement/api/bestTimeToCall/',
-    CALCULATE_RISK_SCORE_SERVICE_API: '/ClaimManagement/api/calculateRiskScore/',
-    MLR_REPORTING_YEARS_SERVICE_API: '/ClaimManagement/api/newMedicalLossRatio/reportingYears/',
-    LEADSTATUS_SERVICE_API: '/ClaimManagement/api/leadStatus/',
-    LEAD_FLAG_SERVICE_API: '/ClaimManagement/api/leadMembershipFlag/',
-    LEADSTATUS_DETAIL_SERVICE_API: '/ClaimManagement/api/leadStatusDetail/',
-    EVENTTYPE_SERVICE_API: '/ClaimManagement/api/eventType/',
     TARGET_SERVICE_API: '/ClaimManagement/api/target/',
     ALLOCATION_LEVEL_SERVICE_API: '/ClaimManagement/api/allocationLevel/',
     ALLOCATION_SERVICE_API: '/ClaimManagement/api/allocation/',
@@ -150,18 +110,6 @@
           files: ['js/app/RoleService.js', 'js/app/ClaimStatusService.js','js/app/ClaimStatusDetailService.js','js/app/PriorityService.js','js/app/RoleController.js']
         }, {
           serie: true,
-          name: 'main.lead',
-          files: ['js/app/LeadMembershipFlagModalInstanceController.js','js/app/LeadMembershipFlagService.js', 'js/app/FileUploadService.js', 'js/app/BestTimeToCallService.js', 'js/app/LeadStatusService.js', 'js/app/LeadStatusDetailService.js', 'js/app/LeadService.js', 'js/app/LeadController.js']
-        }, {
-          serie: true,
-          name: 'main.leadStatus',
-          files: ['js/app/LeadStatusService.js', 'js/app/LeadStatusController.js']
-        }, {
-          serie: true,
-          name: 'main.membership',
-          files: ['js/app/ICDMeasureService.js', 'js/app/MembershipProblemService.js', 'js/app/MembershipService.js', 'js/app/MembershipStatusService.js', 'js/app/UserService.js', 'js/app/MembershipController.js']
-        }, {
-          serie: true,
           name: 'main.provider',
           files: ['js/app/ProviderService.js', 'js/app/RefContractInsuranceService.js', 'js/app/FileUploadService.js', 'js/app/ProviderController.js','js/app/PracticeService.js']
         }, 
@@ -185,33 +133,11 @@
             serie: true,
             files: ['js/app/MappingInsuranceService.js','js/app/FileUploadService.js', 'js/app/MappingInsuranceController.js']
           },
-         {
-          name: 'main.cpt',
-          serie: true,
-          files: ['js/app/CPTMeasureService.js', 'js/app/CPTMeasureController.js']
-        }, {
-          name: 'main.icd',
-          serie: true,
-          files: ['js/app/ICDMeasureService.js', 'js/app/ICDMeasureController.js']
-        },
           {
             name: 'main.claim',
             serie: true,
             files: ['js/app/ClaimService.js', 'js/app/ClaimController.js','js/app/ProviderService.js','js/app/InsuranceService.js','js/app/ClaimStatusService.js','js/app/ClaimStatusDetailService.js','js/app/ProviderInsuranceDetailsService.js','js/app/PriorityService.js','js/app/PracticeService.js']
-          }
-        , {
-          name: 'main.riskScore',
-          serie: true,
-          files: ['js/app/RiskScoreService.js', 'js/app/RiskScoreController.js']
-        }, {
-          name: 'main.hedis',
-          serie: true,
-          files: ['js/app/HedisMeasureService.js', 'js/app/HedisMeasureGroupService.js', 'js/app/HedisMeasureController.js']
-        }, {
-          name: 'main.hedisGroup',
-          serie: true,
-          files: ['js/app/HedisMeasureGroupService.js', 'js/app/HedisMeasureGroupController.js']
-        },
+          },
         {
         	 name: 'main.target',
              serie: true,
@@ -222,15 +148,7 @@
             serie: true,
             files: ['js/app/ProviderInsuranceDetailsService.js', 'js/app/ProviderInsuranceDetailsController.js','js/app/InsuranceService.js','js/app/PracticeService.js','js/app/RoleService.js','js/app/ProviderService.js',]
        },
-        {
-          name: 'main.problem',
-          serie: true,
-          files: ['js/app/ICDMeasureService.js', 'js/app/ProblemService.js', 'js/app/ProblemController.js']
-        }, {
-          name: 'main.hedisMeasureRule',
-          serie: true,
-          files: ['js/app/CPTMeasureService.js', 'js/app/ICDMeasureService.js', 'js/app/ModalInstanceController.js', 'js/app/HedisMeasureRuleService.js', 'js/app/ICDMeasureService.js', 'js/app/ProblemService.js', 'js/app/HedisMeasureService.js', 'js/app/FrequencyTypeService.js', 'js/app/HedisMeasureRuleController.js']
-        }, {
+         {
           name: 'main.frequencyType',
           serie: true,
           files: ['js/app/FrequencyTypeService.js', 'js/app/FrequencyTypeController.js']
@@ -277,39 +195,10 @@
           name: 'main.roomType',
           serie: true,
           files: ['js/app/PlaceOfServiceService.js', 'js/app/PlaceOfServiceController.js']
-        }, 
-        {
-          name: 'main.hospital',
-          serie: true,
-          files: ['js/app/HospitalService.js', 'js/app/HospitalController.js']
         }, {
           name: 'main.fileUpload',
           serie: true,
           files: ['js/app/FileTypeService.js', 'js/app/FileService.js', 'js/app/FileUploadService.js', 'js/app/FileController.js']
-        }, {
-          name: 'main.medicalLossRatio',
-          serie: true,
-          files: ['js/app/MedicalLossRatioService.js', 'js/app/RiskReconService.js', 'js/app/MedicalLossRatioController.js']
-        }, {
-          name: 'main.newMedicalLossRatio',
-          serie: true,
-          files: ['js/app/NewMedicalLossRatioService.js', 'js/app/RiskReconService.js', 'js/app/NewMedicalLossRatioController.js']
-        }, {
-          name: 'main.membershipActivityMonth',
-          serie: true,
-          files: ['js/app/MembershipService.js', 'js/app/MembershipActivityMonthController.js']
-        }, {
-          name: 'main.membershipProblem',
-          serie: true,
-          files: ['js/app/MembershipService.js', 'js/app/ProblemService.js', 'js/app/MembershipProblemController.js']
-        }, {
-          name: 'main.membershipClaims',
-          serie: true,
-          files: ['js/app/MembershipClaimsService.js', 'js/app/RiskReconService.js', 'js/app/MembershipClaimsController.js']
-        }, {
-          name: 'main.membershipHedis',
-          serie: true,
-          files: ['js/app/HedisReportModalInstanceController.js', 'js/app/MembershipClaimsService.js', 'js/app/HedisMeasureRuleService.js', 'js/app/MembershipHedisService.js', 'js/app/MembershipHedisMeasureService.js', 'js/app/MembershipFollowupService.js', 'js/app/MembershipHedisController.js']
         }]
 
       });
@@ -401,54 +290,6 @@
             }]
           }
         })
-        .state('main.lead', {
-          url: '/lead',
-          templateUrl: 'partials/lead_list',
-          controller: 'LeadController',
-          controllerAs: 'ctrl',
-          resolve: {
-            loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.lead');
-            }],
-            statuses: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              var LeadStatusService = $injector.get("LeadStatusService");
-              console.log('Load all  statuses');
-              var deferred = $q.defer();
-              LeadStatusService.loadAllLeadStatuses().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }],
-            bestTimeToCalls: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              var BestTimeToCallService = $injector.get("BestTimeToCallService");
-              console.log('Load all  bestTimeToCalls');
-              var deferred = $q.defer();
-              BestTimeToCallService.loadAllBestTimeToCalls().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }]
-          }
-        })
-        .state('main.lead.edit', {
-          url: '/',
-          cache: false,
-          templateUrl: 'partials/lead_list',
-          controller: 'LeadController',
-          controllerAs: 'ctrl',
-          params: {
-            'eventId': '',
-            'leadDisplay': true
-          },
-          resolve: {
-            loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.lead');
-            }],
-            leadStatusDetails: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              var LeadStatusDetailService = $injector.get("LeadStatusDetailService");
-              console.log('Load all  leadStatusDetails');
-              var deferred = $q.defer();
-              LeadStatusDetailService.loadLeadStatusDetails(0, 20, '', null).then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }]
-          }
-        })
         .state('main.role', {
           url: '/role',
           templateUrl: 'partials/role_list',
@@ -533,46 +374,6 @@
             }]
           }
         })
-        .state('main.leadStatus', {
-          url: '/leadStatus',
-          templateUrl: 'partials/leadStatus_list',
-          controller: 'LeadStatusController',
-          controllerAs: 'ctrl',
-          resolve: {
-            loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.leadStatus');
-            }],
-            leadStatuses: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              var LeadStatusService = $injector.get("LeadStatusService");
-              console.log('Load all  leadStatuses');
-              var deferred = $q.defer();
-              LeadStatusService.loadLeadStatuses(0, 20, '', null).then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }]
-          }
-        })
-        .state('main.event', {
-          url: '/event',
-          templateUrl: 'partials/event_list',
-          controller: 'EventController',
-          controllerAs: 'ctrl',
-          params: {
-            'id': '',
-            'eventDisplay': false
-          },
-          resolve: {
-            loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.event');
-            }],
-            eventTypes: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              var EventTypeService = $injector.get("EventTypeService");
-              console.log('Load all  eventTypes');
-              var deferred = $q.defer();
-              EventTypeService.loadEventTypes(0, 20, '', null).then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }]
-          }
-        })
         .state('main.provider', {
           url: '/provider',
           parent: 'main',
@@ -609,43 +410,6 @@
               }]
           }
         })
-        .state('main.membership', {
-          url: '/membership',
-          templateUrl: 'partials/membership_list',
-          controller: 'MembershipController',
-          controllerAs: 'ctrl',
-          resolve: {
-            loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.membership'); // Resolve promise and load before view
-            }],
-            icdMeasures: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              var ICDMeasureService = $injector.get("ICDMeasureService");
-              console.log('Load all  ICDMeasures');
-              var deferred = $q.defer();
-              ICDMeasureService.loadAllICDMeasures().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }]
-
-          }
-        })
-        .state('main.membership.edit', {
-          url: '/',
-          templateUrl: 'partials/membership_list',
-          controller: 'MembershipController',
-          controllerAs: 'ctrl',
-          params: {
-            'id': '',
-            'membershipDisplay': false,
-          },
-          resolve: {
-            statuses: function($q, MembershipStatusService) {
-              console.log('Load all statuses');
-              var deferred = $q.defer();
-              MembershipStatusService.loadAllMembershipStatuses().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }
-          }
-        })
         .state('main.insurance', {
           url: '/insurance',
           templateUrl: 'partials/insurance_list',
@@ -657,7 +421,6 @@
             }]
           }
         })
-        
         .state('main.insurance.edit', {
           url: '/',
           templateUrl: 'partials/insurance_list',
@@ -669,7 +432,6 @@
           },
           resolve: {  }
         })
-        
          .state('main.mappingInsurance', {
           url: '/mappingInsurance',
           templateUrl: 'partials/mappingInsurance_list',
@@ -707,120 +469,6 @@
         .state('logout', {
           url: '/logout',
           templateUrl: 'logout'
-        })
-        .state('main.cpt', {
-          url: '/cpt',
-          templateUrl: 'partials/cpt_list',
-          controller: 'CPTMeasureController',
-          controllerAs: 'ctrl',
-          resolve: {
-            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.cpt'); // Resolve promise and load before view
-            }]
-          }
-        })
-        .state('main.cpt.edit', {
-          url: '/',
-          templateUrl: 'partials/cpt_list',
-          controller: 'CPTMeasureController',
-          controllerAs: 'ctrl',
-          params: {
-            'id': '',
-            'cptDisplay': false,
-          },
-          resolve: {}
-        })
-        .state('main.icd', {
-          url: '/icd',
-          templateUrl: 'partials/icd_list',
-          controller: 'ICDMeasureController',
-          controllerAs: 'ctrl',
-          resolve: {
-            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.icd'); // Resolve promise and load before view
-            }]
-          }
-        })
-        .state('main.icd.edit', {
-          url: '/',
-          templateUrl: 'partials/icd_list',
-          controller: 'ICDMeasureController',
-          controllerAs: 'ctrl',
-          params: {
-            'id': '',
-            'icdDisplay': false,
-          },
-          resolve: {}
-        })
-        .state('main.riskScore', {
-          url: '/riskScore',
-          templateUrl: 'partials/riskScore_list',
-          controller: 'RiskScoreController',
-          controllerAs: 'ctrl',
-          resolve: {
-            loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.riskScore'); // Resolve promise and load before view
-            }],
-            paymentYears: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              var RiskScoreService = $injector.get("RiskScoreService");
-              console.log('Load all  paymentYears');
-              var deferred = $q.defer();
-              RiskScoreService.loadAllPaymentYears().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }]
-          }
-        })
-        .state('main.hedis', {
-          url: '/hedis',
-          templateUrl: 'partials/hedis_list',
-          controller: 'HedisMeasureController',
-          controllerAs: 'ctrl',
-          resolve: {
-            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.hedis'); // Resolve promise and load before view
-            }]
-          }
-        })
-        .state('main.hedis.edit', {
-          url: '/',
-          templateUrl: 'partials/hedis_list',
-          controller: 'HedisMeasureController',
-          controllerAs: 'ctrl',
-          params: {
-            'id': '',
-            'hedisDisplay': false,
-          },
-          resolve: {
-            hedisGroups: function($q, HedisMeasureGroupService) {
-              console.log('Load all states');
-              var deferred = $q.defer();
-              HedisMeasureGroupService.loadAllHedisMeasureGroups().then(deferred.resolve, deferred.resolve);
-              console.log('deferred.promise' + deferred.promise);
-              return deferred.promise;
-            }
-          }
-        })
-        .state('main.hedisGroup', {
-          url: '/hedisGroup',
-          templateUrl: 'partials/hedisGroup_list',
-          controller: 'HedisMeasureGroupController',
-          controllerAs: 'ctrl',
-          resolve: {
-            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.hedisGroup'); // Resolve promise and load before view
-            }]
-          }
-        })
-        .state('main.hedisGroup.edit', {
-          url: '/',
-          templateUrl: 'partials/hedisGroup_list',
-          controller: 'HedisMeasureGroupController',
-          controllerAs: 'ctrl',
-          params: {
-            'id': '',
-            'hedisGroupDisplay': false,
-          },
-          resolve: {}
         })
         .state('main.planType', {
           url: '/planType',
@@ -896,84 +544,6 @@
                   RoleService.loadAllRoles().then(deferred.resolve, deferred.resolve);
                   return deferred.promise;
               }]
-          }
-        })
-        
-        .state('main.problem', {
-          url: '/problem',
-          templateUrl: 'partials/problem_list',
-          controller: 'ProblemController',
-          controllerAs: 'ctrl',
-          resolve: {
-            loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.problem'); // Resolve promise and load before view
-            }],
-            icdMeasures: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              console.log('Load all ICDMeasures');
-              var ICDMeasureService = $injector.get("ICDMeasureService");
-              var deferred = $q.defer();
-              ICDMeasureService.loadICDMeasures().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }]
-          }
-        })
-        .state('main.problem.edit', {
-          url: '/',
-          templateUrl: 'partials/problem_list',
-          controller: 'ProblemController',
-          controllerAs: 'ctrl',
-          params: {
-            'id': '',
-            'problemDisplay': false,
-          },
-          resolve: {}
-        })
-        .state('main.hedisMeasureRule', {
-          url: '/hedisMeasureRule',
-          templateUrl: 'partials/hedisMeasureRule_list',
-          controller: 'HedisMeasureRuleController',
-          controllerAs: 'ctrl',
-          resolve: {
-            loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.hedisMeasureRule'); // Resolve promise and load before view
-            }],
-            hedisMeasures: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              console.log('Load all hedisMeasures');
-              var HedisMeasureService = $injector.get("HedisMeasureService");
-              var deferred = $q.defer();
-              HedisMeasureService.loadAllHedisMeasures().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }]
-          }
-        })
-        .state('main.hedisMeasureRule.edit', {
-          url: '/',
-          templateUrl: 'partials/hedisMeasureRule_list',
-          controller: 'HedisMeasureRuleController',
-          controllerAs: 'ctrl',
-          params: {
-            'id': '',
-            'hedisMeasureRuleDisplay': false,
-          },
-          resolve: {
-            icdMeasures: function($q, ICDMeasureService) {
-              console.log('Load all ICDMeasures');
-              var deferred = $q.defer();
-              ICDMeasureService.loadICDMeasures().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            },
-            problems: function($q, ProblemService) {
-              console.log('Load all problems');
-              var deferred = $q.defer();
-              ProblemService.loadAllProblems().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            },
-            frequencyTypes: function($q, FrequencyTypeService) {
-              console.log('Load all frequencyTypes');
-              var deferred = $q.defer();
-              FrequencyTypeService.loadAllFrequencyTypes().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }
           }
         })
         .state('main.frequencyType', {
@@ -1138,32 +708,6 @@
               }]
           }
         })
-
-        .state('main.roomType', {
-          url: '/placeOfService',
-          templateUrl: 'partials/placeOfService_list',
-          controller: 'PlaceOfServiceController',
-          controllerAs: 'ctrl',
-          resolve: {
-            loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.roomType'); // Resolve promise and load before view
-            }]
-          }
-        })
-        .state('main.roomType.edit', {
-          url: '/',
-          templateUrl: 'partials/placeOfService_list',
-          controller: 'PlaceOfServiceController',
-          controllerAs: 'ctrl',
-          params: {
-            'id': '',
-            'placeOfServiceDisplay': false,
-          },
-          resolve: {
-
-          }
-        })
-        
            .state('main.target', {
           url: '/target',
           templateUrl: 'partials/target_list',
@@ -1389,19 +933,6 @@
 
           }
         })
-        .state('main.hospital.edit', {
-          url: '/',
-          templateUrl: 'partials/hospital_list',
-          controller: 'HospitalController',
-          controllerAs: 'ctrl',
-          params: {
-            'id': '',
-            'hospitalnDisplay': false,
-          },
-          resolve: {
-
-          }
-        })
         .state('main.fileUpload', {
           url: '/fileUpload',
           templateUrl: 'partials/fileUpload_list',
@@ -1421,31 +952,6 @@
             }]
           }
         })
-        .state('main.newMedicalLossRatio', {
-          url: '/newMedicalLossRatio',
-          templateUrl: 'partials/newMedicalLossRatio_list',
-          controller: 'NewMedicalLossRatioController',
-          controllerAs: 'ctrl',
-          resolve: {
-            loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.newMedicalLossRatio'); // Resolve promise and load before view
-            }],
-            reportMonths: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              console.log('Load all reportMonths');
-              var NewMedicalLossRatioService = $injector.get("NewMedicalLossRatioService");
-              var deferred = $q.defer();
-              NewMedicalLossRatioService.loadAllReportMonths().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }],
-            reportingYears: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              console.log('Load all reportingYears');
-              var NewMedicalLossRatioService = $injector.get("NewMedicalLossRatioService");
-              var deferred = $q.defer();
-              NewMedicalLossRatioService.loadAllReportingYears().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }]
-          }
-        })
         .state('main.membershipActivityMonth', {
           url: '/membershipActivityMonth',
           templateUrl: 'partials/membershipActivityMonth_list',
@@ -1454,67 +960,6 @@
           resolve: {
             loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
               return $ocLazyLoad.load('main.membershipActivityMonth'); // Resolve promise and load before view
-            }]
-          }
-        })
-        .state('main.membershipProblem', {
-          url: '/membershipProblem',
-          templateUrl: 'partials/membershipProblem_list',
-          controller: 'MembershipProblemController',
-          controllerAs: 'ctrl',
-          resolve: {
-            loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.membershipProblem'); // Resolve promise and load before view
-            }],
-            problems: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              console.log('Load all problems');
-              var ProblemService = $injector.get("ProblemService");
-              var deferred = $q.defer();
-              ProblemService.loadAllProblems().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }]
-          }
-        })
-        .state('main.membershipClaims', {
-          url: '/membershipClaims',
-          templateUrl: 'partials/membershipClaims_list',
-          controller: 'MembershipClaimsController',
-          controllerAs: 'ctrl',
-          resolve: {
-            loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.membershipClaims'); // Resolve promise and load before view
-            }],
-            categories: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              console.log('Load all categories');
-              var MembershipClaimsService = $injector.get("MembershipClaimsService");
-              var deferred = $q.defer();
-              MembershipClaimsService.loadAllRiskCategories().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }]
-          }
-        })
-        .state('main.membershipHedis', {
-          url: '/membershipHedis',
-          templateUrl: 'partials/membershipHedis_list',
-          controller: 'MembershipHedisController',
-          controllerAs: 'ctrl',
-          resolve: {
-            loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
-              return $ocLazyLoad.load('main.membershipHedis'); // Resolve promise and load before view
-            }],
-            categories: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              console.log('Load all categories');
-              var MembershipClaimsService = $injector.get("MembershipClaimsService");
-              var deferred = $q.defer();
-              MembershipClaimsService.loadAllRiskCategories().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
-            }],
-            hedisMeasureRules: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-              console.log('Load all hedisMeasureRules');
-              var HedisMeasureRuleService = $injector.get("HedisMeasureRuleService");
-              var deferred = $q.defer();
-              HedisMeasureRuleService.loadAllHedisMeasureRules().then(deferred.resolve, deferred.resolve);
-              return deferred.promise;
             }]
           }
         });

@@ -57,7 +57,7 @@ app.controller('MappingInsuranceController',
 		.withOption("bLengthChange", false)
 		.withOption("bPaginate", true)
 		.withOption('bProcessing', true)
-		.withOption('bSaveState', true)
+		.withOption('stateSave', true)
 		.withOption('searchDelay', 1000)
 	    .withOption('createdRow', createdRow)
         .withPaginationType('full_numbers')

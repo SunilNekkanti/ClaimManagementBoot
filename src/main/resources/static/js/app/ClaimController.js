@@ -62,7 +62,7 @@
     self.srvcDtTo = '';
     self.patientName = '';
     self.birthDate = '';
-    self.insurances = '';
+    self.selectedInsurances = '';
     self.insuranceTypes = '';
     self.chargesMin = 0;
     self.chargesMax = 9999999;
@@ -70,6 +70,7 @@
     self.priorities = '';
     self.userName = '';
 
+console.log('insurnaces***********',self.insurances);
     if (self.practices != null && self.practices.length > 0) {
       self.practice = self.practice || self.practices[0];
     } else {
@@ -83,7 +84,7 @@
         function(data, type, full,
           meta) {
           return '<a href="javascript:void(0)" class="' + full.id + '" ng-click="ctrl.claimEdit(' + full.id + ')">' + data + '</a>';
-        }).withClass("text-left").withOption("width", '40%'),
+        }).withClass("text-left").withOption("width", '10%'),
       DTColumnBuilder.newColumn('serviceDate').withTitle('SERVICE_DATE').withOption("width", '40%'),
       DTColumnBuilder.newColumn('patient').withTitle('PATIENT_NAME').withOption("width", '400%'),
       DTColumnBuilder.newColumn('dob').withTitle('BIRTH_DATE').withOption("width", '20%'),
@@ -95,9 +96,14 @@
 
     ];
 
+    
 
     self.dtOptions = DTOptionsBuilder.newOptions().withBootstrap()
       .withDOM('ftip')
+      .withOption('initComplete', function() {
+      console.log("before initializing table");
+      angular.element('.dataTables_filter input').attr('placeholder', 'Search');
+          })
       .withDisplayLength(20)
       .withOption('bServerSide', true)
       .withOption('bSort', false)
@@ -106,7 +112,7 @@
       .withOption('bResponsive', true)
       .withOption("bPaginate", true)
       .withPaginationType('full_numbers')
-      .withOption('bSaveState', true)
+      .withOption('stateSave', true)
       .withOption('createdRow', createdRow)
       .withOption('bDeferRender', false)
       .withOption('scrollY', '450')
@@ -118,27 +124,38 @@
       .withLightColumnFilter({
         '0': {},
         '1': {
-          html: 'input',
-          type: 'dateRange'
+          html: 'range',
+          type: 'dateRange',
+          time: 200,
         },
         '2': {
           html: 'input',
-          type: 'text'
+          type: 'text',
+          time: 200,
         },
         '3': {
           html: 'input',
-          type: 'select'
-        },
-        '4': {
           type: 'text'
         },
+        '4': {
+          html: 'input',
+          type: 'select',
+          value:self.insurances
+        },
         '5': {
+          html: 'input',
           type: 'text'
         }
       })
+      .withOption('language', {
+          'processing': '<div class="table-logo-wrapper"><div class="vloader"></div></div>'
+         // 'url': $cookies.get('JSESSION')
+        })
       .withFnServerData(serverData)
       .withOption('bDestroy', true);
 
+
+    
   //  setTeamAssignment(0);
 
     function createdRow(row, data, dataIndex) {
@@ -160,6 +177,15 @@
       var page = aoData[3].value / aoData[4].value;
       var length = aoData[4].value;
       var search = aoData[5].value;
+      
+      self.serviceDate = aoData[1].value[1]['search'].value || '';
+      self.patientName = aoData[1].value[2]['search'].value || '';
+      self.birthDate = aoData[1].value[3]['search'].value || '';
+      self.selectedInsurances = aoData[1].value[4]['search'].value || '';
+      self.insuranceTypes = aoData[1].value[5]['search'].value || '';
+      
+       console.log ('self.insurances',self.insurances );
+      
 
       var paramMap = {};
       for (var i = 0; i < aoData.length; i++) {
@@ -177,8 +203,8 @@
       // records from server side
       ClaimService
         .loadClaims(page, length, search.value, sortCol, sortDir,
-          self.teamAssignments, self.allocationDate,
-          self.practices, self.remarks, self.srvcDtFrom, self.srvcDtTo, self.patientName, self.birthDate, self.insurances,
+          self.teamAssignments, self.serviceDate,
+          self.practices, self.remarks, self.srvcDtFrom, self.srvcDtTo, self.patientName, self.birthDate, self.selectedInsurances,
           self.insuranceTypes, self.chargesMin, self.chargesMax, self.claimStatus, self.priorities, self.userName
         )
         .then(

@@ -109,7 +109,17 @@ public class JpaConfiguration {
 				environment.getRequiredProperty("datasource.claimManagement.hibernate.connection.autocommit"));
 		properties.put("hibernate.hikari.maximumPoolSize",
 				environment.getRequiredProperty("datasource.claimManagement.hibernate.hikari.maximumPoolSize"));
+		properties.put("ibernate.cache.use_second_level_cache",
+				environment.getRequiredProperty("spring.jpa.properties.hibernate.cache.use_second_level_cache"));
 		
+		properties.put("hibernate.cache.use_query_cache",
+				environment.getRequiredProperty("spring.jpa.properties.hibernate.cache.use_query_cache"));
+		
+		properties.put("hibernate.cache.region.factory_class",
+				environment.getRequiredProperty("spring.jpa.properties.hibernate.cache.region.factory_class"));
+		
+		properties.put("hibernate.javax.cache.provider",
+				environment.getRequiredProperty("spring.jpa.properties.hibernate.javax.cache.provider"));
 		return properties;
 	}
 

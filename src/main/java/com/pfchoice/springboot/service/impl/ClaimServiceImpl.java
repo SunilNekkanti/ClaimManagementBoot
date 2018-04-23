@@ -128,11 +128,12 @@ public class ClaimServiceImpl implements ClaimService {
 	}
 	
 	@Override
-	//@Cacheable("claims")
+	@Cacheable("default")
 	public Page<ClaimDTO> getClaims(final int pageNo, final int pageSize, final int teamAssigments, final String sSearch,final String allocationDate,final String sort, final String sortdir,
 			final String practices, final String remarks, final String srvcDtFrom,final  String srvcDtTo,final String patientName, final String birthDate,final	String insurances, 
 			final String insuranceTypes,final Double chargesMin,final Double chargesMax,final String claimStatus,final String priorities,final	String userName, final Integer userId, final Integer roleId){
 		
+		System.out.println("inside claims cache");
 		return claimRepository.getClaims( pageNo, pageSize, teamAssigments, sSearch, allocationDate, sort,  sortdir,
 				 practices, remarks, srvcDtFrom, srvcDtTo, patientName, birthDate,	insurances, 
 				 insuranceTypes, chargesMin, chargesMax, claimStatus, priorities, userName, userId, roleId);

@@ -62,7 +62,6 @@ public class ClaimController {
 			@ModelAttribute("roleId") Integer roleId) {
 
 
-		System.out.println("insurances***"+insurances);
 		/* String sortCol = "";
 		 String sortDir = "";
 		 for (Sort.Order order : pageRequest.getSort()) {

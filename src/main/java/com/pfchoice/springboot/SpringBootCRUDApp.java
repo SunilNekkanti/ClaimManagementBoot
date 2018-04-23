@@ -16,6 +16,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.jcache.JCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -38,9 +39,9 @@ public class SpringBootCRUDApp {
 	
 	 @Bean
 	    public CacheManager cacheManager() {
-	        long ttl = Long.parseLong("60");
+	        long ttl = Long.parseLong("300");
 
-	        double pctOfHeap = Double.valueOf("0.5");
+	        double pctOfHeap = Double.valueOf("0.4");
 	        long cacheSizeMB = new Double(Runtime.getRuntime().maxMemory() * pctOfHeap / 1048576.0).longValue();
 
 	        LogFactory.getLog(getClass()).info(
@@ -55,7 +56,7 @@ public class SpringBootCRUDApp {
 	                .build();
 
 	        Map<String, CacheConfiguration<?, ?>> caches = new HashMap<>();
-	        caches.put("default", cacheConfiguration);
+	        caches.put("claims", cacheConfiguration);
 
 	        EhcacheCachingProvider provider = (EhcacheCachingProvider) javax.cache.Caching.getCachingProvider();
 

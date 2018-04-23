@@ -1,6 +1,5 @@
 package com.pfchoice.springboot.repositories;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -20,20 +19,6 @@ public interface ClaimRepository
 	Claim findByLookup(String lookup);
 	
 	Claim findByClaimNo(Long claimNo);
-	
-	Claim findByServiceDate(Date serviceDate);
-	
-	Claim findByPatientName(String patientName);
-	
-	Claim findByInsId(Integer insId);
-	
-	Claim findByInsuranceType(Integer insuranceType);
-	
-	Claim findByCharges(Double charges);
-	
-	Claim findByClaimStatus(String claimStatus);
-	
-	Claim findByPriorityId(Integer priorityId);
 	
 	@Procedure("Claim.claimStatuses")
 	List<ClaimDTO> getClaims(int pageNo,  int pageSize,  int teamAssigments,  String sSearch,  String allocationDate,  String sort,  String sortdir, 

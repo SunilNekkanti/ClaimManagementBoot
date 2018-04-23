@@ -95,7 +95,7 @@
         'modules': [{
           serie: true,
           name: 'main',
-          files: ['js/app/InsuranceService.js','js/app/ClaimStatusService.js', 'js/app/ProviderService.js','js/app/PriorityService.js']
+          files: ['js/app/InsuranceService.js','js/app/PracticeService.js','js/app/ClaimStatusService.js', 'js/app/ProviderService.js','js/app/PriorityService.js']
         }, {
           serie: true,
           name: 'login',
@@ -244,6 +244,13 @@
               var UserService = $injector.get("UserService");
               var deferred = $q.defer();
               UserService.loadAllUsers().then(deferred.resolve, deferred.resolve);
+              return deferred.promise;
+            }],
+            practices: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+              console.log('Load all practices');
+              var PracticeService = $injector.get("PracticeService");
+              var deferred = $q.defer();
+              PracticeService.loadAllPractices().then(deferred.resolve, deferred.resolve);
               return deferred.promise;
             }]
           }

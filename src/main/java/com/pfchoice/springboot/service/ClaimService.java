@@ -1,6 +1,5 @@
 package com.pfchoice.springboot.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -18,20 +17,6 @@ public interface ClaimService {
 	
 	Claim findByLookup(String lookup);
 	
-	Claim findByServiceDate(Date serviceDate);
-	
-	Claim findByPatientName(String patientName);
-	
-	Claim findByInsId(Integer insId);
-	
-	Claim findByInsuranceType(Integer insuranceType);
-	
-	Claim findByCharges(Double charges);
-	
-	Claim findByClaimStatus(String claimStatus);
-	
-	Claim findByPriorityId(Integer priorityId);
-
 	void saveClaim(Claim claim);
 
 	void updateClaim(Claim claim);

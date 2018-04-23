@@ -56,7 +56,7 @@
     self.checkBoxChange = checkBoxChange;
     self.teamAssignments = 0;
     self.allocationDate = '';
-    self.practices = '';
+    self.selectedPractices = '';
     self.remarks = '';
     self.srvcDtFrom = '';
     self.srvcDtTo = '';
@@ -81,8 +81,12 @@
        self.filterInsList.push( {value:ins.id, label:ins.name});
     } );
 
-     console.log('self.filterInsList',self.filterInsList);
-
+    self.filterPracList =[];
+    self.practices.forEach(function(prac){ 
+       self.filterPracList.push( {value:prac.id, label:prac.name});
+    } );
+    
+    
     self.dtColumns = [
       DTColumnBuilder.newColumn('lookup').withTitle('LOOKUP').renderWith(
         function(data, type, full,
@@ -129,7 +133,8 @@
         '0': {
           html: 'input',
           type: 'select',
-          values:self.filterPracList
+          values:self.filterPracList,
+          time:300
           },
         '1': {
           html: 'range',
@@ -185,6 +190,7 @@
       var length = aoData[4].value;
       var search = aoData[5].value;
       
+      self.selectedPractices = aoData[1].value[0]['search'].value || '';
       self.serviceDate = aoData[1].value[1]['search'].value || '';
       self.patientName = aoData[1].value[2]['search'].value || '';
       self.birthDate = aoData[1].value[3]['search'].value || '';
@@ -208,7 +214,7 @@
       ClaimService
         .loadClaims(page, length, search.value, sortCol, sortDir,
           self.teamAssignments, self.serviceDate,
-          self.practices, self.remarks, self.srvcDtFrom, self.srvcDtTo, self.patientName, self.birthDate, self.selectedInsurances,
+          self.selectedPractices, self.remarks, self.srvcDtFrom, self.srvcDtTo, self.patientName, self.birthDate, self.selectedInsurances,
           self.insuranceTypes, self.chargesMin, self.chargesMax, self.claimStatus, self.priorities, self.userName
         )
         .then(
@@ -273,8 +279,7 @@
     }
 
     function getAllPractices() {
-      self.practices = PracticeService.getAllPractices();
-      return self.practices;
+      return PracticeService.getAllPractices();
     }
 
     function editClaim(id) {

@@ -1,7 +1,5 @@
 package com.pfchoice.springboot.repositories;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 
 import com.pfchoice.springboot.model.ClaimDTO;

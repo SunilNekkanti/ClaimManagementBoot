@@ -23,8 +23,8 @@ app.service('PracticeService',
                 $http.get(urls.PRACTICE_SERVICE_API)
                     .then(
                         function (response) {
-                            console.log('Fetched successfully all practice');
-                            $localStorage.practice = response.data.content;
+                            console.log('Fetched successfully all practices');
+                            $localStorage.practices = response.data.content;
                             deferred.resolve(response);
                         },
                         function (errResponse) {
@@ -60,7 +60,7 @@ app.service('PracticeService',
             
             function getAllPractices(){
             	console.log('$localStorage.practice');
-                return $localStorage.practice;
+                return $localStorage.practices;
             }
 
             function getPractice(id) {

@@ -2,13 +2,14 @@
   'use strict';
   var app = angular.module('my-app');
 
-  app.controller('ClaimController', ['ClaimService', 'ProviderService', 'InsuranceService', 'ClaimStatusService', 'ClaimStatusDetailService', 'ProviderInsuranceDetailsService', 'PriorityService', 'PracticeService', '$scope', '$compile', '$state', '$stateParams', 'DTOptionsBuilder', 'DTColumnBuilder', function(ClaimService, ProviderService, InsuranceService, ClaimStatusService, ClaimStatusDetailService, ProviderInsuranceDetailsService, PriorityService, PracticeService, $scope, $compile, $state, $stateParams, DTOptionsBuilder, DTColumnBuilder) {
+  app.controller('ClaimController', ['ClaimService', 'ProviderService', 'InsuranceService', 'ClaimStatusService', 'insuranceTypes', 'claimStatusDetails', 'ProviderInsuranceDetailsService', 'PriorityService', 'PracticeService', '$scope', '$compile', '$state', '$stateParams', 'DTOptionsBuilder', 'DTColumnBuilder', function(ClaimService, ProviderService, InsuranceService, ClaimStatusService, insuranceTypes, claimStatusDetails, ProviderInsuranceDetailsService, PriorityService, PracticeService, $scope, $compile, $state, $stateParams, DTOptionsBuilder, DTColumnBuilder) {
 
     var self = this;
     self.claim = {};
     self.claims = [];
     self.prvdrs = [];
     self.insurances = [];
+    self.insuranceTypes = [];
     self.claimStatuss = [];
     self.claimStatusDetails = [];
     self.providerInsuranceDetailss = [];
@@ -22,7 +23,6 @@
     self.getAllProviders = getAllProviders;
     self.getAllInsurances = getAllInsurances;
     self.getAllClaimStatuses = getAllClaimStatuses;
-    self.getAllClaimStatusDetailes = getAllClaimStatusDetailes;
     self.getAllProviderInsuranceDetailss = getAllProviderInsuranceDetailss;
     self.getAllPrioritys = getAllPrioritys;
     self.getAllPractices = getAllPractices;
@@ -30,8 +30,9 @@
 
     self.prvdrs = getAllProviders();
     self.insurances = getAllInsurances();
+    self.insuranceTypes = insuranceTypes;
     self.claimStatuss = getAllClaimStatuses();
-    self.claimStatusDetails = getAllClaimStatusDetailes();
+    self.claimStatusDetails = claimStatusDetails;
     self.providerInsuranceDetailss = getAllProviderInsuranceDetailss();
     self.prioritys = getAllPrioritys();
     self.practices = getAllPractices();
@@ -63,10 +64,10 @@
     self.patientName = '';
     self.birthDate = '';
     self.selectedInsurances = '';
-    self.insuranceTypes = '';
+    self.selectedInsuranceTypes = '';
     self.chargesMin = 0;
     self.chargesMax = 9999999;
-    self.claimStatus = '';
+    self.selectedClaimStatusDetail = '';
     self.priorities = '';
     self.userName = '';
 
@@ -86,6 +87,16 @@
        self.filterPracList.push( {value:prac.id, label:prac.name});
     } );
     
+    self.filterInsTypeList =[];
+    self.insuranceTypes.forEach(function(insType){ 
+       self.filterInsTypeList.push( {value:insType.id, label:insType.description});
+    } );
+    
+    self.filterClaimStatusDetailList =[];
+    self.claimStatusDetails.forEach(function(statusDetail){ 
+       self.filterClaimStatusDetailList.push( {value:statusDetail.id, label:statusDetail.description});
+    } );
+    
     
     self.dtColumns = [
       DTColumnBuilder.newColumn('lookup').withTitle('LOOKUP').renderWith(
@@ -100,8 +111,8 @@
       DTColumnBuilder.newColumn('insuranceType').withTitle('INSURANCE_TYPE').withOption("width", '20%'),
       DTColumnBuilder.newColumn('charges').withTitle('CHARGES').withOption("width", '20%'),
       DTColumnBuilder.newColumn('statuses').withTitle('STATUS').withOption("width", '20%'),
-      DTColumnBuilder.newColumn('priority').withTitle('PRIORITY').withOption("width", '20%')
-
+      DTColumnBuilder.newColumn('priority').withTitle('PRIORITY').withOption("width", '20%'),
+      DTColumnBuilder.newColumn('followupDetails').withTitle('FOLLOWUP_REMARKS').withOption("width", '20%')
     ];
 
     
@@ -120,7 +131,7 @@
       .withOption('bResponsive', true)
       .withOption("bPaginate", true)
       .withPaginationType('full_numbers')
-      .withOption('stateSave', true)
+      .withOption('bStateSave', true)
       .withOption('createdRow', createdRow)
       .withOption('bDeferRender', false)
       .withOption('scrollY', '450')
@@ -157,7 +168,17 @@
         },
         '5': {
           html: 'input',
-          type: 'text'
+          type: 'select',
+          values: self.filterInsTypeList
+        },
+        '6': {
+          html: 'range',
+          type: 'range',
+        },
+        '7': {
+          html: 'input',
+          type: 'select',
+          values: self.filterClaimStatusDetailList
         }
       })
       .withOption('language', {
@@ -195,8 +216,8 @@
       self.patientName = aoData[1].value[2]['search'].value || '';
       self.birthDate = aoData[1].value[3]['search'].value || '';
       self.selectedInsurances = aoData[1].value[4]['search'].value || '';
-      self.insuranceTypes = aoData[1].value[5]['search'].value || '';
-      
+      self.selectedInsuranceTypes = aoData[1].value[5]['search'].value || '';
+      self.selectedClaimStatusDetail = aoData[1].value[7]['search'].value || '';
       var paramMap = {};
       for (var i = 0; i < aoData.length; i++) {
         paramMap[aoData[i].name] = aoData[i].value;
@@ -215,7 +236,7 @@
         .loadClaims(page, length, search.value, sortCol, sortDir,
           self.teamAssignments, self.serviceDate,
           self.selectedPractices, self.remarks, self.srvcDtFrom, self.srvcDtTo, self.patientName, self.birthDate, self.selectedInsurances,
-          self.insuranceTypes, self.chargesMin, self.chargesMax, self.claimStatus, self.priorities, self.userName
+          self.selectedInsuranceTypes, self.chargesMin, self.chargesMax, self.selectedClaimStatusDetail, self.priorities, self.userName
         )
         .then(
           function(result) {
@@ -253,11 +274,6 @@
       return self.claimStatuses;
     }
 
-    function getAllClaimStatusDetailes() {
-      self.claimStatusDetailes = ClaimStatusDetailService.getAllClaimStatusDetailes();
-      return self.claimStatusDetailes;
-    }
-
     function getAllProviders() {
       self.prvdrs = ProviderService.getAllProviders();
       return self.prvdrs;
@@ -267,7 +283,7 @@
       self.insurances = InsuranceService.getAllInsurances();
       return self.insurances;
     }
-
+    
     function getAllProviderInsuranceDetailss() {
       self.providerInsuranceDetailss = ProviderInsuranceDetailsService.getAllProviderInsuranceDetailss();
       return self.providerInsuranceDetailss;

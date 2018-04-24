@@ -5,6 +5,7 @@
     BASE: '/ClaimManagement',
     USER_SERVICE_API: '/ClaimManagement/api/user/',
     INSURANCE_SERVICE_API: '/ClaimManagement/api/insurance/',
+    INSURANCE_TYPE_SERVICE_API: '/ClaimManagement/api/insuranceType/',
     MAPPING_INSURANCE_SERVICE_API: '/ClaimManagement/api/mappingInsurance/',
     PROVIDER_INSURANCE_DETAILS_SERVICE_API: '/ClaimManagement/api/providerInsuranceDetails/',
     CLAIM_SERVICE_API: '/ClaimManagement/api/claim/',
@@ -95,7 +96,7 @@
         'modules': [{
           serie: true,
           name: 'main',
-          files: ['js/app/InsuranceService.js','js/app/PracticeService.js','js/app/ClaimStatusService.js', 'js/app/ProviderService.js','js/app/PriorityService.js']
+          files: ['js/app/InsuranceService.js','js/app/PracticeService.js','js/app/ClaimStatusService.js','js/app/InsuranceTypeService.js', 'js/app/ProviderService.js','js/app/PriorityService.js']
         }, {
           serie: true,
           name: 'login',
@@ -136,7 +137,7 @@
           {
             name: 'main.claim',
             serie: true,
-            files: ['js/app/ClaimService.js', 'js/app/ClaimController.js','js/app/ProviderService.js','js/app/InsuranceService.js','js/app/ClaimStatusService.js','js/app/ClaimStatusDetailService.js','js/app/ProviderInsuranceDetailsService.js','js/app/PriorityService.js','js/app/PracticeService.js']
+            files: ['js/app/ClaimService.js', 'js/app/InsuranceTypeService.js','js/app/ClaimController.js','js/app/ProviderService.js','js/app/InsuranceService.js','js/app/ClaimStatusService.js','js/app/ClaimStatusDetailService.js','js/app/ProviderInsuranceDetailsService.js','js/app/PriorityService.js','js/app/PracticeService.js']
           },
         {
         	 name: 'main.target',
@@ -749,7 +750,28 @@
           resolve: {
               loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
                 return $ocLazyLoad.load('main.claim');
-              }]
+              }],
+               insuranceTypes: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                  console.log('Load all insuranceTypes');
+                  var InsuranceTypeService = $injector.get("InsuranceTypeService");
+                  var deferred = $q.defer();
+                  InsuranceTypeService.loadAllInsuranceTypes().then(deferred.resolve, deferred.resolve);
+                  return deferred.promise;
+                }],
+              claimStatusDetails: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                      console.log('Load all claimStatusDetails');
+                      var ClaimStatusDetailService = $injector.get("ClaimStatusDetailService");
+                      var deferred = $q.defer();
+                      ClaimStatusDetailService.loadAllClaimStatusDetailes().then(deferred.resolve, deferred.resolve);
+                      return deferred.promise;
+                  }],
+               priorities: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
+                        var PriorityService = $injector.get("PriorityService");
+                        console.log('Load all  prioritys');
+                        var deferred = $q.defer();
+                        PriorityService.loadAllPrioritys().then(deferred.resolve, deferred.resolve);
+                        return deferred.promise;
+                    }]
              }
          })
         .state('main.claim.edit', {
@@ -765,55 +787,13 @@
         	  loadMyService: ['$ocLazyLoad', function($ocLazyLoad) {
                   return $ocLazyLoad.load('main.claim');
         	   }],
-        	           providers: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-                  console.log('Load all providers');
-                  var ProviderService = $injector.get("ProviderService");
-                  var deferred = $q.defer();
-                  ProviderService.loadAllProviders().then(deferred.resolve, deferred.resolve);
-                  return deferred.promise;
-                }],
-                insurances: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-                    var InsuranceService = $injector.get("InsuranceService");
-                    console.log('Load all  Insurances');
-                    var deferred = $q.defer();
-                    InsuranceService.loadAllInsurances().then(deferred.resolve, deferred.resolve);
-                    return deferred.promise;
-                  }],
                 claimStatus: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
                       console.log('Load all claimStatuses');
                       var ClaimStatusService = $injector.get("ClaimStatusService");
                       var deferred = $q.defer();
                       ClaimStatusService.loadAllClaimStatuses().then(deferred.resolve, deferred.resolve);
                       return deferred.promise;
-                  }],
-                claimStatusDetails: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-                      console.log('Load all claimStatusDetails');
-                      var ClaimStatusDetailService = $injector.get("ClaimStatusDetailService");
-                      var deferred = $q.defer();
-                      ClaimStatusDetailService.loadAllClaimStatusDetailes().then(deferred.resolve, deferred.resolve);
-                      return deferred.promise;
-                  }],
-                providerInsuranceDetailss: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-                      var ProviderInsuranceDetailsService = $injector.get("ProviderInsuranceDetailsService");
-                      console.log('Load all  roles');
-                      var deferred = $q.defer();
-                      ProviderInsuranceDetailsService.loadAllProviderInsuranceDetailss().then(deferred.resolve, deferred.resolve);
-                      return deferred.promise;
-                    }],
-                prioritys: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-                        var PriorityService = $injector.get("PriorityService");
-                        console.log('Load all  prioritys');
-                        var deferred = $q.defer();
-                        PriorityService.loadAllPrioritys().then(deferred.resolve, deferred.resolve);
-                        return deferred.promise;
-                    }],
-                    practices: ['loadMyService', '$q', '$injector', function(loadMyService, $q, $injector) {
-                        console.log('Load all practices');
-                        var PracticeService = $injector.get("PracticeService");
-                        var deferred = $q.defer();
-                        PracticeService.loadAllPractices().then(deferred.resolve, deferred.resolve);
-                        return deferred.promise;
-                      }]
+                  }]
           }
         })
 

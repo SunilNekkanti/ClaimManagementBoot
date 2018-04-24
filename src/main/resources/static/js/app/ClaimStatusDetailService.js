@@ -51,8 +51,7 @@ app.service('ClaimStatusDetailService',
                     .then(
                         function (response) {
                             console.log('Fetched successfully all roles');
-                            $localStorage.claimStatusDetails = response.data.content;
-                            deferred.resolve(response);
+                            deferred.resolve(response.data.content);
                         },
                         function (errResponse) {
                             console.error('Error while loading roles');
